@@ -1,0 +1,26 @@
+{
+  // enforce
+  "camelcase": true,    // identifiers must be in camelCase
+  "immed": true,        // require immediate invocations to be wrapped in parens
+  "indent": 2,
+  "latedef": true,      // require vars/funcs to be declared before being used
+  "newcap": true,       // require capitalization of all constructor functions
+  "quotmark": "single", // require consistent single quotes
+  "regexp": true,
+  "unused": true,
+  // environment
+  "jquery": true,
+  "node": true,
+  "globals": {          // false indicates read-only
+    "after"      : false,
+    "afterEach"  : false,
+    "be"         : false,
+    "before"     : false,
+    "beforeEach" : false,
+    "describe"   : false,
+    "equal"      : false
+    "it"         : false,
+    "ok"         : false,
+    "to"         : false,
+  }
+}
