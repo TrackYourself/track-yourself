@@ -1,12 +1,7 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/track-yourself', function (err, res) {
-  if (err) {
-    console.log('ERROR connecting to mongo db: ' + err);
-  }
-});
-
 var SleepSchema = mongoose.Schema({
+  user: String,
   sleep: {
     type: Date,
     required: true

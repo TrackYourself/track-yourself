@@ -1,2 +1,5 @@
-/* Define REST api routes */
+
+module.exports = function(app) {
+  require('./routes/sleep-router.js')(app);
+};
 
