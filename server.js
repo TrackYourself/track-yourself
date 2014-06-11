@@ -8,11 +8,11 @@ app.set('port', process.env.PORT || 3000);
 
 // middleware
 app.use(bodyparser());
+app.use(express.static(__dirname + '/dist'));
 
 // connect to database
 var dbLocations = {
-  production: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL,
-  development: 'mongodb://localhost/track-yourself',
+  production: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/track-yourself',
   test: 'mongodb://localhost/track-yourself-test'
 };
 
