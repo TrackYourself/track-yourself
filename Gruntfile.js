@@ -3,10 +3,11 @@
 module.exports = function(grunt) {
 
 	grunt.initConfig({
-		pkg : grunt.file.readJSON('package.json'),
+
+		pkg: grunt.file.readJSON('package.json'),
 
 		// https://github.com/sindresorhus/grunt-sass
-		sass : {
+		sass: {
 			all: {
 				options : {
 					'outputStyle' : 'compressed',
@@ -33,19 +34,38 @@ module.exports = function(grunt) {
 		},
 
 		// https://github.com/gruntjs/grunt-contrib-clean
-		clean: ['./dist/']
+		clean: {
+			dev: ['dist/'],
+			dist: ['dist/', 'tmp/']
+		},
+
+		// https://github.com/jmreidy/grunt-browserify
+		browserify: {
+			all: {
+				options: {
+
+				},
+				files: {
+					'dist/client.js': 'app/application.js'
+				}
+			}
+		}
+
 	});
 
+	// Done
 	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-browserify');
+
+	// To-do
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-imagemin');
-	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
+	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'browserify']);
+	grunt.registerTask('ship', ['clean', 'sass', 'imagemin', 'browserify']);
 
 };
