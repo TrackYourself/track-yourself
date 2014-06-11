@@ -11,16 +11,17 @@
   // environment
   "jquery": true,
   "node": true,
-  "globals": {          // false indicates read-only
+  "globals": {
+    // false indicates read-only
     "after"      : false,
     "afterEach"  : false,
     "be"         : false,
     "before"     : false,
     "beforeEach" : false,
     "describe"   : false,
-    "equal"      : false
+    "equal"      : false,
     "it"         : false,
     "ok"         : false,
-    "to"         : false,
+    "to"         : false
   }
 }
