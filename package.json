@@ -31,5 +31,6 @@
     "grunt-sass": "^0.13",
     "grunt-simple-mocha": "^0.4.0",
     "superagent": "^0.18.0"
+    "grunt-contrib-connect": "^0.8.0"
   }
 }
