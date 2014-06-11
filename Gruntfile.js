@@ -59,6 +59,31 @@ module.exports = function(grunt) {
 			dist: ['dist/', 'tmp/']
 		},
 
+    copy: {
+      all: {
+        files: [{
+          expand: true,
+          cwd: 'app/',
+          src: '*.html',
+          dest: 'dist/'
+        },
+        {
+          expand: true,
+          cwd: 'app/modules/',
+          src: '**/*.html',
+          dest: 'dist/templates',
+          flatten: true
+        },
+        {
+          expand: true,
+          cwd: 'app/',
+          src: 'bower_components/**/*',
+          dest: 'dist/'
+          }
+        ]
+      }
+    },
+
 		// https://github.com/jmreidy/grunt-browserify
 		browserify: {
 			all: {
@@ -100,6 +125,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
@@ -116,7 +142,7 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['env:test', 'simplemocha:all']);
 
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
-	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'browserify']);
-	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'jshint', 'browserify']);
+	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify']);
+	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify']);
 
 };
