@@ -12,7 +12,14 @@
   "dependencies": {
     "body-parser": "^1.3.0",
     "express": "^4.4.2",
-    "mongoose": "^3.8.12"
+    "mongoose": "^3.8.12",
+    "passport": "^0.2",
+    "passport-local": "^1.0",
+    "bcrypt-nodejs": "latest",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.1.0",
+    "express-session": "^1.2.1",
+    "express3-handlebars": "^0.5"
   },
   "devDependencies": {
     "browserify": "^4.1.8",
@@ -33,6 +40,7 @@
     "grunt-express-server": "^0.4.17",
     "grunt-sass": "^0.13",
     "grunt-simple-mocha": "^0.4.0",
-    "superagent": "^0.18.0"
+    "superagent": "^0.18.0",
+    "handlebars": "^2.0.0-alpha.4"
   }
 }
