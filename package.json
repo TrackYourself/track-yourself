@@ -23,6 +23,7 @@
     "grunt-contrib-watch": "^0.6",
     "grunt-sass": "^0.13",
     "grunt-browserify": "^2.1",
-    "grunt-contrib-imagemin": "^0.7.1"
+    "grunt-contrib-imagemin": "^0.7.1",
+    "grunt-contrib-connect": "^0.8.0"
   }
 }
