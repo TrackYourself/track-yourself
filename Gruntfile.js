@@ -90,6 +90,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
 	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'browserify']);
-	grunt.registerTask('ship', ['clean', 'sass', 'imagemin', 'jshint', 'browserify']);
+	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'jshint', 'browserify']);
 
 };
