@@ -5,6 +5,16 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg : grunt.file.readJSON('package.json'),
 
+    // grunt-env: set node_env for tasks
+    env: {
+      dev: {
+        NODE_ENV: 'development'
+      },
+      test: {
+        NODE_ENV: 'test'
+      }
+    },
+
 		// https://github.com/sindresorhus/grunt-sass
 		sass : {
 			all: {
@@ -33,7 +43,17 @@ module.exports = function(grunt) {
 		},
 
 		// https://github.com/gruntjs/grunt-contrib-clean
-		clean: ['./dist/']
+		clean: ['./dist/'],
+
+    simplemocha: {
+      options: {
+        ui: 'bdd',
+        reporter: 'spec'
+      },
+      all: {
+        src: ['backend/tests/*.test.js']
+      }
+    }
 	});
 
 	grunt.loadNpmTasks('grunt-sass');
@@ -45,7 +65,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks('grunt-simple-mocha');
 
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
+  grunt.registerTask('test', ['env:test', 'simplemocha:all']);
 
 };

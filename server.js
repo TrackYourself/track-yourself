@@ -1,20 +1,26 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
-
 var app = express();
+var nodeEnv = process.env.NODE_ENV || 'production';
+
 app.set('port', process.env.PORT || 3000);
 
 // middleware
 app.use(bodyparser());
 
 // connect to database
-var uristring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/track-yourself';
-mongoose.connect(uristring, function (err) {
+var dbLocations = {
+  production: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL,
+  development: 'mongodb://localhost/track-yourself',
+  test: 'mongodb://localhost/track-yourself-test'
+};
+
+mongoose.connect(dbLocations[nodeEnv], function (err) {
   if (err) {
-  console.log('ERROR connecting to: ' + uristring + '. ' + err);
+  console.log('ERROR connecting to: ' + dbLocations[nodeEnv] + '. ' + err);
   } else {
-  console.log('Succeeded connecting to: ' + uristring);
+  console.log('Succeeded connecting to: ' + dbLocations[nodeEnv]);
   }
 });
 
