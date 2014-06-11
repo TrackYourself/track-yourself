@@ -117,7 +117,15 @@ module.exports = function(grunt) {
 				files: ['Gruntfile.js', 'server.js', 'app/**/*.js'],
 				tasks: ['browserify']
 			}
-		}
+		},
+    express: {
+      all: {
+        options: {
+          script: 'server.js',
+          background: false
+        }
+      }
+    }
 	});
 
 	// Done
@@ -127,6 +135,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-browserify');
+	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
@@ -144,5 +153,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
 	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify']);
 	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify']);
+  grunt.registerTask('serve', ['build', 'express:all']);
 
 };
