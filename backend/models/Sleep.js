@@ -13,7 +13,7 @@ var SleepSchema = mongoose.Schema({
 });
 
 /* Returns sleep duration in hours (one decimal place */
-SleepSchema.method('duration', function() {
+SleepSchema.virtual('duration').get(function() {
   var min = (this.wake - this.sleep)/60000;
   return Math.round(min/6)/10;
 });
