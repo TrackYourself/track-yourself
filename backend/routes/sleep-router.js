@@ -40,9 +40,12 @@ module.exports = function(app) {
     now.setDate(now.getDate() - 1);
     Sleep.findOne({user: req.param('user'), wake: {$gte: now}}, function(err, sleep) {
       if (err) {
-        return res.send(404, 'Sleep record not found.');
+        return res.send(500, 'Error finding sleep record: ' + err);
       }
-      return res.send(200, sleep.toJSON({virtuals: true}));
+      if (sleep) {
+        return res.send(200, sleep.toJSON({virtuals: true}));
+      }
+      return res.send(404);
     });
   });
 
