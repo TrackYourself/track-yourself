@@ -9,6 +9,7 @@ module.exports = function(app) {
 
   /* Create a new sleep record for a user */
   app.post('/sleep/:user', function(req, res) {
+    console.log(req.body);
     var sleep = req.body.sleep;
     var wake = req.body.wake;
     if (!sleep || !wake) {
@@ -18,12 +19,12 @@ module.exports = function(app) {
       if (err) {
         return res.send(500, 'Error creating sleep record.');
       }
-      return res.json(200, sleep.toJSON());
+      return res.json(200, sleep.toJSON({virtuals: true}));
     });
   });
 
   /* Get all sleep records for a user */
-  app.get('/sleep/all/:user', function(req, res) {
+  app.get('/sleep/:user/all', function(req, res) {
     Sleep.find({user: req.param('user')}, function(err, sleeps) {
       if (err) {
         return res.send(500, 'Error finding sleep records.');
@@ -39,9 +40,9 @@ module.exports = function(app) {
     now.setDate(now.getDate() - 1);
     Sleep.findOne({user: req.param('user'), wake: {$gte: now}}, function(err, sleep) {
       if (err) {
-        return res.send(500, 'Error finding sleep record.');
+        return res.send(404, 'Sleep record not found.');
       }
-      return res.send(200, sleep.toJSON());
+      return res.send(200, sleep.toJSON({virtuals: true}));
     });
   });
 
