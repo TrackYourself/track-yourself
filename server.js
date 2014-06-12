@@ -8,9 +8,10 @@ var expressHbs = require('express3-handlebars');
 var app = express();
 app.set('port', process.env.PORT || 3000);
 var nodeEnv = process.env.NODE_ENV || 'production';
+process.env.PWD = process.cwd();
 
 // Serve client-side code
-app.use('/app', express.static(__dirname + '/dist'));
+app.use('/app', express.static(process.env.PWD + '/dist'));
 
 // Log requests to the console
 app.use(function (req, res, next) {
