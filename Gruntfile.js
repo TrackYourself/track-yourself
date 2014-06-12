@@ -1,4 +1,3 @@
-/* globals module */
 
 module.exports = function(grunt) {
 
@@ -99,9 +98,9 @@ module.exports = function(grunt) {
 		// https://github.com/gruntjs/grunt-contrib-jshint
 		jshint: {
 			options: {
-				jshintrc: '.jshintrc'
+				jshintrc: true,
 			},
-			all: ['Gruntfile.js', 'server.js', 'app/**/*.js']
+			all: ['Gruntfile.js', 'server.js', 'app/*.js', 'app/modules/**/*.js']
 		},
 
 		// https://github.com/gruntjs/grunt-contrib-watch
