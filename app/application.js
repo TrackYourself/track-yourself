@@ -1,17 +1,19 @@
 var sleep = require('./modules/sleep/sleep-module.js');
 
-var trackerApp = angular.module('trackerApp', ['ngRoute', sleep.name]);
-
-/*
-trackerApp.controller('sleepDisplayLastCtrl', ['$scope', function($scope) {
-  $scope.sleepRecord = 50;
-}]);
-*/
+var trackerApp = angular.module('trackerApp', ['ngRoute', 'ngResource', sleep.name]);
 
 trackerApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/sleep', {
     templateUrl: 'templates/sleep-last.html',
     controller: 'sleepDisplayLastCtrl'
+  })
+  .when('/sleep/add', {
+    templateUrl: 'templates/sleep-input.html',
+    controller: 'sleepInputCtrl'
+  })
+  .when('/sleep/all', {
+    templateUrl: 'templates/sleep-all.html',
+    controller: 'sleepDisplayAllCtrl'
   });
 }]);
 
