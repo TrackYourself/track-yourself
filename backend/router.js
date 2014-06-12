@@ -1,10 +1,6 @@
-/* globals module */
 
 module.exports = function (app, passport) {
-
-	/*
-	Front-end routes
-	*/
+  require('./routes/sleep-router.js')(app);
 
 	// Homepage
 	app.get('/', function (req, res) {

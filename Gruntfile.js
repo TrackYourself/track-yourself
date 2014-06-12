@@ -1,10 +1,19 @@
-/* globals module */
 
 module.exports = function(grunt) {
 
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON('package.json'),
+
+    // grunt-env: set node_env for tasks
+    env: {
+      dev: {
+        NODE_ENV: 'development'
+      },
+      test: {
+        NODE_ENV: 'test'
+      }
+    },
 
 		// https://github.com/sindresorhus/grunt-sass
 		sass: {
@@ -33,11 +42,46 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// https://github.com/gruntjs/grunt-contrib-clean
+
+    simplemocha: {
+      options: {
+        ui: 'bdd',
+        reporter: 'spec'
+      },
+      all: {
+        src: ['backend/tests/*.test.js']
+      }
+    },
+
 		clean: {
 			dev: ['dist/'],
 			dist: ['dist/', 'tmp/']
 		},
+
+    copy: {
+      all: {
+        files: [{
+          expand: true,
+          cwd: 'app/',
+          src: '*.html',
+          dest: 'dist/'
+        },
+        {
+          expand: true,
+          cwd: 'app/modules/',
+          src: '**/*.html',
+          dest: 'dist/templates',
+          flatten: true
+        },
+        {
+          expand: true,
+          cwd: 'app/',
+          src: 'bower_components/**/*',
+          dest: 'dist/'
+          }
+        ]
+      }
+    },
 
 		// https://github.com/jmreidy/grunt-browserify
 		browserify: {
@@ -54,9 +98,9 @@ module.exports = function(grunt) {
 		// https://github.com/gruntjs/grunt-contrib-jshint
 		jshint: {
 			options: {
-				jshintrc: '.jshintrc'
+				jshintrc: true,
 			},
-			all: ['Gruntfile.js', 'server.js', 'app/**/*.js']
+			all: ['Gruntfile.js', 'server.js', 'app/*.js', 'app/modules/**/*.js']
 		},
 
 		// https://github.com/gruntjs/grunt-contrib-watch
@@ -72,24 +116,42 @@ module.exports = function(grunt) {
 				files: ['Gruntfile.js', 'server.js', 'app/**/*.js'],
 				tasks: ['browserify']
 			}
-		}
+		},
+    express: {
+      all: {
+        options: {
+          script: 'server.js',
+          background: false
+        }
+      }
+    }
 	});
 
 	// Done
+  grunt.loadNpmTasks('grunt-env');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-browserify');
+	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
+  grunt.loadNpmTasks('grunt-simple-mocha');
+
 	// To-do
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+
 	// https://github.com/gruntjs/grunt-contrib-connect
 	grunt.loadNpmTasks('grunt-contrib-connect');
 
+  grunt.registerTask('test', ['env:test', 'simplemocha:all']);
+
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
-	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'browserify']);
-	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'jshint', 'browserify']);
+	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify']);
+	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify']);
+  grunt.registerTask('serve', ['build', 'express:all']);
 
 };
