@@ -1,7 +1,10 @@
 <div ng-app="sleepModule" ng-controller="sleepDisplayLastCtrl">
   <div class="sleep-display" ng-model="sleepRecord">
-    <p ng-show="sleepRecord">You slept {{ sleepRecord.duration }} last night.</p>
-    <p ng-hide="sleepRecord">You didn't enter sleep for last night!</p>
+    <div ng-show="sleepRecord">
+      <p>{{ sleepRecord.sleep | date:"short" }} - {{ sleepRecord.wake | date: "short" }} </p>
+      <p> You slept for {{ sleepRecord.duration }} hours.</p>
+    </div>
+   <p ng-hide="sleepRecord">You didn't enter sleep for last night!</p>
   </div>
 </div>
 
