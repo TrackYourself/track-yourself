@@ -1,12 +1,13 @@
 /* Define methods to use as controllers */
 
 
-module.exports.sleepInputCtrl = function($scope, Sleep) {
+module.exports.sleepInputCtrl = function($scope, $location, Sleep) {
   $scope.sleepRecord = new Sleep({});
 
   $scope.sleepEntered = function() {
     $scope.sleepRecord.$save(function(sleep, respHeaders) {
       console.log(respHeaders);
+      $location.path('/sleep/all');
     });
   };
 };

@@ -38,12 +38,13 @@ module.exports.resource = function($resource) {
 /* Define methods to use as controllers */
 
 
-module.exports.sleepInputCtrl = function($scope, Sleep) {
+module.exports.sleepInputCtrl = function($scope, $location, Sleep) {
   $scope.sleepRecord = new Sleep({});
 
   $scope.sleepEntered = function() {
     $scope.sleepRecord.$save(function(sleep, respHeaders) {
       console.log(respHeaders);
+      $location.path('/sleep/all');
     });
   };
 };
@@ -72,7 +73,7 @@ sleepModule.factory('Sleep', ['$resource', services.resource]);
 sleepModule.controller('sleepDisplayLastCtrl',
   ['$scope', 'Sleep', controllers.sleepDisplayLastCtrl]);
 sleepModule.controller('sleepInputCtrl',
-  ['$scope', 'Sleep', controllers.sleepInputCtrl]);
+  ['$scope', '$location', 'Sleep', controllers.sleepInputCtrl]);
 sleepModule.controller('sleepDisplayAllCtrl',
   ['$scope', 'Sleep', controllers.sleepDisplayAllCtrl]);
 
