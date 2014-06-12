@@ -1,0 +1,6 @@
+<div ng-app="sleepModule" ng-controller="sleepDisplayAllCtrl">
+  <p ng-repeat="record in sleepRecords">
+    {{ record.sleep | date:"short" }} - {{ record.wake | date:"short" }}
+  </p>
+</div>
+
