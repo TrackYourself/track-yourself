@@ -16,14 +16,16 @@ module.exports = function (app, passport) {
 	// Login page
 	app.get('/login', function (req, res) {
 		return res.render('login', {
-			title: 'the login page'
+			title: 'the login page',
+			message: req.flash('loginMessage')
 		});
 	});
 
-	// Homepage
+	// Register page
 	app.get('/register', function (req, res) {
 		return res.render('register', {
-			title: 'the login page'
+			title: 'the register page',
+			message: req.flash('signupMessage')
 		});
 	});
 };
