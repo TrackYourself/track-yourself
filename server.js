@@ -11,13 +11,14 @@ var expressHbs = require('express3-handlebars');
 var app = express();
 app.set('port', process.env.PORT || 3000);
 var nodeEnv = process.env.NODE_ENV || 'production';
+process.env.PWD = process.cwd();
 
 // Passport auth and JWT
 // var jwtauth = require('./lib/jwyAuth.js')(app);
 // app.set('jwtTokenSecret', process.env.JWT_SECRET || '95bf6e3620dce448f16d048f1d3854b7');
 
 // Serve client-side code
-app.use('/app', express.static(__dirname + '/dist'));
+app.use('/app', express.static(process.env.PWD + '/dist'));
 
 // Log requests to the console
 app.use(function (req, res, next) {
@@ -44,7 +45,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
 
 // connect to database
 var dbLocations = {
@@ -73,3 +73,4 @@ app.listen(app.get('port'), function() {
   console.log('ERROR: shutting down server.');
   this.close();
 });
+

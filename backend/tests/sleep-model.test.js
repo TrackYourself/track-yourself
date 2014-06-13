@@ -27,7 +27,7 @@ describe('creating a new sleep record', function() {
   it('should be able to access methods (duration) after creation', function(done) {
     Sleep.create({sleep: TEST_SLEEP, wake: TEST_WAKE}, function(err, sleep) {
       expect(err).to.not.exist;
-      expect(sleep.duration()).to.exist;
+      expect(sleep.duration).to.exist;
       done();
     });
   });
