@@ -113,7 +113,7 @@ module.exports = function(grunt) {
 				tasks: ['sass']
 			},
 			browserify: {
-				files: ['Gruntfile.js', 'server.js', 'app/**/*.js'],
+				files: ['app/**/*.js'],
 				tasks: ['browserify']
 			}
 		},
@@ -152,6 +152,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
 	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify']);
 	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify']);
-  grunt.registerTask('serve', ['build', 'express:all']);
+  grunt.registerTask('serve', ['build', 'express:all', 'watch']);
 
 };

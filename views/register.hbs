@@ -1,1 +1,26 @@
 <h1>Oh hai! Join us!</h1>
+
+{{#if message}}
+<p><strong>{{message}}</strong></p>
+{{/if}}
+
+<!-- LOGIN FORM -->
+<form action="/register" method="post">
+	<div class="form-group">
+		<label>Name on this site</label>
+		<input type="text" name="userName">
+	</div>
+	<div class="form-group">
+		<label>Email</label>
+		<input type="text" name="email">
+	</div>
+	<div class="form-group">
+		<label>Password</label>
+		<input type="password" name="password">
+	</div>
+
+	<button type="submit" class="btn btn-warning btn-lg">Signup</button>
+</form>
+
+<p>Already have an account? <a href="/login">Login</a></p>
+<p>Or go <a href="/">home</a>.</p>
