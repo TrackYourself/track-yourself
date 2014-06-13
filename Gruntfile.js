@@ -91,9 +91,9 @@ module.exports = function(grunt) {
     concat: {
       vendor: {
         src: [
-          'app/bower_components/angular/angular.js',
-          'app/bower_components/angular-route/angular-route.js',
-          'app/bower_components/angular-resource/angular-resource.js'
+          'app/bower_components/angular/angular.min.js',
+          'app/bower_components/angular-route/angular-route.min.js',
+          'app/bower_components/angular-resource/angular-resource.min.js'
         ],
         dest: 'dist/angular-bundle.js'
       }
