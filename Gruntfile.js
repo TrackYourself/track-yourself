@@ -72,14 +72,7 @@ module.exports = function(grunt) {
           src: '**/*.html',
           dest: 'dist/templates',
           flatten: true
-        },
-        {
-          expand: true,
-          cwd: 'app/',
-          src: 'bower_components/**/*',
-          dest: 'dist/'
-          }
-        ]
+        }]
       }
     },
 
@@ -94,6 +87,17 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+
+    concat: {
+      vendor: {
+        src: [
+          'app/bower_components/angular/angular.js',
+          'app/bower_components/angular-route/angular-route.js',
+          'app/bower_components/angular-resource/angular-resource.js'
+        ],
+        dest: 'dist/angular-bundle.js'
+      }
+    },
 
 		// https://github.com/gruntjs/grunt-contrib-jshint
 		jshint: {
@@ -150,8 +154,8 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['env:test', 'simplemocha:all']);
 
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
-	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify']);
-	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify']);
+	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify', 'concat:vendor']);
+	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify', 'concat:vendor']);
   grunt.registerTask('serve', ['build', 'express:all']);
 
 };
