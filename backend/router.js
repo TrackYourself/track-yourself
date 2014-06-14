@@ -1,4 +1,8 @@
-module.exports = function (app, passport) {
+/* Configure backend routing. Required by server.js */
+
+var passport = require('passport');
+
+module.exports = function (app) {
 
 	// Homepage
 	app.get('/', function (req, res) {
