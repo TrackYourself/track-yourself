@@ -170,7 +170,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('test-front-all', ['build-test','karma:unit']);
 
 
-	grunt.registerTask('test-back-all', ['back-end-testing-unit', 'back-end-testing-integration']);
+	grunt.registerTask('test-back-all', ['test-back-unit', 'test-back-integration']);
 	grunt.registerTask('test-back-unit', ['env:test', 'simplemocha:unit']);
 	grunt.registerTask('test-back-integration', ['env:test', 'simplemocha:integration']);
 
