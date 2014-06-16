@@ -27,13 +27,12 @@ module.exports = function (app, passport) {
 			}
 
 			// check to see if there's already a user with that email
-			if (user.role && user.role === 'admin') {
-				return;
+			if (!user || !user.role || user.role !== 'admin') {
+				console.log('UNAUTHORIZED REQUEST');
+				res.redirect('/401');
 			}
 
 		});
-
-		res.redirect('/profile');
 
 	}
 
@@ -41,18 +40,19 @@ module.exports = function (app, passport) {
 	Login/out
 	*/
 
-	app.route('/login')
-			.get(function (req, res) {
-				return res.render('login', {
-					title: 'the login page',
-					message: req.flash('loginMessage')
-				});
-			})
-			.post(passport.authenticate('local-login', {
-				successRedirect: '/profile',
-				failureRedirect: '/login',
-				failureFlash   : true
-			}));
+	app
+		.route('/login')
+		.get(function (req, res) {
+			return res.render('login', {
+				title: 'the login page',
+				message: req.flash('loginMessage')
+			});
+		})
+		.post(passport.authenticate('local-login', {
+			successRedirect: '/profile',
+			failureRedirect: '/login',
+			failureFlash   : true
+		}));
 
 	app.get('/logout', function (req, res) {
 		req.logout();
@@ -92,9 +92,23 @@ module.exports = function (app, passport) {
 
 
 	app.get('/profile/:uid', userIsAdmin, function (req, res) {
-		return res.render('profile', {
-			title: req.user.name + "'s profile",
-			user : req.user
+
+		User.findOne({ '_id': req.param('uid') }, function (err, user) {
+
+			if (err) {
+				console.log(err);
+				return done(err);
+			}
+
+			// Is there a user with that id?
+			if (!user) {
+				res.redirect('/404');
+			}
+
+			return res.render('profile', {
+				title: user.name + "'s profile",
+				user : user
+			});
 		});
 	});
 
