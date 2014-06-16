@@ -1,3 +1,4 @@
+var User = require('../../backend/models/User');
 
 module.exports = function (app, passport) {
 
@@ -14,22 +15,44 @@ module.exports = function (app, passport) {
 		res.redirect('/login');
 	}
 
+	// Is this user capable of seeing admin pages?
+	function userIsAdmin(req, res, next) {
+
+		userIsLoggedIn(req, res, next);
+
+		User.findOne({ '_id': req.session.passport.user }, function (err, user) {
+
+			if (err) {
+				return done(err);
+			}
+
+			// check to see if there's already a user with that email
+			if (user.role && user.role === 'admin') {
+				return;
+			}
+
+		});
+
+		res.redirect('/profile');
+
+	}
+
 	/*
 	Login/out
 	*/
 
-	app.get('/login', function (req, res) {
-		return res.render('login', {
-			title: 'the login page',
-			message: req.flash('loginMessage')
-		});
-	});
-
-	app.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/profile',
-		failureRedirect: '/login',
-		failureFlash   : true
-	}));
+	app.route('/login')
+			.get(function (req, res) {
+				return res.render('login', {
+					title: 'the login page',
+					message: req.flash('loginMessage')
+				});
+			})
+			.post(passport.authenticate('local-login', {
+				successRedirect: '/profile',
+				failureRedirect: '/login',
+				failureFlash   : true
+			}));
 
 	app.get('/logout', function (req, res) {
 		req.logout();
@@ -64,6 +87,14 @@ module.exports = function (app, passport) {
 		return res.render('profile', {
 			title: 'your profile',
 			user: req.user
+		});
+	});
+
+
+	app.get('/profile/:uid', userIsAdmin, function (req, res) {
+		return res.render('profile', {
+			title: req.user.name + "'s profile",
+			user : req.user
 		});
 	});
 
