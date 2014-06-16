@@ -1,4 +1,5 @@
 var sleep = require('./modules/sleep/sleep-module.js');
+require('angular');
 
 var trackerApp = angular.module('trackerApp', ['ngRoute', 'ngResource', sleep.name]);
 
@@ -16,4 +17,3 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
     controller: 'sleepDisplayAllCtrl'
   });
 }]);
-

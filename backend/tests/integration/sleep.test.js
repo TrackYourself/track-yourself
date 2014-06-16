@@ -1,7 +1,7 @@
 var superagent = require('superagent');
 var expect = require('chai').expect;
-require('./../../server.js');
-var Sleep = require('./../models/Sleep.js');
+require('./../../../server.js');
+var Sleep = require('./../../models/Sleep.js');
 
 describe('using sleep rest api', function() {
 
@@ -63,4 +63,3 @@ describe('using sleep rest api', function() {
   });
 
 });
-

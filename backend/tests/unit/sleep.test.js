@@ -1,4 +1,4 @@
-var Sleep = require('./../models/Sleep.js');
+var Sleep = require('./../../models/Sleep.js');
 var expect = require('chai').expect;
 
 var TEST_SLEEP = new Date(2014, 06, 09, 20, 03, 0);
@@ -33,4 +33,3 @@ describe('creating a new sleep record', function() {
   });
 
 });
-
