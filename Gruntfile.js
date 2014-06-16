@@ -114,6 +114,7 @@ module.exports = function(grunt) {
 				'app/bower_components/angular/angular.min.js',
 				'app/bower_components/angular-route/angular-route.min.js',
 				'app/bower_components/angular-resource/angular-resource.min.js',
+				'app/bower_components/angular-mocks/angular-mocks.js',
         'dist/client.karma.js'
 				],
 				dest: 'dist/client.karma.js'
@@ -172,12 +173,12 @@ module.exports = function(grunt) {
 	//========================================================================
 	//Tests
 	//========================================================================
-  grunt.registerTask('test', ['test-back-all', 'test-front-all']);
+  grunt.registerTask('test', ['test-back', 'test-front']);
 
-	grunt.registerTask('test-front-all', ['build-test','karma:unit']);
+	grunt.registerTask('test-front', ['build-test','karma:unit']);
 
 
-	grunt.registerTask('test-back-all', ['test-back-unit', 'test-back-integration']);
+	grunt.registerTask('test-back', ['test-back-unit', 'test-back-integration']);
 	grunt.registerTask('test-back-unit', ['env:test', 'simplemocha:unit']);
 	grunt.registerTask('test-back-integration', ['env:test', 'simplemocha:integration']);
 
