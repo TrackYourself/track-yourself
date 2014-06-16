@@ -40,7 +40,10 @@ app.use(bodyparser());
 require('./config/passport')(passport);
 app.use(cookieParser());
 app.use(session({
-	secret: process.env.SECRET || 'a691865436aaca1b7c5a755a57ea68db'
+	secret: process.env.SECRET || 'a691865436aaca1b7c5a755a57ea68db',
+	cookie: {
+		maxAge: (60 * 60 * 24 * 7) // one week
+	}
 }));
 app.use(passport.initialize());
 app.use(passport.session());
