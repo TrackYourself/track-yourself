@@ -25,7 +25,6 @@
     "browserify": "^4.1.10",
     "chai": "^1.9.1",
     "chai-as-promised": "^4.1.1",
-    "debowerify": "^0.7.1",
     "express": "^4.4.1",
     "grunt": "^0.4",
     "grunt-browserify": "^2.1",

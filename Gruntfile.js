@@ -86,35 +86,39 @@ module.exports = function(grunt) {
 		browserify: {
 			karma: {
 				bundleOptions: {
-			        debug: true
-			    },
-				options: {
-					transform: ['debowerify'],
-				},
+          debug: true
+        },
 				files: {
 					'dist/client.karma.js': ['app/application.js','app/tests/unit/**/*.js']
 				}
 			},
 			app: {
-				options: {
-					transform: ['debowerify'],
-				},
 				files: {
 					'dist/client.js': ['app/application.js']
 				}
 			}
 		},
 
-		// concat: {
-		// 	vendor: {
-		// 		src: [
-		// 		'app/bower_components/angular/angular.min.js',
-		// 		'app/bower_components/angular-route/angular-route.min.js',
-		// 		'app/bower_components/angular-resource/angular-resource.min.js'
-		// 		],
-		// 		dest: 'dist/angular-bundle.js'
-		// 	}
-		// },
+		concat: { // run *after* browserify
+			all: {
+				src: [
+				'app/bower_components/angular/angular.min.js',
+				'app/bower_components/angular-route/angular-route.min.js',
+				'app/bower_components/angular-resource/angular-resource.min.js',
+        'dist/client.js'
+				],
+				dest: 'dist/client.js'
+			},
+			test: {
+				src: [
+				'app/bower_components/angular/angular.min.js',
+				'app/bower_components/angular-route/angular-route.min.js',
+				'app/bower_components/angular-resource/angular-resource.min.js',
+        'dist/client.karma.js'
+				],
+				dest: 'dist/client.karma.js'
+			}
+		},
 
 		// https://github.com/gruntjs/grunt-contrib-jshint
 		jshint: {
@@ -157,18 +161,18 @@ module.exports = function(grunt) {
 
 	// TODO:
 	//grunt.loadNpmTasks('grunt-contrib-uglify');
-	//grunt.loadNpmTasks('grunt-contrib-concat');
 	//grunt.loadNpmTasks('grunt-contrib-connect');
 
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
-	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify:app', 'concat:vendor']);
-	grunt.registerTask('build-test', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify:karma']);
+	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify:app', 'concat:all']);
+	grunt.registerTask('build-test', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify:karma', 'concat:test']);
 	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify']);
 	grunt.registerTask('serve', ['build', 'express:all']);
 
 	//========================================================================
 	//Tests
 	//========================================================================
+  grunt.registerTask('test', ['test-back-all', 'test-front-all']);
 
 	grunt.registerTask('test-front-all', ['build-test','karma:unit']);
 
