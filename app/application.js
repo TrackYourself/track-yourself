@@ -1,5 +1,7 @@
 var sleep = require('./modules/sleep/sleep-module.js');
 require('angular');
+require('angular-route');
+require('angular-resource');
 
 var trackerApp = angular.module('trackerApp', ['ngRoute', 'ngResource', sleep.name]);
 

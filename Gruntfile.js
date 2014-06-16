@@ -85,6 +85,9 @@ module.exports = function(grunt) {
 		// https://github.com/jmreidy/grunt-browserify
 		browserify: {
 			karma: {
+				bundleOptions: {
+			        debug: true
+			    },
 				options: {
 					transform: ['debowerify'],
 				},
@@ -102,16 +105,16 @@ module.exports = function(grunt) {
 			}
 		},
 
-		concat: {
-			vendor: {
-				src: [
-				'app/bower_components/angular/angular.min.js',
-				'app/bower_components/angular-route/angular-route.min.js',
-				'app/bower_components/angular-resource/angular-resource.min.js'
-				],
-				dest: 'dist/angular-bundle.js'
-			}
-		},
+		// concat: {
+		// 	vendor: {
+		// 		src: [
+		// 		'app/bower_components/angular/angular.min.js',
+		// 		'app/bower_components/angular-route/angular-route.min.js',
+		// 		'app/bower_components/angular-resource/angular-resource.min.js'
+		// 		],
+		// 		dest: 'dist/angular-bundle.js'
+		// 	}
+		// },
 
 		// https://github.com/gruntjs/grunt-contrib-jshint
 		jshint: {
@@ -146,21 +149,21 @@ module.exports = function(grunt) {
 		karma: {
 			unit: {
 				configFile: 'config/karma.conf.js',
-				browsers: ['PhantomJ','Chrome', 'Firefox', 'Safari']
+				browsers: ['PhantomJS','Chrome', 'Firefox', 'Safari']
 			}
 		}
 
 	});
 
-	// To-do
+	// TODO:
 	//grunt.loadNpmTasks('grunt-contrib-uglify');
 	//grunt.loadNpmTasks('grunt-contrib-concat');
 	//grunt.loadNpmTasks('grunt-contrib-connect');
 
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
 	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify:app', 'concat:vendor']);
-	grunt.registerTask('build-test', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify:karma', 'concat:vendor']);
-	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify', 'concat:vendor']);
+	grunt.registerTask('build-test', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify:karma']);
+	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify']);
 	grunt.registerTask('serve', ['build', 'express:all']);
 
 	//========================================================================
