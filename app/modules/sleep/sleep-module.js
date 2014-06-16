@@ -16,4 +16,3 @@ sleepModule.controller('sleepDisplayAllCtrl',
   ['$scope', 'Sleep', controllers.sleepDisplayAllCtrl]);
 
 module.exports = sleepModule;
-
