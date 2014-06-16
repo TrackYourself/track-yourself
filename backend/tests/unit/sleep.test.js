@@ -1,3 +1,4 @@
+require('./../../../server.js');
 var Sleep = require('./../../models/Sleep.js');
 var expect = require('chai').expect;
 
