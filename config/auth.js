@@ -8,7 +8,10 @@ module.exports = function(app) {
   require('./passport.js')();
   app.use(cookieParser());
   app.use(session({
-    secret: process.env.SECRET || 'a691865436aaca1b7c5a755a57ea68db'
+    secret: process.env.SECRET || 'a691865436aaca1b7c5a755a57ea68db',
+   	cookie: {
+      maxAge: (60 * 60 * 24 * 7) // one week
+    }
   }));
   app.use(passport.initialize());
   app.use(passport.session());
