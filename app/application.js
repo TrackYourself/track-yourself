@@ -16,4 +16,3 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
     controller: 'sleepDisplayAllCtrl'
   });
 }]);
-

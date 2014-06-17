@@ -10,8 +10,8 @@ Backend                                         |Front-end                      
 [Express](http://expressjs.com/4x/api.html) |Sass, [Bourbon](http://bourbon.io/) |
 
 ### Tasks, bugs, to-dos
-* Asana for tasks that don't involve code (research, etc).
-* Github issue tracker for tasks that involve the codebase.
+* Asana for tasks that don't involve the codebase (research, etc).
+* Github issue tracker for tasks that do involve the codebase.
 * Assign yourself to anything that you're currently working on.
 
 ### Project structure
@@ -37,7 +37,7 @@ Notes/explanation:
   main module file.
 * **Changed**: I originally had folders for each component (controllers, directives, etc) within
   each module, but when I started working on the sleep module that seemed like overkill, so I've
-  changed it: a folder for each component that will typically hold more than one file (tests, 
+  changed it: a folder for each component that will typically hold more than one file (tests,
   templates). Other components can be in a file.
 
 ```
@@ -97,4 +97,3 @@ Notes/explanation:
 ├── README.md
 └── server.js                          create node/express server, connect to db
 ```
-

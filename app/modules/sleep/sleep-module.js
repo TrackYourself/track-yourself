@@ -1,5 +1,5 @@
 var controllers = require('./sleep-controllers.js');
-var services = require('./services.js');
+var services = require('./sleep-services.js');
 
 // Define/register the sleep module
 var sleepModule = angular.module('sleepModule', []);
@@ -16,4 +16,3 @@ sleepModule.controller('sleepDisplayAllCtrl',
   ['$scope', 'Sleep', controllers.sleepDisplayAllCtrl]);
 
 module.exports = sleepModule;
-
