@@ -1,6 +1,6 @@
 var User = require('../../backend/models/User');
 
-module.exports = function (app, passport) {
+module.exports = function (app, passport, jwtauth) {
 
 	// route middleware to make sure a user is logged in
 	function userIsLoggedIn(req, res, next) {
@@ -28,8 +28,7 @@ module.exports = function (app, passport) {
 
 			// check to see if there's already a user with that email
 			if (!user || !user.role || user.role !== 'admin') {
-				console.log('UNAUTHORIZED REQUEST');
-				res.redirect('/401');
+				return res.send(401, {'msg': 'Not authorized'});
 			}
 
 		});
@@ -102,7 +101,7 @@ module.exports = function (app, passport) {
 
 			// Is there a user with that id?
 			if (!user) {
-				res.redirect('/404');
+				return res.send(404, {'msg': 'Profile not found'});
 			}
 
 			return res.render('profile', {
@@ -110,6 +109,25 @@ module.exports = function (app, passport) {
 				user : user
 			});
 		});
+	});
+
+	/*
+	Testing token auth
+	*/
+
+	app.get('/token-test', jwtauth, function (req, res) {
+		return res.render('token', {
+			title  : 'the token testing page'
+		});
+	});
+
+	app.get('/token', userIsLoggedIn, function (req, res) {
+		if (req.user) {
+			var token = req.user.getToken(app.get('jwtTokenSecret'));
+			return res.send(200, {token: token});
+		} else {
+			return res.send(401, {error: 'AuthError'});
+		}
 	});
 
 };

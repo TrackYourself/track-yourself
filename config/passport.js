@@ -79,7 +79,6 @@ module.exports = function() {
 					}
 
 					return done(null, user);
-
 				});
 			}
 	));

@@ -1,6 +1,7 @@
 /* Configure backend routing. Required by server.js */
 
 var passport = require('passport');
+var jwtauth = require('../config/jwtAuth');
 
 module.exports = function (app) {
 
@@ -15,6 +16,6 @@ module.exports = function (app) {
 	require('./routes/sleep-router.js')(app);
 
 	// Auth
-	require('./routes/auth-router.js')(app, passport);
+	require('./routes/auth-router.js')(app, passport, jwtauth(app));
 
 };
