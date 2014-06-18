@@ -12,7 +12,7 @@ module.exports = function(config) {
     frameworks: ['mocha'],//,'browserify'],
 
     // list of files / patterns to load in the browser
-    files: ['./client.karma.js'],
+    files: ['server.js', './client.karma.js'],
 
     // list of files to exclude
     exclude: [
