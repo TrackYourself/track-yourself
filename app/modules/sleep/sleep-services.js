@@ -2,14 +2,11 @@
 
 module.exports.resource = function($resource) {
 
-  return $resource('/sleep',
-    { // default params
-      user: 'testuser'
-    },
+  return $resource('/api/sleep',
     { // custom methods
       getAll: {
         method: 'GET',
-        url: '/sleep/:user/all',
+        url: '/api/sleep/all',
         isArray: true,
         responseType: 'json'
       }
