@@ -4,7 +4,9 @@ var User = require('../backend/models/User');
 
 module.exports = function() {
 
+  /* Serialization used for sessions */
 	passport.serializeUser(function (user, done) {
+    // only serialize user id
 		done(null, user.id);
 	});
 
@@ -20,11 +22,8 @@ module.exports = function() {
 		passReqToCallback: true
 	};
 
-	/*
-	Registration
-	*/
-	passport.use('local-signup', new LocalStrategy(
-			strategySchema,
+	/* Registration strategy */
+	passport.use('local-signup', new LocalStrategy(strategySchema,
 			function (req, email, password, done) {
 
 				process.nextTick( function () {
@@ -41,16 +40,17 @@ module.exports = function() {
 								return done(null, false);
 							}
 
+              // create new User
 							var newUser = new User();
-
 							newUser.role = 'user';
 							newUser.name = req.body.userName;
 							newUser.local.email = email;
 							newUser.local.password = newUser.generateHash(password);
 
+              // save User
 							newUser.save(function (err) {
 								if (err) {
-									throw err;
+									return done(err);
 								}
 								return done(null, newUser);
 							});
@@ -60,11 +60,8 @@ module.exports = function() {
 			}
 	));
 
-	/*
-	Login
-	*/
-	passport.use('local-login', new LocalStrategy(
-			strategySchema,
+	/* Login strategy */
+	passport.use('local-login', new LocalStrategy(strategySchema,
 			function (req, email, password, done) {
 
 				User.findOne({ 'local.email': email}, function (err, user) {
@@ -83,3 +80,4 @@ module.exports = function() {
 			}
 	));
 };
+

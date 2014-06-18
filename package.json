@@ -17,11 +17,9 @@
     "express": "^4.4.2",
     "express-session": "^1.2.1",
     "express3-handlebars": "^0.5",
-    "jwt-simple": "^0.2.0",
     "moment": "^2.7.0",
     "mongoose": "^3.8.12",
-    "passport": "^0.2",
-    "passport-local": "^1.0"
+    "passport": "^0.2"
   },
   "devDependencies": {
     "browserify": "^4.1.10",

@@ -1,6 +1,6 @@
 var User = require('../../backend/models/User');
 
-module.exports = function (app, passport, jwtauth) {
+module.exports = function (app, passport) {
 
 	// route middleware to make sure a user is logged in
 	function userIsLoggedIn(req, res, next) {
@@ -105,29 +105,10 @@ module.exports = function (app, passport, jwtauth) {
 			}
 
 			return res.render('profile', {
-				title: user.name + "'s profile",
+				title: user.name + '\'s profile',
 				user : user
 			});
 		});
-	});
-
-	/*
-	Testing token auth
-	*/
-
-	app.get('/token-test', jwtauth, function (req, res) {
-		return res.render('token', {
-			title  : 'the token testing page'
-		});
-	});
-
-	app.get('/token', userIsLoggedIn, function (req, res) {
-		if (req.user) {
-			var token = req.user.getToken(app.get('jwtTokenSecret'));
-			return res.send(200, {token: token});
-		} else {
-			return res.send(401, {error: 'AuthError'});
-		}
 	});
 
 };

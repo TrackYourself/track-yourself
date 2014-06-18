@@ -2,7 +2,7 @@
 
 module.exports.resource = function($resource) {
 
-  return $resource('/sleep/:user',
+  return $resource('/sleep',
     { // default params
       user: 'testuser'
     },
