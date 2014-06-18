@@ -8,10 +8,12 @@ module.exports = function(app) {
   process.env.PWD = process.cwd();
 
   // Backend templating
-  app.engine('hbs', expressHbs({
-    extname: 'hbs',
-    defaultLayout: 'main.hbs'
-  }));
-  app.set('view engine', 'hbs');
+//  app.engine('hbs', expressHbs({
+//    extname: 'hbs',
+//    defaultLayout: 'main.hbs'
+//  }));
+//  app.set('view engine', 'hbs');
+	app.set('views', 'views');
+	app.set('view engine', 'jade');
 };
 
