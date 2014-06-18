@@ -1,0 +1,14 @@
+extends main
+
+block content
+  h1=title
+
+  p
+    strong Name:&nbsp;
+    =user.name
+  p
+    strong Email:&nbsp;
+    =user.local.email
+  p
+    strong Role:&nbsp;
+    =user.role

@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title=title
+    link(rel="stylesheet", href="/app/main.css")
+  body
+    div(class="content-wrap")
+      nav
+        ul
+          li
+            a(href="/") Home
+          li
+            a(href="/login") Login
+          li
+            a(href="/logout") Logout
+          li
+            a(href="/register") Register
+          li
+            a(href="/profile") Profile
+          li
+            a(href="/token") Get Token
+          li
+            a(href="/token-test") Test Token
+      div(class="main-content")
+        block content

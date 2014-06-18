@@ -1,0 +1,34 @@
+extends main
+
+block content
+ h1 Sign up
+
+ if message
+  p
+    strong=message
+
+  form(action="/register",method="post")
+
+    p(class="field-wrap")
+      label(for="register-name") Display name
+        br
+        input(type="text",name="userName",id="register-name")
+
+    p(class="field-wrap")
+      label(for="register-email") Email
+        br
+        input(type="text",name="email",id="register-email")
+
+    p(class="field-wrap")
+      label(for="register-password") Password
+        br
+        input(type="password",name="password",id="register-password")
+
+    p(class="field-wrap")
+      button(type="submit") Sign up
+
+  p Already have an account?
+    a(href="/login") Login
+
+  p ... or go
+    a(href="/") home
