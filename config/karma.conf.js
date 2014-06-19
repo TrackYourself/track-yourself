@@ -12,7 +12,7 @@ module.exports = function(config) {
     frameworks: ['mocha'],//,'browserify'],
 
     // list of files / patterns to load in the browser
-    files: ['server.js', './client.karma.js'],
+    files: ['./client.karma.js'],
 
     // list of files to exclude
     exclude: [
@@ -45,7 +45,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS','Chrome','Firefox', 'IE'],
+    browsers: ['PhantomJS','Chrome','Firefox'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
