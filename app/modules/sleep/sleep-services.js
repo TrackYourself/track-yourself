@@ -3,6 +3,7 @@
 module.exports.resource = function($resource) {
 
   return $resource('/api/sleep',
+    {}, // param defaults
     { // custom methods
       getAll: {
         method: 'GET',
