@@ -243,25 +243,43 @@ c){f=g.hasOwnProperty(c)?g[c]:r.defaults[c];a.isDefined(f)&&null!==f?(p=encodeUR
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var sleep = require('./modules/sleep/sleep-module.js');
+var water = require('./modules/water/water-module.js');
 
-var trackerApp = angular.module('trackerApp', ['ngRoute', 'ngResource', sleep.name]);
+var trackerApp = angular.module('trackerApp', ['ngRoute', 'ngResource', sleep.name, water.name]);
 
 trackerApp.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/sleep', {
-    templateUrl: 'templates/sleep-last.html',
-    controller: 'sleepDisplayLastCtrl'
-  })
-  .when('/sleep/add', {
-    templateUrl: 'templates/sleep-input.html',
-    controller: 'sleepInputCtrl'
-  })
-  .when('/sleep/all', {
-    templateUrl: 'templates/sleep-all.html',
-    controller: 'sleepDisplayAllCtrl'
-  });
+  $routeProvider
+
+		// Sleep
+		.when('/sleep', {
+			templateUrl: 'templates/sleep-last.html',
+			controller: 'sleepDisplayLastCtrl'
+		})
+		.when('/sleep/add', {
+			templateUrl: 'templates/sleep-input.html',
+			controller: 'sleepInputCtrl'
+		})
+		.when('/sleep/all', {
+			templateUrl: 'templates/sleep-all.html',
+			controller: 'sleepDisplayAllCtrl'
+		})
+
+		// Water
+		.when('/water', {
+			templateUrl: 'templates/water-last.html',
+			controller: 'waterDisplayLastCtrl'
+		})
+		.when('/water/add', {
+			templateUrl: 'templates/water-input.html',
+			controller: 'waterInputCtrl'
+		})
+		.when('/water/all', {
+			templateUrl: 'templates/water-all.html',
+			controller: 'waterDisplayAllCtrl'
+		});
 }]);
 
-},{"./modules/sleep/sleep-module.js":3}],2:[function(require,module,exports){
+},{"./modules/sleep/sleep-module.js":3,"./modules/water/water-module.js":6}],2:[function(require,module,exports){
 /* Define methods to use as controllers */
 
 
@@ -319,6 +337,79 @@ module.exports.resource = function($resource) {
       getAll: {
         method: 'GET',
         url: '/sleep/:user/all',
+        isArray: true,
+        responseType: 'json'
+      }
+    }
+  );
+};
+
+
+},{}],5:[function(require,module,exports){
+/* Define methods to use as controllers */
+
+module.exports.waterDisplayLastCtrl = function ($scope, Water) {
+	$scope.waterRecord = Water.get({});
+};
+
+module.exports.waterInputCtrl = function($scope, $location, Water) {
+
+  $scope.waterRecord = new Water({});
+
+  $scope.waterEntered = function() {
+    $scope.waterRecord.$save(function(intake, respHeaders) {
+      console.log(respHeaders);
+      $location.path('/water/all');
+    });
+  };
+
+};
+
+module.exports.waterDisplayAllCtrl = function($scope, Water) {
+  $scope.waterRecords = Water.getAll({});
+};
+
+  
+
+},{}],6:[function(require,module,exports){
+var controllers = require('./water-controllers.js');
+var services = require('./water-services.js');
+
+// Define/register the water module
+var waterModule = angular.module('waterModule', []);
+
+// Register resource function
+waterModule.factory('Water', ['$resource', services.resource]);
+
+// Import controller functions and register them
+waterModule.controller(
+	'waterDisplayLastCtrl',
+  ['$scope', 'Water', controllers.waterDisplayLastCtrl]
+);
+waterModule.controller(
+	'waterInputCtrl',
+  ['$scope', '$location', 'Water', controllers.waterInputCtrl]
+);
+waterModule.controller(
+	'waterDisplayAllCtrl',
+  ['$scope', 'Water', controllers.waterDisplayAllCtrl]
+);
+
+module.exports = waterModule;
+
+},{"./water-controllers.js":5,"./water-services.js":7}],7:[function(require,module,exports){
+/* Define a resource that connects to REST API for water records */
+
+module.exports.resource = function($resource) {
+
+  return $resource('/water/:user',
+    { // default params
+      user: 'testuser'
+    },
+    { // custom methods
+      getAll: {
+        method: 'GET',
+        url: '/water/:user/all',
         isArray: true,
         responseType: 'json'
       }

@@ -1,0 +1,10 @@
+<div ng-app="waterModule" ng-controller="waterDisplayLastCtrl">
+  <div class="water-display" ng-model="waterRecord">
+    <div ng-show="waterRecord.sleep">
+      <p>{{ waterRecord.intake }}</p>
+      <p> You drank {{ waterRecord.intake }} cups.</p>
+    </div>
+   <p ng-hide="waterRecord.intake">You didn't enter water for last night!</p>
+  </div>
+</div>
+

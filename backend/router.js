@@ -15,6 +15,9 @@ module.exports = function (app) {
 	// Sleep
 	require('./routes/sleep-router.js')(app);
 
+	// Water
+	require('./routes/water-router.js')(app);
+
 	// Auth
 	require('./routes/auth-router.js')(app, passport, jwtauth(app));
 
