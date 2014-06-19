@@ -25,8 +25,6 @@ module.exports = function() {
 	passport.use('local-signup', new LocalStrategy(strategySchema,
 			function (req, email, password, done) {
 
-				//process.nextTick( function () {
-
         User.findOne({ 'local.email': email }, function (err, user) {
 
             if (err) {
@@ -46,39 +44,34 @@ module.exports = function() {
             newUser.local.email = email;
             newUser.local.password = newUser.generateHash(password);
 
-            // save User
+            // save User, log in
             newUser.save(function (err) {
-              if (err) {
-                return done(err);
-              }
-              // log in automatically
-              return passport.authenticate('local-login', {
-                successRedirect: '/app',
-                failureRedirect: '/login'
+
+              if (err) return done(err);
+
+              req.login(newUser, function(err) {
+                if(err) {
+                  return done(err, newUser);
+                }
+                return done(null, newUser);
               });
-              //return done(null, newUser);
             });
 
         });
       }
-			//}
 	));
 
   /* Login strategy */
   passport.use('local-login', new LocalStrategy(strategySchema,
     function (req, email, password, done) {
-
       User.findOne({ 'local.email': email}, function (err, user) {
-
         if (err) {
           return done(err);
         }
-
         if (!user || !user.validPassword(password)) {
           //req.flash('loginMessage', 'Incorrect user or password');
           return done(null, false);
         }
-
         return done(null, user);
       });
     }
