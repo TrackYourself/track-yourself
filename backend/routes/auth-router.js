@@ -1,54 +1,18 @@
-var User = require('../../backend/models/User');
+var User = require('./../../backend/models/User');
 
 module.exports = function (app, passport) {
 
-	// route middleware to make sure a user is logged in
-	function userIsLoggedIn(req, res, next) {
+	/* Log in/out */
 
-		// if user is authenticated in the session, carry on
-		if (req.isAuthenticated()) {
-			return next();
-		}
-
-		// if they aren't redirect them to the home page
-		req.flash('loginMessage', 'You need to login to view that page.');
-		res.redirect('/login');
-	}
-
-	// Is this user capable of seeing admin pages?
-	function userIsAdmin(req, res, next) {
-
-		userIsLoggedIn(req, res, next);
-
-		User.findOne({ '_id': req.session.passport.user }, function (err, user) {
-
-			if (err) {
-				return done(err);
-			}
-
-			// check to see if there's already a user with that email
-			if (!user || !user.role || user.role !== 'admin') {
-				return res.send(401, {'msg': 'Not authorized'});
-			}
-
-		});
-
-	}
-
-	/*
-	Login/out
-	*/
-
-	app
-		.route('/login')
+	app.route('/login')
 		.get(function (req, res) {
 			return res.render('login', {
 				title: 'the login page',
-				message: req.flash('loginMessage')
+				message: 'placeholder flash'// req.flash('loginMessage')
 			});
 		})
 		.post(passport.authenticate('local-login', {
-			successRedirect: '/profile',
+			successRedirect: '/app',
 			failureRedirect: '/login',
 			failureFlash   : true
 		}));
@@ -59,20 +23,18 @@ module.exports = function (app, passport) {
 	});
 
 
-	/*
-	Register
-	*/
+	/* Register */
 
 	app.get('/register', function (req, res) {
 		return res.render('register', {
 			title: 'the register page',
-			message: req.flash('signupMessage')
+			message: 'placeholder' //req.flash('signupMessage')
 		});
 	});
 
 	// Process the register form
 	app.post('/register', passport.authenticate('local-signup', {
-		successRedirect: '/profile',
+		successRedirect: '/app',
 		failureRedirect: '/register',
 		failureFlash   : true
 	}));
@@ -80,7 +42,6 @@ module.exports = function (app, passport) {
 
 	/*
 	Profile
-	*/
 
 	app.get('/profile', userIsLoggedIn, function (req, res) {
 		return res.render('profile', {
@@ -89,8 +50,9 @@ module.exports = function (app, passport) {
 		});
 	});
 
+  */
 
-	app.get('/profile/:uid', userIsAdmin, function (req, res) {
+	app.get('admin/profile/:uid', function (req, res) {
 
 		User.findOne({ '_id': req.param('uid') }, function (err, user) {
 
