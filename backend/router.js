@@ -1,7 +1,7 @@
 /* Configure backend routing. Required by server.js */
 
 var passport = require('passport');
-var jwtauth = require('../config/jwtAuth');
+var express = require('express');
 
 module.exports = function (app) {
 
@@ -13,12 +13,17 @@ module.exports = function (app) {
 	});
 
 	// Sleep
-	require('./routes/sleep-router.js')(app);
+	require('./routes/sleep-router.js')(app, passport);
 
 	// Water
 	require('./routes/water-router.js')(app);
 
 	// Auth
-	require('./routes/auth-router.js')(app, passport, jwtauth(app));
+	require('./routes/auth-router.js')(app, passport);
 
+  // Static files
+  // (Technically middleware, but route-related and need to load
+  // after other middleware)
+  process.env.PWD = process.cwd() || __dirname;
+  app.use('/app', express.static(process.env.PWD + '/dist/'));
 };

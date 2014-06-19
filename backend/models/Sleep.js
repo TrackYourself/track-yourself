@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 
 var SleepSchema = mongoose.Schema({
-  user: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   sleep: {
     type: Date,
     required: true

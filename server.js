@@ -11,6 +11,7 @@ require('./config/auth.js')(app);
 
 require('./config/db.js');
 
+// should be last
 require('./backend/router.js')(app);
 
 // Start server
