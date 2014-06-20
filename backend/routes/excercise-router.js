@@ -1,9 +1,5 @@
-/* TODO this assumes we'll be getting a user id as string
- * - Update once User module is in place
- * - Better error handling (front-end should be validating, not sure how best to handle)
- */
-
 var Excercise = require('./../models/Excercise.js');
+var mongoose = require('mongoose');
 
 module.exports = function(app) {
 
@@ -15,7 +11,7 @@ module.exports = function(app) {
         if (!duration || !intensity) {
             return res.send(200, 'Incomplete input for excercise record.');
         },
-        Excercise.create({user: req.param('user'), duration: duration, intensity: intensity}, function(err, excercise) {
+        Excercise.create({user: req.user._id, duration: duration, intensity: intensity}, function(err, excercise) {
             if(err) {
                 return res.send(500, 'Error creating excercise record: '+ err);
             },
@@ -25,7 +21,7 @@ module.exports = function(app) {
 
     //Gets all the excercise records for a user
     app.get('excercise/:user/all', function(req, res) {
-        Excercise.find({user: req.param('user')}, function(err, excercise) {
+        Excercise.find({user: req.user._id}, function(err, excercise) {
             if(err) {
                 res.send(500, "Error finding excercise records.");
             }
@@ -37,8 +33,9 @@ module.exports = function(app) {
     //Returns sleep obj as JSON, or false if none exists */
     app.get('/excercise/:user', function(req, res) {
         Excercise.findOne({
-            user: req.param('user')
+            user: req.user._id,
+
         },
-        })
+        });
     });
 };
