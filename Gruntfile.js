@@ -152,6 +152,16 @@ module.exports = function(grunt) {
 				configFile: 'config/karma.conf.js',
 				browsers: ['PhantomJS','Chrome', 'Firefox', 'Safari']
 			}
+		},
+		protractor: {
+			options: {
+				configFile: "config/protractor.conf.js", // Default config file
+				keepAlive: true, // If false, the grunt process stops when the test fails.
+				noColor: false, // If true, protractor will not use colors in its output.
+				args: {
+					// Arguments passed to the command
+				}
+			}
 		}
 
 	});
@@ -169,11 +179,12 @@ module.exports = function(grunt) {
 	//========================================================================
 	//Tests
 	//========================================================================
-  grunt.registerTask('test', ['test-back', 'test-front']);
+	grunt.registerTask('test', ['test-back', 'test-front']);
 
-	grunt.registerTask('test-front', ['build-test','karma:unit']);
+	grunt.registerTask('test-front', ['test-front-unit','test-front-integration']);
+	grunt.registerTask('test-front-unit', ['build-test','karma:unit']);
+	grunt.registerTask('test-front-integration', ['build','protractor']);
 
 
 	grunt.registerTask('test-back', ['env:test', 'mochaTest:all']);
-
 };
