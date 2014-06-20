@@ -4,8 +4,9 @@ var User = require('../backend/models/User');
 
 module.exports = function() {
 
+  /* Serialization used for sessions */
 	passport.serializeUser(function (user, done) {
-		done(null, user.id);
+		done(null, user.id); // only serialize user id
 	});
 
 	passport.deserializeUser(function (id, done) {
@@ -20,66 +21,60 @@ module.exports = function() {
 		passReqToCallback: true
 	};
 
-	/*
-	Registration
-	*/
-	passport.use('local-signup', new LocalStrategy(
-			strategySchema,
+	/* Registration strategy */
+	passport.use('local-signup', new LocalStrategy(strategySchema,
 			function (req, email, password, done) {
 
-				process.nextTick( function () {
+        User.findOne({ 'local.email': email }, function (err, user) {
 
-					User.findOne({ 'local.email': email }, function (err, user) {
+            if (err) {
+              return done(err);
+            }
 
-							if (err) {
-								return done(err);
-							}
+            // check to see if there's already a user with that email
+            if (user) {
+              //req.flash('signupMessage', 'That email is already taken.');
+              return done(null, false);
+            }
 
-							// check to see if there's already a user with that email
-							if (user) {
-								req.flash('signupMessage', 'That email is already taken.');
-								return done(null, false);
-							}
+            // create new User
+            var newUser = new User();
+            newUser.role = 'user';
+            newUser.name = req.body.userName;
+            newUser.local.email = email;
+            newUser.local.password = newUser.generateHash(password);
 
-							var newUser = new User();
+            // save User, log in
+            newUser.save(function (err) {
 
-							newUser.role = 'user';
-							newUser.name = req.body.userName;
-							newUser.local.email = email;
-							newUser.local.password = newUser.generateHash(password);
+              if (err) return done(err);
 
-							newUser.save(function (err) {
-								if (err) {
-									throw err;
-								}
-								return done(null, newUser);
-							});
+              req.login(newUser, function(err) {
+                if(err) {
+                  return done(err, newUser);
+                }
+                return done(null, newUser);
+              });
+            });
 
-					});
-				});
-			}
+        });
+      }
 	));
 
-	/*
-	Login
-	*/
-	passport.use('local-login', new LocalStrategy(
-			strategySchema,
-			function (req, email, password, done) {
-
-				User.findOne({ 'local.email': email}, function (err, user) {
-
-					if (err) {
-						return done(err);
-					}
-
-					if (!user || !user.validPassword(password)) {
-						req.flash('loginMessage', 'Incorrect user or password');
-						return done(null, false);
-					}
-
-					return done(null, user);
-				});
-			}
-	));
+  /* Login strategy */
+  passport.use('local-login', new LocalStrategy(strategySchema,
+    function (req, email, password, done) {
+      User.findOne({ 'local.email': email}, function (err, user) {
+        if (err) {
+          return done(err);
+        }
+        if (!user || !user.validPassword(password)) {
+          //req.flash('loginMessage', 'Incorrect user or password');
+          return done(null, false);
+        }
+        return done(null, user);
+      });
+    }
+  ));
 };
+
