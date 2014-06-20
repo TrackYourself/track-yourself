@@ -26,7 +26,7 @@ describe('Sleep controllers', function() {
     });
   });
 
-  it('display all controller should exist and have sleepRecord', function() {
+  it('display all controller should exist and have sleepRecords', function() {
     inject(function($controller) {
       var scope = {};
       var myCtrl = $controller('sleepDisplayAllCtrl', {$scope: scope});

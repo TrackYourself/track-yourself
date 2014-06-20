@@ -44,20 +44,16 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-
-
-		simplemocha: {
-			options: {
-				ui: 'bdd',
-				reporter: 'spec'
-			},
-			integration: {
-				src: ['backend/tests/integration/*.test.js']
-			},
-			unit: {
-				src: ['backend/tests/unit/*.test.js']
-			}
-		},
+  
+    // simple in-console mocha tests (used for backend tests)
+    mochaTest: {
+      all: {
+        options: {
+          reporter: 'spec'
+        },
+       src: ['backend/tests/**/*.test.js']
+      }
+    },
 
 		clean: {
 			dev: ['dist/'],
@@ -178,13 +174,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('test-front', ['build-test','karma:unit']);
 
 
-	grunt.registerTask('test-back', ['test-back-unit', 'test-back-integration']);
-	grunt.registerTask('test-back-unit', ['env:test', 'simplemocha:unit']);
-	grunt.registerTask('test-back-integration', ['env:test', 'simplemocha:integration']);
-
-
-
-
-
+	grunt.registerTask('test-back', ['env:test', 'mochaTest:all']);
 
 };
