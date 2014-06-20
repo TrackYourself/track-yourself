@@ -60,7 +60,7 @@ describe('Authorization', function() {
       beforeEach(function(done) {
         agent.get('localhost:3000/logout').end(function() {
           require('mongoose').connection.collections.users.drop(function(err) {
-            if (err) throw err;
+            // if (err) throw err;
             done();
           });
         });

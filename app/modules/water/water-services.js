@@ -2,14 +2,12 @@
 
 module.exports.resource = function($resource) {
 
-  return $resource('/water/:user',
-    { // default params
-      user: 'testuser'
-    },
+  return $resource('/api/water',
+    {}, // param defaults
     { // custom methods
       getAll: {
         method: 'GET',
-        url: '/water/:user/all',
+        url: '/api/water/all',
         isArray: true,
         responseType: 'json'
       }
