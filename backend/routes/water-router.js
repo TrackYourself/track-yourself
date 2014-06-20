@@ -7,14 +7,15 @@ var Water = require('./../models/Water.js');
 
 module.exports = function(app) {
 
-  /* Create a new sleep record for a user */
+  /* Create a new water record for a user */
   app.post('/water/:user', function(req, res) {
     console.log(req.body);
     var intake = req.body.intake;
-    if (!intake) {
+    var drank = req.body.drank;
+    if (!intake || !drank) {
       return res.send(200, 'Incomplete input for water record.'); //TODO
     }
-    Water.create({user: req.param('user'), intake: intake}, function(err, water) {
+    Water.create({user: req.param('user'), intake: intake, drank: drank}, function(err, water) {
       if (err) {
         return res.send(500, 'Error creating water record: ' + err);
       }
@@ -22,7 +23,7 @@ module.exports = function(app) {
     });
   });
 
-  /* Get all sleep records for a user */
+  /* Get all water records for a user */
   app.get('/water/:user/all', function(req, res) {
     Water.find({user: req.param('user')}, function(err, waters) {
       if (err) {
@@ -32,8 +33,7 @@ module.exports = function(app) {
     });
   });
 
-  /* Get sleep info from last night (searches for a wakeup time within last 24hrs)
-   * Returns sleep obj as JSON, or false if none exists */
+  /* Get the last water record ... not particularly helpful */
   app.get('/water/:user', function(req, res) {
 
     Water.findOne({

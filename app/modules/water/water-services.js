@@ -16,4 +16,3 @@ module.exports.resource = function($resource) {
     }
   );
 };
-

@@ -279,6 +279,7 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 		});
 }]);
 
+// test
 },{"./modules/sleep/sleep-module.js":3,"./modules/water/water-module.js":6}],2:[function(require,module,exports){
 /* Define methods to use as controllers */
 
@@ -416,6 +417,4 @@ module.exports.resource = function($resource) {
     }
   );
 };
-
-
 },{}]},{},[1])
