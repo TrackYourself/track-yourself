@@ -23,7 +23,8 @@ module.exports = function(grunt) {
 			all: {
 				options : {
 					'outputStyle' : 'compressed',
-					'imagePath' : 'images'
+					'imagePath' : 'images',
+					includePaths: require('node-bourbon').includePaths
 				},
 				files : {
 					'dist/main.css' : 'app/sass/main.sass'
@@ -44,7 +45,7 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-  
+
     // simple in-console mocha tests (used for backend tests)
     mochaTest: {
       all: {

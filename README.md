@@ -50,7 +50,7 @@ Notes/explanation:
 │   │   │   ├── core-services.js      angular services
 │   │   │   ├── templates             angular templates (html with angular attributes/elements)
 │   │   │   ├── img                   images
-│   │   │   ├── styles                sass
+│   │   │   ├── styles                Sass and the bourbon mixin library for Sass
 │   │   │   ├── tests                 tests for this module
 │   │   │   └── core-module.js        defines and configures the model, including routes
 │   │   └── users                     just as an example, we might have another module for handling users
