@@ -32,45 +32,20 @@ module.exports = function (app, passport) {
 		});
 	});
 
-	// Process the register form
-	app.post('/register', passport.authenticate('local-signup', {
-		successRedirect: '/app',
-		failureRedirect: '/register',
-		failureFlash   : true
-	}));
-
-
-	/*
-	Profile
-
-	app.get('/profile', userIsLoggedIn, function (req, res) {
-		return res.render('profile', {
-			title: 'your profile',
-			user: req.user
-		});
-	});
-
-  */
-
-	app.get('admin/profile/:uid', function (req, res) {
-
-		User.findOne({ '_id': req.param('uid') }, function (err, user) {
-
-			if (err) {
-				console.log(err);
-				return done(err);
-			}
-
-			// Is there a user with that id?
-			if (!user) {
-				return res.send(404, {'msg': 'Profile not found'});
-			}
-
-			return res.render('profile', {
-				title: user.name + '\'s profile',
-				user : user
-			});
-		});
-	});
+	/* Process the register form.
+   * If successful, log in.
+   */
+	app.post('/auth/register', function(req, res, next) {
+    passport.authenticate('local-signup', function(err, user, info) {
+      if (err) return next(err);
+      if (!user) {
+        return res.send(401, info);
+      }
+      req.logIn(user, function(err) {
+        if (err) return next(err);
+        return res.send(200, 'Registration successful.');
+      });
+    })(req, res, next);
+  });
 
 };

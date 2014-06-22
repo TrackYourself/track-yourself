@@ -19,13 +19,14 @@ module.exports = function(app) {
   //app.use(flash());
   
   /* Middleware that checks whether user is authenticated */
-	app.use('/app', function (req, res, next) {
+	/*app.use('/app', function (req, res, next) {
 		if (req.isAuthenticated()) {
 			return next();
 		}
 		//req.flash('loginMessage', 'You need to login to view that page.');
 		res.redirect('/login');
 	});
+  */
 
 	app.use('/api', function(req, res, next) {
 		if (req.isAuthenticated()) {

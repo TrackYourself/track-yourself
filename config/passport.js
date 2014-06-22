@@ -21,20 +21,26 @@ module.exports = function() {
 		passReqToCallback: true
 	};
 
-	/* Registration strategy */
+	/* Registration strategy
+   * Returns:
+   *   400 if email and password were not included in request
+   *   401 if email is already taken */
 	passport.use('local-signup', new LocalStrategy(strategySchema,
 			function (req, email, password, done) {
+        console.log('local-signup. email: ' + email);
 
+        // check to see if there's already a user with that email
         User.findOne({ 'local.email': email }, function (err, user) {
 
             if (err) {
+              console.log(err);
               return done(err);
             }
 
-            // check to see if there's already a user with that email
             if (user) {
               //req.flash('signupMessage', 'That email is already taken.');
-              return done(null, false);
+              console.log('email already taken');
+              return done(null, false, {message: 'That email is already registered.'});
             }
 
             // create new User
@@ -49,11 +55,12 @@ module.exports = function() {
 
               if (err) return done(err);
 
+              // successful registration; try to log in
               req.login(newUser, function(err) {
                 if(err) {
                   return done(err, newUser);
                 }
-                return done(null, newUser);
+                return done(null, newUser); //successful login
               });
             });
 

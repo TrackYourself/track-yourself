@@ -1,10 +1,17 @@
 var sleep = require('./modules/sleep/sleep-module.js');
 var water = require('./modules/water/water-module.js');
+var auth = require('./modules/auth/auth-module.js');
 
-var trackerApp = angular.module('trackerApp', ['ngRoute', 'ngResource', sleep.name, water.name]);
+var trackerApp = angular.module('trackerApp', ['ngRoute', 'ngResource', sleep.name, water.name, auth.name]);
 
 trackerApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider
+
+    // Auth
+    .when('/register', {
+      templateUrl: 'templates/register.html',
+      controller: 'registerCtrl'
+    })
 
 		// Sleep
 		.when('/sleep', {
