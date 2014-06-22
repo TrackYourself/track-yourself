@@ -33,3 +33,17 @@ module.exports.registerCtrl = function($scope, $http, $location) {
 
 };
 
+module.exports.logoutCtrl = function($scope, $http, $location, $rootScope) {
+
+  $scope.logout = function() {
+    $http.get('/auth/logout')
+      .success(function(data, status, headers, config) {
+        $rootScope.currentUser = null;
+        $location.path('/');
+      })
+      .error(function(data, status, headers, config) {
+        console.log('Error logging out ' + status);
+      });
+  };
+
+};

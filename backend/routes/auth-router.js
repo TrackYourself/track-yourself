@@ -17,7 +17,7 @@ module.exports = function (app, passport) {
     })(req, res, next);
   });
 
-	app.get('/logout', function (req, res) {
+	app.get('/auth/logout', function (req, res) {
 		req.logout();
 		return res.send(200, 'Logged out.');
 	});

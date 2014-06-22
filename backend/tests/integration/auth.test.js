@@ -39,7 +39,7 @@ describe('Authorization', function() {
     describe(' - registering and logging in', function() {
 
       beforeEach(function(done) {
-        agent.get('localhost:3000/logout').end(function() {
+        agent.get('localhost:3000/auth/logout').end(function() {
           require('mongoose').connection.collections.users.drop(function(err) {
             done();
           });

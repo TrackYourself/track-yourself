@@ -11,6 +11,8 @@ authModule.controller('registerCtrl',
   ['$scope', '$http', '$location', controllers.registerCtrl]);
 authModule.controller('loginCtrl',
   ['$scope', '$http', '$location', '$rootScope', controllers.loginCtrl]);
+authModule.controller('logoutCtrl',
+  ['$scope', '$http', '$location', '$rootScope', controllers.logoutCtrl]);
 
 module.exports = authModule;
 
