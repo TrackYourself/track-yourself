@@ -58,5 +58,8 @@
     "protractor": "^0.24.2",
     "sinon": "^1.10.2",
     "superagent": "^0.18.0"
+  },
+  "scripts": {
+    "install": "node_modules/protractor/bin/webdriver-manager update"
   }
 }
