@@ -1,18 +1,21 @@
+//main sass file, aka manifest config file pulling together the rest of the sass
+
 // Imports
 @import bourbon
 @import _reset
+@import _config
+@import _buttons
+@import _typography
+@import _modules
 
 // Variables
-
+//need to moved over to _config.sass
 $c-main-bg: #eee
 $c-border-light: #ddd
 $c-text-reg: #444
 
-$font-main: Helvetica, Arial, sans-serif
-$font-header: Georgia, serif
-
 // Mixins
-
+// This needs to be moved, but not sure we need it as borders will be square
 =border-radius($radius)
   -webkit-border-radius: $radius
   -moz-border-radius: $radius
@@ -20,11 +23,7 @@ $font-header: Georgia, serif
   border-radius: $radius
 
 // Main CSS
-// Test
 
-html,
-body
-  background: $font-main
-
+//move to header layout module later
 #logo
   background: transparent image-url('ty_logo_v0.png') no-repeat
