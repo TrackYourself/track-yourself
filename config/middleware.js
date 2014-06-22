@@ -7,12 +7,11 @@ module.exports = function(app) {
 
   // Parse body of json and urlencoded requests
   app.use(bodyparser());
-  
+
   // Log requests to the console
   if (process.env.NODE_ENV !== 'test') {
     app.use(function (req, res, next) {
       console.log('%s %s', req.method, req.url);
-      console.log(req.body);
       next();
     });
   }
