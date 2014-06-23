@@ -388,9 +388,19 @@ module.exports = authModule;
 /* Auth interceptor -- redirects to login page when needed */
 
 module.exports.authInterceptor = function($q, $location, $rootScope) {
+
+  function isPublic(path) {
+    if (path.search('login') !== -1 ||
+        path.search('register' !== -1 ||
+        path.search('index') !== -1)) {
+      return true;
+    }
+    return false;
+  }
+
   return {
     request: function(config) {
-      if (!$rootScope.currentUser && config.url !== '/login' && config.url !== '/register' && config.url !== '/') {
+      if (!$rootScope.currentUser && !isPublic(config.url)) {
         $location.path('/login');
       }
       return config;

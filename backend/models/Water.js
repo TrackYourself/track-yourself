@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 
 var WaterSchema = mongoose.Schema({
-  user: String,
+	user: {
+		type    : mongoose.Schema.Types.ObjectId,
+		ref     : 'User',
+		required: true
+	},
   intake: {
     type: Number,
     required: true
