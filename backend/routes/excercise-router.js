@@ -29,13 +29,20 @@ module.exports = function(app) {
         });
     });
 
-    // Get sleep info from last night (searches for a wakeup time within last 24hrs)
-    //Returns sleep obj as JSON, or false if none exists */
+    // Get excercise info from last night (searches for a wakeup time within last 24hrs)
+    //Returns excercise obj as JSON, or false if none exists */
     app.get('/excercise/:user', function(req, res) {
         Excercise.findOne({
             user: req.user._id,
-
-        },
+            sort: { date: -1 }
+        }, function(err, excercise) {
+            if (err) {
+                return res.send(500, 'Error finding lseep record: ' + err);
+            }
+            if (excercise) {
+                return res.send(200, excercise.toJSON();
+            }
+            return res.send(404);
         });
     });
 };
