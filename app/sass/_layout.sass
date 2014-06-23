@@ -1,0 +1,18 @@
+// layout
+
+main
+  position: relative
+
+article
+  margin: 0 auto
+  width: 90%
+
+.testimonial
+  display: inline-block
+  width: 49%
+  &:nth-child(odd)
+    margin-right: 2%
+  vertical-align: top
+  @media all and (min-width: 420px)
+    width: 100%
+
