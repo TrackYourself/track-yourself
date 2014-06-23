@@ -11,8 +11,16 @@ html(lang="en", class="no-js", ng-app="trackerApp")
     link(rel="stylesheet", href="/app/main.css")
   body
     header
+      figure
+        //- holds logo
+        img(src="#")
+      .button-container
+
     block content
+    //- individual page content will go here
+
     footer
+      small Track Yourself &copy;2014
 
     //- script should stay just above closing body tag
     script(src="js/vendor/modernizr-2.8.0.min.js")
