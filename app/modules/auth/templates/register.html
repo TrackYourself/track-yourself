@@ -1,0 +1,23 @@
+<h1>Sign up</h1>
+
+<form name="registerForm" ng-controller="registerCtrl" ng-submit="register()">
+  <div ng-show="error" class="form-error">{{ error }}</div>
+	<div class="form-group">
+		<label>Display name</label>
+		<input name="name" ng-model="user.name" required>
+	</div>
+	<div class="form-group">
+		<label>Email</label>
+		<input name="email" ng-model="user.email" required>
+	</div>
+	<div class="form-group">
+		<label>Password</label>
+		<input type="password" name="password" ng-model="user.password" required>
+	</div>
+
+	<input type="submit" class="btn btn-warning btn-lg">Signup</input>
+</form>
+
+<p>Already have an account? <a href="/login">Login</a></p>
+<p>Or go <a href="/">home</a>.</p>
+
