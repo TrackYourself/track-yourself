@@ -22,7 +22,8 @@ module.exports = function(grunt) {
 			all: {
 				options : {
 					'outputStyle' : 'compressed',
-					'imagePath' : 'images'
+					'imagePath' : 'images',
+					includePaths: require('node-bourbon').includePaths
 				},
 				files : {
 					'dist/main.css' : 'app/sass/main.sass'
@@ -43,7 +44,7 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-  
+
     // simple in-console mocha tests (used for backend tests)
     mochaTest: {
       all: {
@@ -126,16 +127,34 @@ module.exports = function(grunt) {
 
 		// https://github.com/gruntjs/grunt-contrib-watch
 		watch: {
-			gruntfile : {
-				files: ['Gruntfile.js']
-			},
 			sass      : {
 				files: ['app/sass/**/*.sass'],
-				tasks: ['sass']
+				tasks: ['sass'],
+				options: {
+					atBegin: true
+				}
 			},
-			browserify: {
+			html : {
+				files: ['app/modules/**/*.html'],
+				tasks: ['copy:all'],
+				options: {
+					atBegin: true
+				}
+			},
+			js: {
 				files: ['app/**/*.js'],
-				tasks: ['browserify']
+				tasks: ['browserify', 'concat:all'],
+				options: {
+					atBegin: true
+				}
+			},
+			express: {
+				files  : [ 'server.js', 'app/**/*.js', 'backend/**/*.js', 'config/**/*.js' ],
+				tasks  : [ 'express:all' ],
+				options: {
+					atBegin: true,
+					noSpawn: true
+				}
 			}
 		},
 		express: {
@@ -170,10 +189,6 @@ module.exports = function(grunt) {
 		}
 
 	});
-
-	// TODO:
-	//grunt.loadNpmTasks('grunt-contrib-uglify');
-	//grunt.loadNpmTasks('grunt-contrib-connect');
 
 	grunt.registerTask('default', ['clean', 'sass', 'imagemin']);
 	grunt.registerTask('build', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify:app', 'concat:all']);

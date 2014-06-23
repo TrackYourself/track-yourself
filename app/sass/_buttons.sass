@@ -1,0 +1,19 @@
+//button in main sass folder, styles only, no logic
+
+@import buttons/_manifest
+
+//orange header login/register/logout buttons
+header button
+  @extend button
+  background-color: $complimentary-color
+  @media all and (min-width: 420px)
+    display: block
+  &:hover
+    background-color: $complimentary-color-lighten20
+
+//aqua forms submit button
+form button
+  @extend button
+  background-color: $tertiary-color
+  &:hover
+    background-color: $tertiary-color-lighten20

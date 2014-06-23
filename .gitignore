@@ -3,4 +3,3 @@ db/
 app/bower_components/
 .tmp/
 test/browser/test.js
-

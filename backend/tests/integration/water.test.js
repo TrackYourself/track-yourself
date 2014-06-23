@@ -3,22 +3,22 @@ require('./../../../server.js');
 var superagent = require('superagent');
 var mongoose = require('mongoose');
 var expect = require('chai').expect;
-var Sleep = require('./../../models/Sleep.js');
+var Water = require('./../../models/Water.js');
 var User = require('./../../models/User.js');
 var bcrypt = require('bcrypt-nodejs');
 
 var userId;
 
-describe('Sleep REST API', function() {
+describe('Water REST API', function() {
 
   var agent = superagent.agent();
 
   /* set up before we start tests */
   before(function(done) {
 
-    // remove users and sleep records from db
-    var conn = require('mongoose').connection
-    conn.collections.sleeps.drop();
+    // remove users and water records from db
+    var conn = require('mongoose').connection;
+    conn.collections.waters.drop();
     conn.collections.users.drop();
 
     // create new user
@@ -46,24 +46,24 @@ describe('Sleep REST API', function() {
       });
   });
 
-  it('should be able to create a new sleep record', function(done) {
-    var sleepInput = {sleep: new Date(), wake: new Date()};
-    agent.post('localhost:3000/api/sleep')
-      .send(sleepInput)
+  it('should be able to create a new water record', function(done) {
+    var waterInput = {drank: new Date(), intake: 11};
+    agent.post('localhost:3000/api/water')
+      .send(waterInput)
       .end(function(err, res) {
         expect(res.status).to.equal(200);
-        expect(res.body.sleep).to.equal(sleepInput.sleep.toISOString());
+        expect(res.body.drank).to.equal(waterInput.drank.toISOString());
         done();
       });
   });
 
-  describe('using existing sleep records', function() {
+  describe('using existing water records', function() {
 
     before(function(done) {
-      // reset the sleeps db
-      require('mongoose').connection.collections.sleeps.drop();
+      // reset the waters db
+      require('mongoose').connection.collections.waters.drop();
 
-      // create sleep records to use in tests
+      // create water records to use in tests
       var today = new Date();
       var dt = {
         year: today.getFullYear(),
@@ -76,8 +76,8 @@ describe('Sleep REST API', function() {
       for (var i = 0; i < 5; i++) {
         jsdt = new Date(dt.year, dt.month, dt.day - i,
                         dt.hour, dt.minute, dt.seconds);
-        Sleep.create({ wake: jsdt, sleep: jsdt, user: userId },
-          function(err, sleep) {
+        Water.create({ drank: jsdt, intake: i + 5, user: userId },
+          function(err, water) {
             if (err) throw err;
           }
         );
@@ -85,26 +85,25 @@ describe('Sleep REST API', function() {
       done();
     });
 
-    it('should be able to get all sleep records for a user', function(done) {
-      agent.get('localhost:3000/api/sleep/all')
+    it('should be able to get all water records for a user', function(done) {
+      agent.get('localhost:3000/api/water/all')
         .end(function(err, res) {
           expect(res.status).to.equal(200);
           expect(res.body).to.have.length.gt(1);
-          expect(res.body[0]).to.have.property('sleep');
-          expect(res.body[0]).to.have.property('wake');
+          expect(res.body[0]).to.have.property('intake');
+          expect(res.body[0]).to.have.property('drank');
           done();
         });
     });
 
-    it('should be able to get sleep record from last night', function(done) {
-      agent.get('localhost:3000/api/sleep')
+    it('should be able to get the last water record', function(done) {
+      agent.get('localhost:3000/api/water')
         .end(function(err, res) {
           expect(res.status).to.equal(200);
-          expect(res.body).to.have.property('sleep');
-          var sleep = new Date(res.body.sleep);
+          expect(res.body).to.have.property('drank');
+          var water = new Date(res.body.drank);
           var today = new Date();
-          today = today.getDate();
-          expect(sleep.getDate()).to.equal(today);
+          expect(water.getDate()).to.equal(today.getDate());
           done();
         });
     });

@@ -1,0 +1,10 @@
+<h1>Recent Water Intake</h1>
+<div ng-app="waterModule" ng-controller="waterDisplayLastCtrl">
+  <div class="water-display" ng-model="waterRecord">
+    <div ng-show="waterRecord.intake">
+      <p>On {{ waterRecord.drank | date:"short" }} - {{ waterRecord.intake }}</p>
+    </div>
+   <p ng-hide="waterRecord.intake">You didn't enter water recently!</p>
+  </div>
+</div>
+
