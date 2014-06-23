@@ -1,0 +1,6 @@
+<h1>All completed excercise entries</h1>
+<div ng-app="excerciseModule" ng-controller="excerciseDisplayAllCtrl">
+  <p ng-repeat="record in excerciseRecords">
+    {{ date: "short" | record.duration }} : {{ record.intensity }}
+  </p>
+</div>
