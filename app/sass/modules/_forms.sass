@@ -1,0 +1,11 @@
+@import forms/_manifest
+
+form
+  +border-radius($radius)
+
+input
+  &:required
+    outline: 2px solid $alert-color
+    &:focus
+      outline: 0.5px solid $alert-color
+
