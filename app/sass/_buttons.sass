@@ -2,12 +2,16 @@
 
 @import buttons/_manifest
 
-//replace orange with color variable
+//orange header login/register/logout buttons
 header button
   @extend button
-  background-color: orange
+  background-color: $complimentary-color
+  &:hover
+    background-color: $complimentary-color-lighten20
 
-//replace aqua with color variable
+//aqua form submit button
 form button
   @extend button
-  background-color: aqua
+  background-color: $tertiary-color
+  &:hover
+    background-color: $tertiary-color-lighten20
