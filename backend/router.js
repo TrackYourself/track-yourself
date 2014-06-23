@@ -16,5 +16,5 @@ module.exports = function (app) {
 
 	// Entry point for angular
   process.env.PWD = process.cwd() || __dirname;
-  app.use('/', express.static(process.env.PWD + '/dist'));
+  app.use(express.static(process.env.PWD + '/dist'));
 };

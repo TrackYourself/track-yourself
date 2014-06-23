@@ -2408,13 +2408,40 @@ if(window.jasmine || window.mocha) {
 })(window, window.angular);
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var core = require('./modules/core/core-module.js');
 var sleep = require('./modules/sleep/sleep-module.js');
 var water = require('./modules/water/water-module.js');
+var auth = require('./modules/auth/auth-module.js');
 
-var trackerApp = angular.module('trackerApp', ['ngRoute', 'ngResource', sleep.name, water.name]);
+var trackerApp = angular.module('trackerApp', [
+  'ngRoute', 'ngResource', sleep.name, water.name, auth.name, core.name
+]);
 
+// Register auth interceptor
+trackerApp.config(['$httpProvider', function($httpProvider) {
+  $httpProvider.interceptors.push('authInterceptor');
+}]);
+
+// Routes
 trackerApp.config(['$routeProvider', function($routeProvider) {
+
   $routeProvider
+
+    // Auth
+    .when('/register', {
+      templateUrl: 'templates/register.html',
+      controller: 'registerCtrl'
+    })
+    .when('/login', {
+      templateUrl: 'templates/login.html',
+      controller: 'loginCtrl'
+    })
+
+    // Main pages
+    .when('/dashboard', {
+      templateUrl: 'templates/dashboard.html',
+      controller: 'dashboardCtrl'
+    })
 
 		// Sleep
 		.when('/sleep', {
@@ -2442,11 +2469,131 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 		.when('/water/all', {
 			templateUrl: 'templates/water-all.html',
 			controller: 'waterDisplayAllCtrl'
-		});
+		})
+
+    .otherwise('/', {
+      redirectTo: '/dashboard'
+    });
+
 }]);
 
 // test
-},{"./modules/sleep/sleep-module.js":3,"./modules/water/water-module.js":6}],2:[function(require,module,exports){
+
+},{"./modules/auth/auth-module.js":3,"./modules/core/core-module.js":6,"./modules/sleep/sleep-module.js":8,"./modules/water/water-module.js":11}],2:[function(require,module,exports){
+
+module.exports.loginCtrl = function($scope, $http, $location, $rootScope) {
+  $scope.user = {email: '', password: ''};
+  $scope.error = '';
+
+  $scope.logIn = function() {
+    $http.post('/auth/login', $scope.user)
+      .success(function(data, status, headers, config) {
+        $rootScope.currentUser = $scope.user.email;
+        $location.path('/dashboard');
+      })
+      .error(function(data, status, headers, config) {
+        $scope.error = data.message;
+      });
+  };
+};
+
+module.exports.registerCtrl = function($scope, $http, $location) {
+
+  $scope.user = {name: '', email: '', password: ''};
+
+  $scope.error = '';
+
+  $scope.register = function() {
+    $http.post('/auth/register', $scope.user)
+      .success(function(data, status, headers, config) {
+        $location.path('/dashboard');
+      })
+      .error(function(data, status, headers, config) {
+        $scope.error = data.message;
+      });
+  };
+
+};
+
+module.exports.logoutCtrl = function($scope, $http, $location, $rootScope) {
+
+  $scope.logout = function() {
+    $http.get('/auth/logout')
+      .success(function(data, status, headers, config) {
+        $rootScope.currentUser = null;
+        $location.path('/');
+      })
+      .error(function(data, status, headers, config) {
+        console.log('Error logging out ' + status);
+      });
+  };
+
+};
+
+},{}],3:[function(require,module,exports){
+var controllers = require('./auth-controllers.js');
+var services = require('./auth-services.js');
+
+// Define/register the auth module
+var authModule = angular.module('authModule', []);
+
+authModule.factory('authInterceptor', ['$q', '$location', '$rootScope', services.authInterceptor]);
+
+// Import controller functions and register them
+authModule.controller('registerCtrl',
+  ['$scope', '$http', '$location', controllers.registerCtrl]);
+authModule.controller('loginCtrl',
+  ['$scope', '$http', '$location', '$rootScope', controllers.loginCtrl]);
+authModule.controller('logoutCtrl',
+  ['$scope', '$http', '$location', '$rootScope', controllers.logoutCtrl]);
+
+module.exports = authModule;
+
+
+},{"./auth-controllers.js":2,"./auth-services.js":4}],4:[function(require,module,exports){
+/* Auth interceptor -- redirects to login page when needed */
+
+module.exports.authInterceptor = function($q, $location, $rootScope) {
+  return {
+    request: function(config) {
+      if (!$rootScope.currentUser && config.url !== '/login' && config.url !== '/register' && config.url !== '/') {
+        $location.path('/login');
+      }
+      return config;
+    },
+    response: function(response) {
+      if (response.status === 401 && response.url !== '/auth/login' && response.url !== '/auth/register') {
+        $location.path('/login');
+      }
+      return response;
+    }
+  };
+};
+
+
+
+},{}],5:[function(require,module,exports){
+
+module.exports.dashboardCtrl = function($scope) {
+
+};
+
+
+},{}],6:[function(require,module,exports){
+var controllers = require('./core-controllers.js');
+
+// Define/register the core module
+var coreModule = angular.module('coreModule', []);
+
+// Import controller functions and register them
+coreModule.controller('dashboardCtrl',
+  ['$scope', controllers.dashboardCtrl]);
+
+module.exports = coreModule;
+
+
+
+},{"./core-controllers.js":5}],7:[function(require,module,exports){
 /* Define methods to use as controllers */
 
 
@@ -2471,7 +2618,7 @@ module.exports.sleepDisplayAllCtrl = function($scope, Sleep) {
 
   
 
-},{}],3:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var controllers = require('./sleep-controllers.js');
 var services = require('./sleep-services.js');
 
@@ -2491,7 +2638,7 @@ sleepModule.controller('sleepDisplayAllCtrl',
 
 module.exports = sleepModule;
 
-},{"./sleep-controllers.js":2,"./sleep-services.js":4}],4:[function(require,module,exports){
+},{"./sleep-controllers.js":7,"./sleep-services.js":9}],9:[function(require,module,exports){
 /* Define a resource that connects to REST API for sleep records */
 
 module.exports.resource = function($resource) {
@@ -2510,7 +2657,7 @@ module.exports.resource = function($resource) {
 };
 
 
-},{}],5:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /* Define methods to use as controllers */
 
 module.exports.waterDisplayLastCtrl = function ($scope, Water) {
@@ -2536,7 +2683,7 @@ module.exports.waterDisplayAllCtrl = function($scope, Water) {
 
   
 
-},{}],6:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var controllers = require('./water-controllers.js');
 var services = require('./water-services.js');
 
@@ -2562,7 +2709,7 @@ waterModule.controller(
 
 module.exports = waterModule;
 
-},{"./water-controllers.js":5,"./water-services.js":7}],7:[function(require,module,exports){
+},{"./water-controllers.js":10,"./water-services.js":12}],12:[function(require,module,exports){
 /* Define a resource that connects to REST API for water records */
 
 module.exports.resource = function($resource) {
@@ -2579,7 +2726,7 @@ module.exports.resource = function($resource) {
     }
   );
 };
-},{}],8:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var expect = require('chai').expect;
 
 describe('Sleep controllers', function() {
@@ -2619,7 +2766,7 @@ describe('Sleep controllers', function() {
 
 });
 
-},{"chai":15}],9:[function(require,module,exports){
+},{"chai":20}],14:[function(require,module,exports){
 var expect = require('chai').expect;
 
 describe('Sleep services', function() {
@@ -2651,7 +2798,7 @@ describe('Sleep services', function() {
   
 });
 
-},{"chai":15}],10:[function(require,module,exports){
+},{"chai":20}],15:[function(require,module,exports){
 var expect = require('chai').expect;
 
 describe('Water controllers', function() {
@@ -2691,7 +2838,7 @@ describe('Water controllers', function() {
 
 });
 
-},{"chai":15}],11:[function(require,module,exports){
+},{"chai":20}],16:[function(require,module,exports){
 var expect = require('chai').expect;
 
 describe('Water services', function() {
@@ -2723,7 +2870,7 @@ describe('Water services', function() {
   
 });
 
-},{"chai":15}],12:[function(require,module,exports){
+},{"chai":20}],17:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -3874,7 +4021,7 @@ function assert (test, message) {
   if (!test) throw new Error(message || 'Failed assertion')
 }
 
-},{"base64-js":13,"ieee754":14}],13:[function(require,module,exports){
+},{"base64-js":18,"ieee754":19}],18:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -3996,7 +4143,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],14:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 exports.read = function(buffer, offset, isLE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
@@ -4082,10 +4229,10 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-},{}],15:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = require('./lib/chai');
 
-},{"./lib/chai":16}],16:[function(require,module,exports){
+},{"./lib/chai":21}],21:[function(require,module,exports){
 /*!
  * chai
  * Copyright(c) 2011-2014 Jake Luer <jake@alogicalparadox.com>
@@ -4174,7 +4321,7 @@ exports.use(should);
 var assert = require('./chai/interface/assert');
 exports.use(assert);
 
-},{"./chai/assertion":17,"./chai/config":18,"./chai/core/assertions":19,"./chai/interface/assert":20,"./chai/interface/expect":21,"./chai/interface/should":22,"./chai/utils":33,"assertion-error":42}],17:[function(require,module,exports){
+},{"./chai/assertion":22,"./chai/config":23,"./chai/core/assertions":24,"./chai/interface/assert":25,"./chai/interface/expect":26,"./chai/interface/should":27,"./chai/utils":38,"assertion-error":47}],22:[function(require,module,exports){
 /*!
  * chai
  * http://chaijs.com
@@ -4306,7 +4453,7 @@ module.exports = function (_chai, util) {
   });
 };
 
-},{"./config":18}],18:[function(require,module,exports){
+},{"./config":23}],23:[function(require,module,exports){
 module.exports = {
 
   /**
@@ -4358,7 +4505,7 @@ module.exports = {
 
 };
 
-},{}],19:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /*!
  * chai
  * http://chaijs.com
@@ -5674,7 +5821,7 @@ module.exports = function (chai, _) {
   });
 };
 
-},{}],20:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /*!
  * chai
  * Copyright(c) 2011-2014 Jake Luer <jake@alogicalparadox.com>
@@ -6732,7 +6879,7 @@ module.exports = function (chai, util) {
   ('Throw', 'throws');
 };
 
-},{}],21:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /*!
  * chai
  * Copyright(c) 2011-2014 Jake Luer <jake@alogicalparadox.com>
@@ -6746,7 +6893,7 @@ module.exports = function (chai, util) {
 };
 
 
-},{}],22:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /*!
  * chai
  * Copyright(c) 2011-2014 Jake Luer <jake@alogicalparadox.com>
@@ -6826,7 +6973,7 @@ module.exports = function (chai, util) {
   chai.Should = loadShould;
 };
 
-},{}],23:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /*!
  * Chai - addChainingMethod utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -6939,7 +7086,7 @@ module.exports = function (ctx, name, method, chainingBehavior) {
   });
 };
 
-},{"../config":18,"./flag":26,"./transferFlags":40}],24:[function(require,module,exports){
+},{"../config":23,"./flag":31,"./transferFlags":45}],29:[function(require,module,exports){
 /*!
  * Chai - addMethod utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -6984,7 +7131,7 @@ module.exports = function (ctx, name, method) {
   };
 };
 
-},{"../config":18,"./flag":26}],25:[function(require,module,exports){
+},{"../config":23,"./flag":31}],30:[function(require,module,exports){
 /*!
  * Chai - addProperty utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7026,7 +7173,7 @@ module.exports = function (ctx, name, getter) {
   });
 };
 
-},{}],26:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /*!
  * Chai - flag utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7060,7 +7207,7 @@ module.exports = function (obj, key, value) {
   }
 };
 
-},{}],27:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /*!
  * Chai - getActual utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7080,7 +7227,7 @@ module.exports = function (obj, args) {
   return args.length > 4 ? args[4] : obj._obj;
 };
 
-},{}],28:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /*!
  * Chai - getEnumerableProperties utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7107,7 +7254,7 @@ module.exports = function getEnumerableProperties(object) {
   return result;
 };
 
-},{}],29:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /*!
  * Chai - message composition utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7158,7 +7305,7 @@ module.exports = function (obj, args) {
   return flagMsg ? flagMsg + ': ' + msg : msg;
 };
 
-},{"./flag":26,"./getActual":27,"./inspect":34,"./objDisplay":35}],30:[function(require,module,exports){
+},{"./flag":31,"./getActual":32,"./inspect":39,"./objDisplay":40}],35:[function(require,module,exports){
 /*!
  * Chai - getName utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7180,7 +7327,7 @@ module.exports = function (func) {
   return match && match[1] ? match[1] : "";
 };
 
-},{}],31:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*!
  * Chai - getPathValue utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7284,7 +7431,7 @@ function _getPathValue (parsed, obj) {
   return res;
 };
 
-},{}],32:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 /*!
  * Chai - getProperties utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7321,7 +7468,7 @@ module.exports = function getProperties(object) {
   return result;
 };
 
-},{}],33:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /*!
  * chai
  * Copyright(c) 2011 Jake Luer <jake@alogicalparadox.com>
@@ -7437,7 +7584,7 @@ exports.addChainableMethod = require('./addChainableMethod');
 exports.overwriteChainableMethod = require('./overwriteChainableMethod');
 
 
-},{"./addChainableMethod":23,"./addMethod":24,"./addProperty":25,"./flag":26,"./getActual":27,"./getMessage":29,"./getName":30,"./getPathValue":31,"./inspect":34,"./objDisplay":35,"./overwriteChainableMethod":36,"./overwriteMethod":37,"./overwriteProperty":38,"./test":39,"./transferFlags":40,"./type":41,"deep-eql":43}],34:[function(require,module,exports){
+},{"./addChainableMethod":28,"./addMethod":29,"./addProperty":30,"./flag":31,"./getActual":32,"./getMessage":34,"./getName":35,"./getPathValue":36,"./inspect":39,"./objDisplay":40,"./overwriteChainableMethod":41,"./overwriteMethod":42,"./overwriteProperty":43,"./test":44,"./transferFlags":45,"./type":46,"deep-eql":48}],39:[function(require,module,exports){
 // This is (almost) directly from Node.js utils
 // https://github.com/joyent/node/blob/f8c335d0caf47f16d31413f89aa28eda3878e3aa/lib/util.js
 
@@ -7759,7 +7906,7 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 
-},{"./getEnumerableProperties":28,"./getName":30,"./getProperties":32}],35:[function(require,module,exports){
+},{"./getEnumerableProperties":33,"./getName":35,"./getProperties":37}],40:[function(require,module,exports){
 /*!
  * Chai - flag utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7810,7 +7957,7 @@ module.exports = function (obj) {
   }
 };
 
-},{"../config":18,"./inspect":34}],36:[function(require,module,exports){
+},{"../config":23,"./inspect":39}],41:[function(require,module,exports){
 /*!
  * Chai - overwriteChainableMethod utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7865,7 +8012,7 @@ module.exports = function (ctx, name, method, chainingBehavior) {
   };
 };
 
-},{}],37:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 /*!
  * Chai - overwriteMethod utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7918,7 +8065,7 @@ module.exports = function (ctx, name, method) {
   }
 };
 
-},{}],38:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 /*!
  * Chai - overwriteProperty utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -7974,7 +8121,7 @@ module.exports = function (ctx, name, getter) {
   });
 };
 
-},{}],39:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 /*!
  * Chai - test utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -8002,7 +8149,7 @@ module.exports = function (obj, args) {
   return negate ? !expr : expr;
 };
 
-},{"./flag":26}],40:[function(require,module,exports){
+},{"./flag":31}],45:[function(require,module,exports){
 /*!
  * Chai - transferFlags utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -8048,7 +8195,7 @@ module.exports = function (assertion, object, includeAll) {
   }
 };
 
-},{}],41:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 /*!
  * Chai - type utility
  * Copyright(c) 2012-2014 Jake Luer <jake@alogicalparadox.com>
@@ -8095,7 +8242,7 @@ module.exports = function (obj) {
   return typeof obj;
 };
 
-},{}],42:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 /*!
  * assertion-error
  * Copyright(c) 2013 Jake Luer <jake@qualiancy.com>
@@ -8207,10 +8354,10 @@ AssertionError.prototype.toJSON = function (stack) {
   return props;
 };
 
-},{}],43:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 module.exports = require('./lib/eql');
 
-},{"./lib/eql":44}],44:[function(require,module,exports){
+},{"./lib/eql":49}],49:[function(require,module,exports){
 /*!
  * deep-eql
  * Copyright(c) 2013 Jake Luer <jake@alogicalparadox.com>
@@ -8469,10 +8616,10 @@ function objectEqual(a, b, m) {
   return true;
 }
 
-},{"buffer":12,"type-detect":45}],45:[function(require,module,exports){
+},{"buffer":17,"type-detect":50}],50:[function(require,module,exports){
 module.exports = require('./lib/type');
 
-},{"./lib/type":46}],46:[function(require,module,exports){
+},{"./lib/type":51}],51:[function(require,module,exports){
 /*!
  * type-detect
  * Copyright(c) 2013 jake luer <jake@alogicalparadox.com>
@@ -8616,4 +8763,4 @@ Library.prototype.test = function (obj, type) {
   }
 };
 
-},{}]},{},[1,8,9,10,11])
+},{}]},{},[1,13,14,15,16])
