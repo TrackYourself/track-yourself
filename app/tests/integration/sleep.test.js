@@ -10,11 +10,13 @@ describe('Sleep routes', function() {
   var ptor;
 
   before(function() {
+    require('mongoose').connection.collections.users.drop();
     ptor = protractor.getInstance();
 
+    var now = new Date();
     browser.get('http://localhost:3000/#/register');
     element(by.model('user.name')).sendKeys('Tester');
-    element(by.model('user.email')).sendKeys('test@gmail.com');
+    element(by.model('user.email')).sendKeys(now.toString().replace(' ', '') + '@gmail.com');
     element(by.model('user.password')).sendKeys('testing123');
     element(by.id('register-submit')).click();
 
