@@ -1,6 +1,6 @@
 var mongoose = require ("mongoose");
 
-var ExcerciseSchema = mongoose.Schema({
+var ExerciseSchema = mongoose.Schema({
     user: {
         type:mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -20,4 +20,4 @@ var ExcerciseSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Excercise', ExcerciseSchema);
+module.exports = mongoose.model('Exercise', ExerciseSchema);

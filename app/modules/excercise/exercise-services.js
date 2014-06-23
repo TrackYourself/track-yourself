@@ -1,12 +1,12 @@
-/* Define a resource that connects to REST API for excercise records */
+/* Define a resource that connects to REST API for exercise records */
 
 module.exports.resource = function($resource) {
-    return $resource('/api/excercise',
+    return $resource('/api/exercise',
     {}, //paramdefaults
     { //custom methods
         getAll: {
             method: 'GET',
-            url: '/api/excercise/all',
+            url: '/api/exercise/all',
             isArray: true,
             responseType: 'json'
         }
