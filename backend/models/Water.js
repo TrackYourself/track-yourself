@@ -9,6 +9,10 @@ var WaterSchema = mongoose.Schema({
     intake: {
         type: Number,
         required: true
+    },
+    drank: {
+        type:Date,
+        required: true
     }
 });
 

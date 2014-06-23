@@ -1,4 +1,4 @@
-var controllers = require('./exercise-controllers.js');
+var controllers = require('./exercise-controller.js');
 var services = require('./exercise-services.js');
 
 // Define/register the exercise module
