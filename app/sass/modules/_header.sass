@@ -6,8 +6,12 @@ header
 
 header figure
   position: absolute
-  top: 0
-  left: 0
+  top: golden-ratio($em-base, -3)
+  left: golden-ratio($em-base, -3)
+  background-color: $complimentary-color-lighten90
+
+header figure img
+  margin: auto
 
 #logo
   background: transparent image-url('ty_logo_v0.png') no-repeat
