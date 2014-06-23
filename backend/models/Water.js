@@ -6,11 +6,7 @@ var WaterSchema = mongoose.Schema({
       ref: 'User',
       required: true
     },
-    duration: {
-        type: Number,
-        required: true
-    },
-    intensity: {
+    intake: {
         type: Number,
         required: true
     }
