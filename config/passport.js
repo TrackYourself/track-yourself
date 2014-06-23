@@ -25,16 +25,16 @@ module.exports = function() {
 	passport.use('local-signup', new LocalStrategy(strategySchema,
 			function (req, email, password, done) {
 
+        // check to see if there's already a user with that email
         User.findOne({ 'local.email': email }, function (err, user) {
 
             if (err) {
+              console.log(err);
               return done(err);
             }
 
-            // check to see if there's already a user with that email
             if (user) {
-              //req.flash('signupMessage', 'That email is already taken.');
-              return done(null, false);
+              return done(null, false, {message: 'That email is already registered.'});
             }
 
             // create new User
@@ -49,11 +49,12 @@ module.exports = function() {
 
               if (err) return done(err);
 
+              // successful registration; try to log in
               req.login(newUser, function(err) {
                 if(err) {
                   return done(err, newUser);
                 }
-                return done(null, newUser);
+                return done(null, newUser); //successful login
               });
             });
 
@@ -69,8 +70,7 @@ module.exports = function() {
           return done(err);
         }
         if (!user || !user.validPassword(password)) {
-          //req.flash('loginMessage', 'Incorrect user or password');
-          return done(null, false);
+          return done(null, false, {message: 'Incorrect email or password.'});
         }
         return done(null, user);
       });

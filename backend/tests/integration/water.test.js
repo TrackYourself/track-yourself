@@ -37,7 +37,7 @@ describe('Water REST API', function() {
     });
 
     // log in
-    agent.post('localhost:3000/login')
+    agent.post('localhost:3000/auth/login')
       .send({email: 'test@gmail.com', password: 'pasty'})
       .end(function(err, res) {
         if (err) throw err;
