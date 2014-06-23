@@ -1,0 +1,18 @@
+//- replaced main.jade
+//- contains HTML5 boilderplate, header and footer
+doctype html
+html(lang="en", class="no-js", ng-app="trackerApp")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    title=title
+    meta(name="description", content="")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", href="/app/main.css")
+  body
+    header
+    block content
+    footer
+
+    //- script should stay just above closing body tag
+    script(src="js/vendor/modernizr-2.8.0.min.js")
