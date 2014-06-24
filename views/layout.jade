@@ -15,10 +15,12 @@ html(lang="en", class="no-js", ng-app="trackerApp")
         //- holds logo
         img(src="../app/images/logo.svg", height="100px")
       .button-container
-        button Login
-        button Register
-        button Logout
-
+        a(class="login", href="Login")
+          button Login
+        a(class="sign-up", href="Sign-Up")
+          button Sign Up
+        a(class="logout", href="Logout")
+          button Logout
 
     main
       block content
