@@ -1,10 +1,7 @@
 <h2>Dope ass graph goes here</h2>
 
-<div ng-app="waterModule" ng-controller="waterDisplayAllCtrl">
-	<span ng-repeat="record in waterRecords">
-		{{ record.drank | date:"short" }} | {{ record.intake }}
-	</span>
-	<water-visualization val="data"></water-visualization>
+<div ng-app="waterModule" ng-controller="waterGraphControl">
+	<water-visualization data="waterRecords"></water-visualization>
 </div>
 
 <h2>Recent water intake</h2>

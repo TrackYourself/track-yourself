@@ -1,0 +1,8 @@
+<h1>Add your completed exercise routine</h1>
+<form name="exerciseForm" ng-controller="exerciseInputCtrl" ng-submit="exerciseEntered()">
+    <label for="exerciseDuration">Amount of minutes exercised</label>
+    <input name="duration" ng-model="exerciseRecord.duration" id="exerciseDuration" required>
+    <label for="exerciseIntensity">The intensity of your workout on a scale from 1 to 5 (5 being the most intense)</label>
+    <input name="intensity" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
+    <input type="submit" value="submit">
+</form>

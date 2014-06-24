@@ -40,8 +40,7 @@ module.exports = function(app) {
   app.get('/api/water/graph', function(req, res) {
     Water.find(
 			{
-				user: req.user._id,
-				date: new Date()
+				user: req.user._id
 			},
 			{
 				drank: 1,
