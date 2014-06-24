@@ -19,5 +19,3 @@ module.exports.sleepDisplayLastCtrl = function($scope, Sleep) {
 module.exports.sleepDisplayAllCtrl = function($scope, Sleep) {
   $scope.sleepRecords = Sleep.getAll({});
 };
-
-  

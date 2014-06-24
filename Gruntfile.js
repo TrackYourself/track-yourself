@@ -21,7 +21,7 @@ module.exports = function(grunt) {
 		sass: {
 			all: {
 				options : {
-					'outputStyle' : 'compressed',
+					//'outputStyle' : 'compressed',
 					'imagePath' : 'images',
 					includePaths: require('node-bourbon').includePaths
 				},
@@ -92,6 +92,10 @@ module.exports = function(grunt) {
 				files: {
 					'dist/client.js': ['app/application.js']
 				}
+			},
+			options: {
+				transform: ['debowerify'],
+				debug    : true
 			}
 		},
 
