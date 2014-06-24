@@ -17,7 +17,7 @@ describe('Exercise REST API', function() {
     before(function(done) {
 
         //remove users and exercise records from db
-        var conn = require('mongoose').connection;
+        var conn = mongoose.connection;
         conn.collections.exercises.drop();
         conn.collections.users.drop();
 
@@ -37,9 +37,9 @@ describe('Exercise REST API', function() {
         });
 
         //Posting login info to db
-        agent.post('localhost:/3000/auth/login')
+        agent.post('localhost:3000/auth/login')
             .send({ email: 'test@gmail.com', password: 'pasty' })
-            .end(function (err) {
+            .end(function (err, res) {
                 if (err) throw err;
                 // signal that tests can start
                 done();
@@ -50,7 +50,7 @@ describe('Exercise REST API', function() {
 
         var exerciseInput = {date: new Date(), duration: 30, intensity: 4};
 
-        agent.post('localhost:/3000/api/exercise')
+        agent.post('localhost:3000/api/exercise')
         .send(exerciseInput)
         .end(function (err, res) {
             expect(res.status).to.equal(200);
@@ -74,10 +74,10 @@ describe('Exercise REST API', function() {
                 hour: 15, minute: 45, seconds: 0
             };
             var jsTestDate;
-            for (var i = 1; i <= 5; i++) {
+            for (var i = 0; i < 5; i++) {
                 jsTestDate = new Date(testDate.year, testDate.month, testDate.day - i, testDate.hour, testDate.minute, testDate.seconds);
-                Exercise.create({ date: jsTestDate, intensity: i, duration: (10 * i), user: userId },
-                function() {
+                Exercise.create({ date: jsTestDate, intensity: (i + 1), duration: (10 * i), user: userId },
+                function(err) {
                     if (err) throw err;
                 });
             }
@@ -85,7 +85,7 @@ describe('Exercise REST API', function() {
         });
 
         it('should be able to get all the exercise records for a user', function(done) {
-            agent.get('localhost:/3000/api/exercise/all')
+            agent.get('localhost:3000/api/exercise/all')
             .end(function (err, res) {
                 expect(res.status).to.equal(200);
                 expect(res.body[0]).to.have.property('duration');
@@ -95,7 +95,7 @@ describe('Exercise REST API', function() {
             });
         });
 
-        it('should be able to grab the exercise record from last night', function (done) {
+        it('should be able to grab the last exercise record', function (done) {
             agent.get('localhost:3000/api/exercise')
             .end(function (err, res) {
             expect(res.status).to.equal(200);
