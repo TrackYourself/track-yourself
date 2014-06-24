@@ -1,4 +1,3 @@
-/*jslint node: true */
 'use strict';
 module.exports = function(grunt) {
 
@@ -168,14 +167,29 @@ module.exports = function(grunt) {
 					script: 'server.js',
 					background: false
 				}
-			}
-
+			},
+      bg: {
+        options: {
+          script: 'server.js',
+          background: true
+        }
+      }
 		},
 		karma: {
 			unit: {
 				configFile: 'config/karma.conf.js',
 				browsers: ['PhantomJS','Chrome', 'Firefox', 'Safari']
 			}
+		},
+		protractor: {
+			options: {
+				configFile: 'config/protractor.conf.js', // Default config file
+				keepAlive: true, // If false, the grunt process stops when the test fails.
+				args: {
+					// Arguments passed to the command
+				}
+			},
+      all: {} //needed for task to execute
 		}
 
 	});
@@ -185,15 +199,17 @@ module.exports = function(grunt) {
 	grunt.registerTask('build-test', ['clean:dev', 'sass', 'imagemin', 'copy:all', 'browserify:karma', 'concat:test']);
 	grunt.registerTask('ship', ['clean:dist', 'sass', 'imagemin', 'copy:all', 'jshint', 'browserify']);
 	grunt.registerTask('serve', ['build', 'express:all']);
+	grunt.registerTask('serve:bg', ['build', 'express:bg']);
 
 	//========================================================================
 	//Tests
 	//========================================================================
-  grunt.registerTask('test', ['test-back', 'test-front']);
+	grunt.registerTask('test', ['test-back', 'test-front']);
 
-	grunt.registerTask('test-front', ['build-test','karma:unit']);
+	grunt.registerTask('test-front', ['env:test', 'test-front-unit','test-front-integration']);
+	grunt.registerTask('test-front-unit', ['env:test', 'build-test','karma:unit']);
+	grunt.registerTask('test-front-integration', ['env:test', 'serve:bg', 'protractor']);
 
 
 	grunt.registerTask('test-back', ['env:test', 'mochaTest:all']);
-
 };
