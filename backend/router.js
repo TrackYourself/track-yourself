@@ -11,10 +11,13 @@ module.exports = function (app) {
 	// Water
 	require('./routes/water-router.js')(app);
 
+	//Exercise
+	require('./routes/exercise-router.js')(app);
+
 	// Auth
 	require('./routes/auth-router.js')(app, passport);
 
 	// Entry point for angular
   process.env.PWD = process.cwd() || __dirname;
-  app.use('/', express.static(process.env.PWD + '/dist'));
+  app.use(express.static(process.env.PWD + '/dist'));
 };

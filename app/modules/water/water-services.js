@@ -10,6 +10,12 @@ module.exports.resource = function($resource) {
         url: '/api/water/all',
         isArray: true,
         responseType: 'json'
+      },
+			getAllGraph: {
+        method: 'GET',
+        url: '/api/water/graph',
+        isArray: true,
+        responseType: 'json'
       }
     }
   );
