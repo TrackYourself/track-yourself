@@ -76,7 +76,7 @@ header {
   position: relative; }
 
 header figure img {
-  margin: 16px; }
+  margin: 41.88678px 0 16px 16px; }
 
 .button-container {
   position: absolute;
@@ -136,6 +136,9 @@ form button {
 
 header {
   background-color: #03318C; }
+
+header figure img {
+  background-color: #fff9f6; }
 
 form {
   -webkit-border-radius: 0;
