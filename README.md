@@ -26,7 +26,7 @@ Notes/explanation:
   * They put a tests folder inside each module, which I actually kind of like (rather than having a test
     directory in root with a bunch of subdirectories).  It should be easy to set up test runners using a
     pattern, and makes it obvious how much testing you have set up for each module.
-* Meanjs has a very complicated config setup that seems like overkill for our scope, and also automates
+* Meanjs has a very complicated configuration setup that seems like overkill for our scope, and also automates
   angular module loading, which I think would be useful if you already know angular, but might be more
   confusing for us.  So I left that out, but I liked a couple things from it:
     * If needed, having a config.js file where we define paths in our folder that we can reuse in other files
