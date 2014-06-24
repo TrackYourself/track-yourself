@@ -293,17 +293,21 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 
 		// Water
 		.when('/water', {
-			templateUrl: 'templates/water-last.html',
-			controller: 'waterDisplayLastCtrl'
+			templateUrl: 'templates/water.html'
 		})
 		.when('/water/add', {
 			templateUrl: 'templates/water-input.html',
 			controller: 'waterInputCtrl'
 		})
+
+		/*
+		Combining "all" with "last"
+
 		.when('/water/all', {
 			templateUrl: 'templates/water-all.html',
 			controller: 'waterDisplayAllCtrl'
 		})
+		*/
 
     .otherwise('/', {
       redirectTo: '/dashboard'
@@ -504,9 +508,13 @@ module.exports.resource = function($resource) {
 },{}],10:[function(require,module,exports){
 /* Define methods to use as controllers */
 
+/*
+ Combining "all" with "last"
+
 module.exports.waterDisplayLastCtrl = function ($scope, Water) {
 	$scope.waterRecord = Water.get({});
 };
+*/
 
 module.exports.waterInputCtrl = function($scope, $location, Water) {
 
@@ -525,6 +533,9 @@ module.exports.waterDisplayAllCtrl = function($scope, Water) {
   $scope.waterRecords = Water.getAll({});
 };
 
+module.exports.waterGraphControl = function ($scope, Water) {
+	$scope.waterRecords = Water.getAllGraph({});
+};
   
 
 },{}],11:[function(require,module,exports){
@@ -539,17 +550,41 @@ waterModule.factory('Water', ['$resource', services.resource]);
 
 // Import controller functions and register them
 waterModule.controller(
+		'waterInputCtrl',
+		['$scope', '$location', 'Water', controllers.waterInputCtrl]
+);
+
+waterModule.controller(
+		'waterDisplayAllCtrl',
+		['$scope', 'Water', controllers.waterDisplayAllCtrl]
+);
+
+waterModule.controller(
+		'waterGraphControl',
+		['$scope', 'Water', controllers.waterGraphControl]
+);
+
+waterModule.directive( 'waterVisualization', function () {
+
+	return {
+		restrict: 'E',
+		scope   : {
+			data: '='
+		},
+		link    : function (scope, element) {
+		}
+	};
+
+});
+
+/*
+Combining "all" with "last"
+
+waterModule.controller(
 	'waterDisplayLastCtrl',
-  ['$scope', 'Water', controllers.waterDisplayLastCtrl]
+	['$scope', 'Water', controllers.waterDisplayLastCtrl]
 );
-waterModule.controller(
-	'waterInputCtrl',
-  ['$scope', '$location', 'Water', controllers.waterInputCtrl]
-);
-waterModule.controller(
-	'waterDisplayAllCtrl',
-  ['$scope', 'Water', controllers.waterDisplayAllCtrl]
-);
+*/
 
 module.exports = waterModule;
 
@@ -564,6 +599,12 @@ module.exports.resource = function($resource) {
       getAll: {
         method: 'GET',
         url: '/api/water/all',
+        isArray: true,
+        responseType: 'json'
+      },
+			getAllGraph: {
+        method: 'GET',
+        url: '/api/water/graph',
         isArray: true,
         responseType: 'json'
       }
