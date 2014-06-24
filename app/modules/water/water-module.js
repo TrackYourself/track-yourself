@@ -24,7 +24,6 @@ waterModule.controller(
 );
 
 waterModule.directive( 'waterVisualization', function () {
-
 	return {
 		restrict: 'E',
 		scope   : {
