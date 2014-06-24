@@ -1,10 +1,11 @@
 var core = require('./modules/core/core-module.js');
 var sleep = require('./modules/sleep/sleep-module.js');
 var water = require('./modules/water/water-module.js');
+var exercise = require('./modules/exercise/exercise-module.js');
 var auth = require('./modules/auth/auth-module.js');
 
 var trackerApp = angular.module('trackerApp', [
-  'ngRoute', 'ngResource', sleep.name, water.name, auth.name, core.name
+  'ngRoute', 'ngResource', sleep.name, water.name, exercise.name, auth.name, core.name
 ]);
 
 // Register auth interceptor
@@ -64,6 +65,22 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 			controller: 'waterDisplayAllCtrl'
 		})
 		*/
+
+        //Exercise
+        .when('/exercise', {
+            templateUrl: 'templates/exercise-last.html',
+            controller: 'exerciseDisplayCtrl'
+        })
+
+        .when('/exercise/add', {
+            templateUrl: 'templates/exercise-input.html',
+            controller: 'exerciseInputCtrl'
+        })
+
+        .when('/exercise/all', {
+            templateUrl: 'templates/exercise-all.html',
+            controller: 'exerciseDisplayAllCtrl'
+        })
 
     .otherwise('/', {
       redirectTo: '/dashboard'
