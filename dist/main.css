@@ -36,6 +36,42 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
+@font-face {
+  font-family: 'rokkittregular';
+  src: url("./rokkitt-webfont.eot");
+  src: url("./rokkitt-webfont.eot?#iefix") format("embedded-opentype"), url("./rokkitt-webfont.woff") format("woff"), url("./rokkitt-webfont.ttf") format("truetype"), url("./rokkitt-webfont.svg#rokkittregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+body {
+  color: #000000; }
+  body font {
+    family: "Helvetica Neue", Helvetica, sans-serif;
+    size: 16px; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 3.77733px; }
+  h1 font, h2 font, h3 font, h4 font, h5 font, h6 font {
+    family: Rockwell, rokkittregular, Georgia, serif;
+    weight: bold; }
+
+h1 {
+  color: #03318C; }
+  h1 font {
+    size: 67.77282px; }
+
+h2 font {
+  size: 41.88678px; }
+
+h3 font {
+  size: 25.888px; }
+
+small font {
+  size: 9.88875px; }
+
+.testimonial p {
+  font-style: italic; }
+
 header {
   position: relative; }
 
@@ -59,56 +95,44 @@ article {
   margin: 1em auto;
   width: 90%; }
 
+p {
+  margin-bottom: 16px; }
+
+.graph {
+  margin-bottom: 16px; }
+
 .testimonial {
   display: inline-block;
   width: 100%;
   vertical-align: top; }
   @media all and (min-width: 420px) {
     .testimonial {
-      width: 45%; }
+      width: 48%; }
       .testimonial:nth-child(even) {
-        margin-right: 10%; } }
+        margin-right: 4%; } }
 
-header button, header form button, form header button {
+header button, form button {
+  line-height: 2em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  font-weight: bold;
+  margin-left: 1em;
+  border: none;
+  display: inline-block; }
+  @media all and (min-width: 420px) {
+    %button {
+      display: inline; } }
+
+header button {
   background-color: #FD7A2C; }
-  header button:hover, header form button:hover, form header button:hover {
+  header button:hover {
     background-color: #fd995f; }
 
-form button, form header button, header form button {
+form button {
   background-color: #14C8C8; }
-  form button:hover, form header button:hover, header form button:hover {
+  form button:hover {
     background-color: #26e9e9; }
-
-@font-face {
-  font-family: 'rokkittregular';
-  src: url("./rokkitt-webfont.eot");
-  src: url("./rokkitt-webfont.eot?#iefix") format("embedded-opentype"), url("./rokkitt-webfont.woff") format("woff"), url("./rokkitt-webfont.ttf") format("truetype"), url("./rokkitt-webfont.svg#rokkittregular") format("svg");
-  font-weight: normal;
-  font-style: normal; }
-
-body {
-  color: #000000; }
-  body font {
-    family: "Helvetica Neue", Helvetica, sans-serif;
-    size: 16px; }
-
-h1 font, h2 font, h3 font, h4 font, h5 font, h6 font {
-  family: Rockwell, rokkittregular, Georgia, serif;
-  weight: bold; }
-
-h1 {
-  color: #03318C; }
-  h1 font {
-    size: 41.88678px; }
-
-h2 font {
-  size: 25.888px; }
-
-small font {
-  size: 9.88875px; }
-
-.testimonial p {
-  font-style: italic; }
 
 header {
   background-color: #03318C; }
