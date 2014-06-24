@@ -36,17 +36,11 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-img {
-  display: block;
-  width: 100%; }
-
 header {
   position: relative; }
 
-header figure {
-  position: absolute;
-  top: 3.77733px;
-  left: 3.77733px; }
+header figure img {
+  margin: 16px; }
 
 .button-container {
   position: absolute;
@@ -67,19 +61,16 @@ article {
 
 .testimonial {
   display: inline-block;
-  width: 49%;
+  width: 100%;
   vertical-align: top; }
-  .testimonial:nth-child(odd) {
-    margin-right: 2%; }
   @media all and (min-width: 420px) {
     .testimonial {
-      width: 100%; } }
+      width: 45%; }
+      .testimonial:nth-child(even) {
+        margin-right: 10%; } }
 
 header button, header form button, form header button {
   background-color: #FD7A2C; }
-  @media all and (min-width: 420px) {
-    header button {
-      display: block; } }
   header button:hover, header form button:hover, form header button:hover {
     background-color: #fd995f; }
 
@@ -116,17 +107,11 @@ h2 font {
 small font {
   size: 9.88875px; }
 
+.testimonial p {
+  font-style: italic; }
+
 header {
   background-color: #03318C; }
-
-header figure {
-  background-color: #fff9f6; }
-
-header figure img {
-  margin: auto; }
-
-#logo {
-  background: transparent url("images/ty_logo_v0.png") no-repeat; }
 
 form {
   -webkit-border-radius: 0;
