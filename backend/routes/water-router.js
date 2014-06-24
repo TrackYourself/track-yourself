@@ -38,18 +38,28 @@ module.exports = function(app) {
 
   /* Get aggregated results for the last 2 weeks */
   app.get('/api/water/graph', function(req, res) {
-    Water.find(
+
+		var latest = new Date();
+		var earliest = new Date(latest.now() - (14 * 24 * 60 * 60));
+
+		console.log('Early: ' + earliest + ', latest: ' + latest);
+
+    Water.aggregate(
 			{
-				user: req.user._id
+				$match: {
+					user: req.user._id,
+					drank: {
+						$gte: earliest,
+						$lte: latest
+					}
+				}
 			},
 			{
-				drank: 1,
-				intake: 1
-			},
-			{
-				limit: 20,
-				sort: {
-					drank: -1
+				$group: {
+					_id: '$drank',
+					total: {
+						$sum: '$intake'
+					}
 				}
 			},
 			function (err, waters) {
