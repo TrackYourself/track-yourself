@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 		sass: {
 			all: {
 				options : {
-					'outputStyle' : 'compressed',
+					//'outputStyle' : 'compressed',
 					'imagePath' : 'images',
 					includePaths: require('node-bourbon').includePaths
 				},
