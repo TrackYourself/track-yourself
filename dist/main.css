@@ -56,18 +56,14 @@ h1, h2, h3, h4, h5, h6 {
     weight: bold; }
 
 h1 {
+  font-size: 41.88678px;
   color: #03318C; }
-  h1 font {
-    size: 67.77282px; }
 
-h2 font {
-  size: 41.88678px; }
+h2 {
+  font-size: 25.888px; }
 
-h3 font {
-  size: 25.888px; }
-
-small font {
-  size: 9.88875px; }
+small {
+  font-size: 9.88875px; }
 
 .testimonial p {
   font-style: italic; }
@@ -94,6 +90,9 @@ main {
 article {
   margin: 1em auto;
   width: 90%; }
+
+.home {
+  text-align: center; }
 
 p {
   margin-bottom: 16px; }
@@ -146,6 +145,12 @@ form {
   -ms-border-radius: 0;
   border-radius: 0; }
 
+label {
+  display: block; }
+
+input:not([type=radio]), textarea {
+  width: 100%; }
+
 input:required {
   outline: 2px solid #DE3919; }
   input:required:focus {
@@ -153,7 +158,9 @@ input:required {
 
 footer {
   background-color: #03318C;
-  text-align: center; }
+  color: #FFFFFF;
+  text-align: center;
+  padding: 6.11171px; }
 
 .missing-alert {
   background-color: #fef9f8;
