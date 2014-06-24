@@ -6,16 +6,16 @@ var ExerciseSchema = mongoose.Schema({
         ref: 'User',
         required: true
     },
+    date: {
+        type: Date,
+        required: true
+    },
     duration: {
         type: Number,
         required: true
     },
     intensity: {
         type: Number,
-        required: true
-    },
-    date: {
-        type: Date,
         required: true
     }
 });
