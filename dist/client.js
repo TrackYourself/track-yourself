@@ -313,7 +313,7 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
         //Exercise
         .when('/exercise', {
             templateUrl: 'templates/exercise-last.html',
-            controller: 'exerciseDisplayCtrl'
+            controller: 'exerciseDisplayLastCtrl'
         })
 
         .when('/exercise/add', {
@@ -9746,13 +9746,17 @@ var exerciseModule = angular.module('exerciseModule', []);
 //Register resource function
 exerciseModule.factory('Exercise', ['$resource', services.resource]);
 
+
 // Import controller functions and register them
 exerciseModule.controller('exerciseDisplayLastCtrl',
-    ['$scope', 'Exercise', controllers.exerciseDisplayCtrl]);
+    ['$scope', 'Exercise', controllers.exerciseDisplayLastCtrl]);
+
 exerciseModule.controller('exerciseInputCtrl',
     ['$scope', '$location','Exercise', controllers.exerciseInputCtrl]);
+
 exerciseModule.controller('exerciseDisplayAllCtrl',
     ['$scope','Exercise', controllers.exerciseDisplayAllCtrl]);
+
 
 module.exports = exerciseModule;
 
@@ -9927,10 +9931,10 @@ waterModule
 
 					//Set our scale's domains
 					x.domain(data.map(function (d) {
-						return d.drank;
+						return d._id;
 					}));
 					y.domain([0, d3.max(data, function (d) {
-						return d.intake;
+						return d.total;
 					})]);
 
 					//Redraw the axes
@@ -9957,7 +9961,7 @@ waterModule
 							.append("rect")
 							.attr("class", "bar")
 							.attr("x", function (d) {
-								return x(d.drank);
+								return x(d._id);
 							})
 							.attr("width", x.rangeBand());
 
@@ -9966,10 +9970,10 @@ waterModule
 							.transition()
 							.duration(1000)
 							.attr('height', function (d) {
-								return height - y(d.intake);
+								return height - y(d.total);
 							})
 							.attr("y", function (d) {
-								return y(d.intake);
+								return y(d.total);
 							});
 				};
 

@@ -57,10 +57,10 @@ waterModule
 
 					//Set our scale's domains
 					x.domain(data.map(function (d) {
-						return d.drank;
+						return d._id;
 					}));
 					y.domain([0, d3.max(data, function (d) {
-						return d.intake;
+						return d.total;
 					})]);
 
 					//Redraw the axes
@@ -87,7 +87,7 @@ waterModule
 							.append("rect")
 							.attr("class", "bar")
 							.attr("x", function (d) {
-								return x(d.drank);
+								return x(d._id);
 							})
 							.attr("width", x.rangeBand());
 
@@ -96,10 +96,10 @@ waterModule
 							.transition()
 							.duration(1000)
 							.attr('height', function (d) {
-								return height - y(d.intake);
+								return height - y(d.total);
 							})
 							.attr("y", function (d) {
-								return y(d.intake);
+								return y(d.total);
 							});
 				};
 
