@@ -28,7 +28,19 @@ describe('Creating a new Exercise record', function() {
         });
     });
 
-    it('should be able to access properties (duration, intensity) after creation', function(done) {
-        Exercise.create({ duration: TEST_DURATION, intensity: TEST_INTENSITY, user: TEST_USER_ID})
+    it('should be able to access properties (duration, intensity, date) after creation', function(done) {
+        Exercise.create({ date: TEST_DATE, duration: TEST_DURATION, intensity: TEST_INTENSITY, user: TEST_USER_ID},
+            function (err, exercise) {
+                if (err) {
+                    console.log('Error creating exercise: ' + err);
+                    return;
+                }
+                expect(err).to.not.exist;
+                expect(exercise.duration).to.equal(TEST_DURATION);
+                expect(exercise.intensity).to.equal(TEST_INTENSITY);
+                expect(exercise.date).to.equal(TEST_DATE);
+                done();
+            }
+        );
     });
 });

@@ -11,6 +11,9 @@ module.exports = function (app) {
 	// Water
 	require('./routes/water-router.js')(app);
 
+	//Exercise
+	require('./routes/exercise-router.js')(app);
+
 	// Auth
 	require('./routes/auth-router.js')(app, passport);
 
