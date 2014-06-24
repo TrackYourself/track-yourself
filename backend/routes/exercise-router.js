@@ -33,10 +33,10 @@ module.exports = function(app) {
     // Get exercise info from last night
     //Returns exercise obj as JSON, or false if none exists */
     app.get('/api/exercise', function(req, res) {
-        Exercise.findOne({
-            user: req.user._id,
-            sort: { date: -1 }
-        }, function(err, exercise) {
+        Exercise.findOne({user: req.user._id},
+        {},//only if you need certain fields
+        {sort: { date: -1 }}, 
+        function(err, exercise) {
             if (err) {
                 return res.send(500, 'Error finding exercise record: ' + err);
             }
