@@ -6,12 +6,13 @@ module.exports = function(app) {
     //Creates a new exercise record for a user
     app.post('/exercise/:user', function (req, res){
         console.log(req.body);
+        var date = req.body.date;
         var duration = req.body.duration;
         var intensity =  req.body.intensity;
-        if (!duration || !intensity) {
+        if (!date || !duration || !intensity) {
             return res.send(200, 'Incomplete input for exercise record.');
         },
-        Exercise.create({user: req.user._id, duration: duration, intensity: intensity}, function(err, exercise) {
+        Exercise.create({user: req.user._id, date: date, duration: duration, intensity: intensity}, function(err, exercise) {
             if(err) {
                 return res.send(500, 'Error creating exercise record: '+ err);
             },
@@ -29,7 +30,7 @@ module.exports = function(app) {
         });
     });
 
-    // Get exercise info from last night (searches for a wakeup time within last 24hrs)
+    // Get exercise info from last night 
     //Returns exercise obj as JSON, or false if none exists */
     app.get('/exercise/:user', function(req, res) {
         Exercise.findOne({

@@ -65,7 +65,7 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
         //Exercise
         .when('/exercise', {
             templateUrl: 'templates/exercise-last.html',
-            controller: 'exerciseDisplayCtrl'
+            controller: 'exerciseDisplayLastCtrl'
         })
 
         .when('/exercise/add', {
