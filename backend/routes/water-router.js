@@ -40,9 +40,7 @@ module.exports = function(app) {
   app.get('/api/water/graph', function(req, res) {
 
 		var latest = new Date();
-		var earliest = new Date(latest.now() - (14 * 24 * 60 * 60));
-
-		console.log('Early: ' + earliest + ', latest: ' + latest);
+		var earliest = new Date(latest.getTime() - (14 * 24 * 60 * 60 * 1000));
 
     Water.aggregate(
 			{
@@ -61,6 +59,12 @@ module.exports = function(app) {
 						$sum: '$intake'
 					}
 				}
+			},
+			{
+				$sort:
+					{
+						_id: 1
+					}
 			},
 			function (err, waters) {
 				if (err) {
