@@ -1,23 +1,59 @@
-<!doctype html>
-<html ng-app="trackerApp">
+<!DOCTYPE html>
+<html lang="en" ng-app="trackerApp">
   <head>
-    <meta charset="UTF-8">
-    <title>TRACK YOSELF</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Track Yourself</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
+    <header>
+      <figure><img src="image.svg" height="80px">
+      </figure>
+      <div class="button-container">
+        <a href="#/login"><button>Login</button></a>
+        <a href="#/register"><button>Register</button></a>
+        <a href="#/logout"><button>Logout</button></a>
+      </div>
+    </header>
+
   	<nav>
 			<ul>
 				<li><a href="#/register">Register</a></li>
 				<li><a href="#/login">Login</a></li>
 				<li><a href="#/dashboard">Dashboard</a></li>
 				<li><a href="#/sleep">Sleep</a> | <a href="#/sleep/add">Add</a> | <a href="#/sleep/all">All</a></li>
-				<li><a href="#/water">Water</a> | <a href="#/water/add">Add</a> | <a href="#/water/all">All</a></li>
-			    <li><a href="#/exercise">Exercise</a> | <a href="#/exercise/add">Add</a> | <a href="#/exercise/all">All</a></li>
-            </ul>
+				<li><a href="#/water">Water</a> | <a href="#/water/add">Add</a></li>
+        <li><a href="#/exercise">Exercise</a> | <a href="#/exercise/add">Add</a> | <a href="#/exercise/all">All</a></li>
+      </ul>
   	</nav>
-    <div ng-view>
-      Placeholder public home page
-    </div>
+
+    <main ng-view>
+      <article>
+        <h1 class="home">Track Yourself</h1>
+        <p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut pea sierra leone bologi leek soko chicory celtuce parsley jÃ­cama salsify <a href="register">register</a> chard.</p>
+        <section class="graph">graph sample goes here</section>
+        <section class="testimonial">
+          <h2>Testimonial 1</h2>
+          <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.</p>
+        </section>
+        <section class="testimonial">
+          <h2>Testimonial 2</h2>
+          <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.</p>
+        </section>
+        <section class="testimonial">
+          <h2>Testimonial 3</h2>
+          <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.</p>
+        </section>
+        <section class="testimonial">
+          <h2>Testimonial 4</h2>
+          <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.</p>
+        </section>
+      </article>
+    </main>
     <script src="client.js"></script>
+    <footer><small>Track Yourself &copy;2014</small></footer>
   </body>
 </html>

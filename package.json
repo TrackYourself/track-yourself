@@ -24,6 +24,7 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+		"debowerify": "^0.7.1",
     "browserify": "^4.1.10",
     "chai": "^1.9.1",
     "chai-as-promised": "^4.1.1",

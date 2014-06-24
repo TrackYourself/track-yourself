@@ -50,17 +50,21 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 
 		// Water
 		.when('/water', {
-			templateUrl: 'templates/water-last.html',
-			controller: 'waterDisplayLastCtrl'
+			templateUrl: 'templates/water.html'
 		})
 		.when('/water/add', {
 			templateUrl: 'templates/water-input.html',
 			controller: 'waterInputCtrl'
 		})
+
+		/*
+		Combining "all" with "last"
+
 		.when('/water/all', {
 			templateUrl: 'templates/water-all.html',
 			controller: 'waterDisplayAllCtrl'
 		})
+		*/
 
         //Exercise
         .when('/exercise', {

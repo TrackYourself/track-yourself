@@ -15,32 +15,67 @@ module.exports = function(app) {
       return res.send(200, 'Incomplete input for water record.'); //TODO
     }
     Water.create({user: req.user._id, intake: intake, drank: drank}, function(err, water) {
-      if (err) {
-        return res.send(500, 'Error creating water record: ' + err);
-      }
-      return res.json(200, water.toJSON());
-    });
+			if (err) {
+				return res.send(500, 'Error creating water record: ' + err);
+			}
+			return res.json(200, water.toJSON());
+		});
   });
 
-  /* Get all water records for a user */
+  /* Get last 20 water records for a user */
   app.get('/api/water/all', function(req, res) {
-    Water.find({
-				user: req.user._id
-			},
-			function(err, waters) {
-      if (err) {
+    Water.find(
+			{user: req.user._id},
+			{drank: 1, intake: 1},
+			{limit: 20,	sort: {drank: -1}},
+			function (err, waters) {
+				if (err) {
 					return res.send(500, 'Error finding water records.');
 				}
 				return res.json(200, waters);
 			});
   });
 
-  /* Get the last water record ... not particularly helpful */
+  /* Get aggregated results for the last 2 weeks */
+  app.get('/api/water/graph', function(req, res) {
+
+		var latest = new Date();
+		var earliest = new Date(latest.now() - (14 * 24 * 60 * 60));
+
+		console.log('Early: ' + earliest + ', latest: ' + latest);
+
+    Water.aggregate(
+			{
+				$match: {
+					user: req.user._id,
+					drank: {
+						$gte: earliest,
+						$lte: latest
+					}
+				}
+			},
+			{
+				$group: {
+					_id: '$drank',
+					total: {
+						$sum: '$intake'
+					}
+				}
+			},
+			function (err, waters) {
+				if (err) {
+					return res.send(500, 'Error finding water records.');
+				}
+				return res.json(200, waters);
+			});
+  });
+
+	/*
+	Get the last water record ... not particularly helpful
+
   app.get('/api/water', function(req, res) {
 
-    Water.findOne({
-        user: req.user._id
-      },
+    Water.findOne({user: req.user._id},
       function(err, water) {
         if (err) {
           console.log(err);
@@ -50,6 +85,7 @@ module.exports = function(app) {
     });
   });
 
+	*/
 
 };
 

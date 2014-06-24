@@ -96,17 +96,6 @@ describe('Water REST API', function() {
         });
     });
 
-    it('should be able to get the last water record', function(done) {
-      agent.get('localhost:3000/api/water')
-        .end(function(err, res) {
-          expect(res.status).to.equal(200);
-          expect(res.body).to.have.property('drank');
-          var water = new Date(res.body.drank);
-          var today = new Date();
-          expect(water.getDate()).to.equal(today.getDate());
-          done();
-        });
-    });
 
   });
 
