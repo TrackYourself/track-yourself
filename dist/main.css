@@ -137,7 +137,8 @@ header {
   background-color: #03318C; }
 
 header figure img {
-  background-color: #fff9f6; }
+  background-color: #fff9f6;
+  padding: 9.88875px; }
 
 form {
   -webkit-border-radius: 0;

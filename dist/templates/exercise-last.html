@@ -1,8 +1,0 @@
-<div ng-app="exerciseModule" ng-controller="exerciseDisplayLastCtrl">
-  <div class="exercise-display" ng-model="exerciseRecord">
-    <div ng-show="exerciseRecord.duration">
-      <p> You last exercised on {{ exerciseRecord.date }} for {{ exerciseRecord.duration }} at an intensity of {{exerciseRecord.intensity}}.</p>
-    </div>
-   <div ng-hide="exerciseRecord.duration">You haven't entered your exercise habits recently</div>
-  </div>
-</div>
