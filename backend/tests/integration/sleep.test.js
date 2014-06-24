@@ -17,7 +17,7 @@ describe('Sleep REST API', function() {
   before(function(done) {
 
     // remove users and sleep records from db
-    var conn = require('mongoose').connection
+    var conn = require('mongoose').connection;
     conn.collections.sleeps.drop();
     conn.collections.users.drop();
 
