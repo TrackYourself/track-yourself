@@ -9856,7 +9856,7 @@ module.exports.waterInputCtrl = function($scope, $location, Water) {
   $scope.waterEntered = function() {
     $scope.waterRecord.$save(function(intake, respHeaders) {
       console.log(respHeaders);
-      $location.path('/water/all');
+      $location.path('/water');
     });
   };
 
@@ -9904,7 +9904,7 @@ waterModule
 			link    : function (scope, element) {
 
 				var margin = {top: 20, right: 20, bottom: 30, left: 40},
-						width = 480 - margin.left - margin.right,
+						width = 800 - margin.left - margin.right,
 						height = 360 - margin.top - margin.bottom;
 
 				var svg = d3.select(element[0])
@@ -9926,12 +9926,40 @@ waterModule
 						.orient("left")
 						.ticks(10);
 
+				var formatDotw = function (dayInt) {
+					switch (dayInt) {
+						case 0: return 'Sun';
+						case 1: return 'Mon';
+						case 2: return 'Tue';
+						case 3: return 'Wed';
+						case 4: return 'Thu';
+						case 5: return 'Fri';
+						case 6: return 'Sat';
+					}
+				};
+
+
+				var formatDate = function (dateId) {
+					var newDate = new Date(dateId);
+					var today = new Date();
+
+					if (today.getDate() === newDate.getDate()) {
+						return 'Today';
+					}
+
+					var dateString = formatDotw(newDate.getDay());
+					dateString += ' - ' + (newDate.getMonth() + 1);
+					dateString += '/' + newDate.getDate();
+
+					return dateString;
+				};
+
 				//Render graph based on 'data'
 				scope.render = function (data) {
 
 					//Set our scale's domains
 					x.domain(data.map(function (d) {
-						return d._id;
+						return formatDate(d._id);
 					}));
 					y.domain([0, d3.max(data, function (d) {
 						return d.total;
@@ -9954,14 +9982,14 @@ waterModule
 							.attr("y", 6)
 							.attr("dy", ".71em")
 							.style("text-anchor", "end")
-							.text("Count");
+							.text("Cups");
 
 					var bars = svg.selectAll(".bar").data(data);
 					bars.enter()
 							.append("rect")
 							.attr("class", "bar")
 							.attr("x", function (d) {
-								return x(d._id);
+								return x(formatDate(d._id));
 							})
 							.attr("width", x.rangeBand());
 

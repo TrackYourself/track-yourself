@@ -15,7 +15,7 @@ module.exports.waterInputCtrl = function($scope, $location, Water) {
   $scope.waterEntered = function() {
     $scope.waterRecord.$save(function(intake, respHeaders) {
       console.log(respHeaders);
-      $location.path('/water/all');
+      $location.path('/water');
     });
   };
 

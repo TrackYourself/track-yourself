@@ -169,3 +169,14 @@ footer {
   -moz-border-radius: 0;
   -ms-border-radius: 0;
   border-radius: 0; }
+
+path.domain {
+  fill: none;
+  stroke: #000000;
+  shape-rendering: crispEdges; }
+
+.tick text {
+  font-size: 9.88875px; }
+
+rect.bar {
+  fill: #2182BF; }
