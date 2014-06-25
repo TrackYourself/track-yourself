@@ -19,7 +19,7 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider
 
     // Auth
-    .when('/register', {
+    .when('/signup', {
       templateUrl: 'templates/register.html',
       controller: 'registerCtrl'
     })
