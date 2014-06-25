@@ -89,6 +89,10 @@ header {
 header figure img {
   margin: 16px 0 16px 16px; }
 
+img {
+  display: block;
+  width: 100%; }
+
 .button-container {
   position: absolute;
   bottom: 1em;
