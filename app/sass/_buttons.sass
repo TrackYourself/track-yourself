@@ -5,14 +5,19 @@
 //orange header login/register/logout buttons
 header button
   @extend %button
-  margin-left: 1em
+  margin-top: $em-base
+  // @media all and (min-width: 768px)
   background-color: $comp-color
   &:hover
     background-color: $comp-color-lighten10
 
+header a:last-child
+  margin-left: $em-base
+
 //aqua forms submit button
 form button
   @extend %button
+  margin-top: golden-ratio($em-base, -1)
   background-color: $tertiary-color
   &:hover
     background-color: $tertiary-color-lighten10

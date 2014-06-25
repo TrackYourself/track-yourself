@@ -6,7 +6,24 @@ path.domain
   shape-rendering: crispEdges
 
 .tick text
-  font-size: golden-ratio($em-base, 1)
+  font-size: golden-ratio($em-base, -1)
 
-rect.bar
-  fill: $secondary-color
+.water-graph
+  rect.bar
+    fill: $secondary-color
+
+.exercise-graph
+  rect.intensity-5
+    fill: $comp-color
+
+  rect.intensity-4
+    fill: $comp-color-lighten10
+
+  rect.intensity-3
+    fill: $comp-color-lighten20
+
+  rect.intensity-2
+    fill: $comp-color-lighten25
+
+  rect.intensity-1
+    fill: $comp-color-lighten30
