@@ -2,19 +2,35 @@
 
 header
   position: relative
+  padding: $em-base
+
+header figure
+  display: block
+  margin: 0
+  @media all and (min-width: 320px)
+    display: inline-block
+    width: 94%
+  @media all and (min-width: 600px)
+    width: 45%
+  @media all and (min-width: 768px)
+    width: 40%
 
 header figure img
-  margin: golden-ratio($em-base, 0) 0 golden-ratio($em-base, 0) golden-ratio($em-base, 0)
+  padding: golden-ratio($em-base, -1)
 
 //images should be placed inside another element
-// img
-//   display: block
-//   width: 100%
+img
+  display: block
+  width: 100%
 
 .button-container
-  position: absolute
-  bottom: 1em
-  right: 1em
+  display: block
+  margin: 0 auto
+  text-align: center
+  @media all and (min-width: 600px)
+    position: absolute
+    bottom: 1em
+    right: 1em
 
 main
   position: relative
@@ -54,7 +70,7 @@ nav
   display: inline-block
   width: 100%
   vertical-align: top
-  @media all and (min-width: 420px)
+  @media all and (min-width: 480px)
     width: 45%
     &:nth-child(even)
       margin-right: 9%
@@ -63,14 +79,20 @@ nav
   display: inline-block
   width: 100%
   vertical-align: top
-  @media all and (min-width: 420px)
+  @media all and (min-width: 480px)
     width: 45%
     &:nth-child(odd)
       margin-right: 9%
 
 //login and registration (sign up) form layout
 .user-authentication
-  width: 25%
+  width: 65%
   margin: 9% auto
+  @media all and (min-width: 600px)
+    width: 50%
+  @media all and (min-width: 768px)
+    width: 35%
+  @media all and (min-width: 800px)
+    width: 25%
   h3
     padding-bottom: golden-ratio($em-base, -1)
