@@ -1,0 +1,30 @@
+//- user form
+extends layout
+
+block content
+  aside.missing-alert
+    p You missed filling out <span class="form">form</span> for <span class="date">date</span>.
+  nav
+    a(href="Dashboard") Dashboard
+    a(href="Forms") Forms
+  article
+    section.userform
+      h2 Sleep
+      .userform-sleep
+        p <strong>Sleep Form Instructions:</strong> Instructions go here.
+    section.userform
+      h2 Exercise
+      .userform-exercise
+        p <strong>Exercise Form Instructions:</strong> Instructions go here.
+    section.userform
+      h2 Water
+      .userform-water
+        p <strong>Water Form Instructions:</strong> Instructions go here.
+    section.userform
+      h2 Energy
+      .userform-energy
+        p <strong>Energy Form Instructions:</strong> Instructins go here.
+    section.userform
+      h2 Mood
+      .userform-mood
+        p <strong>Mood Form Instructions:</strong>  Instructions go here.
