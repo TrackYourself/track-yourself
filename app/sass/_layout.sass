@@ -18,20 +18,34 @@ main
   position: relative
 
 .missing-alert
-  position: absolute
-  top: 1em
-  left: 0
-
-article
-  margin: 1em auto
-  width: 90%
+  display: inline-block
+  p
+    margin: 0
 
 //home page H1
 .home
   text-align: center
 
+article
+  margin: 1em auto
+  width: 80%
+
+h1, h2, h3, h4, h5, h6
+  margin-bottom: golden-ratio($em-base, -2)
+
 p
   margin-bottom: golden-ratio($em-base, 0)
+
+nav
+  text-align: center
+  margin-bottom: golden-ratio($em-base, 1)
+  a
+    text-decoration: none
+    display: inline-block
+    &:hover
+      text-decoration: underline
+    &:first-child
+      margin-right: golden-ratio($em-base, 1)
 
 .graph
   margin-bottom: golden-ratio($em-base, 0)
@@ -41,6 +55,22 @@ p
   width: 100%
   vertical-align: top
   @media all and (min-width: 420px)
-    width: 48%
+    width: 45%
     &:nth-child(even)
-      margin-right: 4%
+      margin-right: 10%
+
+.graph, .userform
+  display: inline-block
+  width: 100%
+  vertical-align: top
+  @media all and (min-width: 420px)
+    width: 45%
+    &:nth-child(odd)
+      margin-right: 10%
+
+//login and registration (sign up) form layout
+.user-authentication
+  width: 25%
+  margin: 16% auto
+  h3
+    padding-bottom: golden-ratio($em-base, -1)

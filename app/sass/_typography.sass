@@ -10,16 +10,15 @@
   font-style: normal
 
 body
-  font
-    family: $font-main
-    size: golden-ratio($em-base, 0)
+  font-family: $font-main
+  font-size: golden-ratio($em-base, 0)
   color: $black
 
-h1, h2, h3, h4, h5, h6
-  font
-    family: $font-header
-    weight: bold
-  margin-bottom: golden-ratio($em-base, -3)
+h1, h2, h3, h4, h5, h6, strong
+  font-weight: bold
+
+h1, h2
+  font-family: $font-header
 
 h1
   font-size: golden-ratio($em-base, 2)
@@ -34,3 +33,6 @@ small
 .testimonial
   p
     font-style: italic
+
+.missing-alert
+  color: $white
