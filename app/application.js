@@ -60,34 +60,28 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'templates/water-input.html',
 			controller: 'waterInputCtrl'
 		})
+    //Exercise
+    .when('/exercise', {
+        templateUrl: 'templates/exercise-last.html',
+        controller: 'exerciseDisplayLastCtrl'
+    })
 
-		/*
-		Combining "all" with "last"
+    .when('/exercise/add', {
+        templateUrl: 'templates/exercise-input.html',
+        controller: 'exerciseInputCtrl'
+    })
 
-		.when('/water/all', {
-			templateUrl: 'templates/water-all.html',
-			controller: 'waterDisplayAllCtrl'
-		})
-		*/
+    .when('/exercise/all', {
+        templateUrl: 'templates/exercise-all.html',
+        controller: 'exerciseDisplayAllCtrl'
+    })
+    .when('/home', {
+      templateUrl: 'templates/home.html',
+      controller: 'homeCtrl'
+    })
 
-        //Exercise
-        .when('/exercise', {
-            templateUrl: 'templates/exercise-last.html',
-            controller: 'exerciseDisplayLastCtrl'
-        })
-
-        .when('/exercise/add', {
-            templateUrl: 'templates/exercise-input.html',
-            controller: 'exerciseInputCtrl'
-        })
-
-        .when('/exercise/all', {
-            templateUrl: 'templates/exercise-all.html',
-            controller: 'exerciseDisplayAllCtrl'
-        })
-
-    .otherwise('/', {
-      redirectTo: '/dashboard'
+    .otherwise({
+      redirectTo: '/home'
     });
 
 }]);
