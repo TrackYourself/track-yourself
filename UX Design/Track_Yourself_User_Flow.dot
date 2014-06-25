@@ -1,0 +1,55 @@
+digraph Track_Yourself{
+  graph [labelloc="t" label="Track Yourself
+  " fontsize=16];
+  ratio = auto;
+  LandingPage [label="Landing Page", shape=box, fontsize=20]
+  Register [label="New User Needs to Sign Up"]
+  RegisterForm [label="New User Sign Up Form"]
+  Login [label="Returning User Logs In"]
+  UserDashboard [label="User Dashboard with User Summary"]
+  UserDashboardFilter [label="User Dashboard with Graphs"]
+  FormEntry [label="User Selects Form for Input"]
+  FormEnergy [label="Energy Level Form"]
+  FormMood [label="Mood Form"]
+  FormSleep [label="Sleep Form"]
+  FormWater [label="Water Intake Form"]
+  FormExercise [label="Exercise Form"]
+  Logout [label="User Logs Out"]
+
+  {rank=same;Login Register}
+  {rank=same;UserDashboardFilter FormEntry}
+  {rank=same;FormEnergy FormMood  FormSleep FormWater FormExercise}
+
+  //New User
+  LandingPage -> Register -> RegisterForm ->UserDashboard;
+
+  //Returning User
+  LandingPage -> Login -> UserDashboard;
+
+  //User Summary
+  UserDashboard -> UserDashboardFilter;
+  UserDashboardFilter -> FormEntry  [dir="both"];
+
+  //User Dashboard to Forms
+  UserDashboard -> FormEntry;
+  FormEntry -> FormEnergy;
+  FormEntry -> FormMood;
+  FormEntry -> FormSleep;
+  FormEntry -> FormWater;
+  FormEntry -> FormExercise;
+
+  //Forms Recursive links
+  FormEnergy -> FormMood [dir="both"];
+  FormMood -> FormSleep [dir="both"];
+  FormSleep -> FormWater [dir="both"];
+  FormWater -> FormExercise [dir="both"];
+
+  //User Logs Out
+  FormEnergy -> Logout;
+  FormMood -> Logout;
+  FormSleep -> Logout;
+  FormWater -> Logout;
+  FormExercise -> Logout;
+  UserDashboard -> Logout;
+  UserDashboardFilter -> Logout;
+}
