@@ -84,19 +84,39 @@ nav a {
   color: #FFFFFF; }
 
 header {
-  position: relative; }
+  position: relative;
+  padding: 16px; }
+
+header figure {
+  display: block;
+  margin: 0; }
+  @media all and (min-width: 320px) {
+    header figure {
+      display: inline-block;
+      width: 94%; } }
+  @media all and (min-width: 600px) {
+    header figure {
+      width: 45%; } }
+  @media all and (min-width: 768px) {
+    header figure {
+      width: 40%; } }
 
 header figure img {
-  margin: 16px 0 16px 16px; }
+  padding: 9.88875px; }
 
 img {
   display: block;
   width: 100%; }
 
 .button-container {
-  position: absolute;
-  bottom: 1em;
-  right: 1em; }
+  display: block;
+  margin: 0 auto;
+  text-align: center; }
+  @media all and (min-width: 600px) {
+    .button-container {
+      position: absolute;
+      bottom: 1em;
+      right: 1em; } }
 
 main {
   position: relative; }
@@ -135,7 +155,7 @@ nav {
   display: inline-block;
   width: 100%;
   vertical-align: top; }
-  @media all and (min-width: 420px) {
+  @media all and (min-width: 480px) {
     .testimonial {
       width: 45%; }
       .testimonial:nth-child(even) {
@@ -145,15 +165,24 @@ nav {
   display: inline-block;
   width: 100%;
   vertical-align: top; }
-  @media all and (min-width: 420px) {
+  @media all and (min-width: 480px) {
     .graph, .userform {
       width: 45%; }
       .graph:nth-child(odd), .userform:nth-child(odd) {
         margin-right: 9%; } }
 
 .user-authentication {
-  width: 25%;
+  width: 65%;
   margin: 9% auto; }
+  @media all and (min-width: 600px) {
+    .user-authentication {
+      width: 50%; } }
+  @media all and (min-width: 768px) {
+    .user-authentication {
+      width: 35%; } }
+  @media all and (min-width: 800px) {
+    .user-authentication {
+      width: 25%; } }
   .user-authentication h3 {
     padding-bottom: 9.88875px; }
 
@@ -165,19 +194,22 @@ header button, form button {
   font-weight: bold;
   border: none;
   display: inline-block;
-  margin-top: 9.88875px;
   padding: 0 16px; }
-  @media all and (min-width: 420px) {
+  @media all and (min-width: 600px) {
     %button {
-      display: inline; } }
+      padding: 0; } }
 
 header button {
-  margin-left: 1em;
+  margin-top: 16px;
   background-color: #FD7A2C; }
   header button:hover {
     background-color: #fd995f; }
 
+header a:last-child {
+  margin-left: 16px; }
+
 form button {
+  margin-top: 9.88875px;
   background-color: #14C8C8; }
   form button:hover {
     background-color: #26e9e9; }
@@ -186,8 +218,7 @@ header {
   background-color: #03318C; }
 
 header figure img {
-  background-color: #fff9f6;
-  padding: 9.88875px; }
+  background-color: #fff9f6; }
 
 form {
   padding: 9.88875px 25.888px;
