@@ -41,11 +41,11 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 		// Sleep
 		.when('/sleep', {
 			templateUrl: 'templates/sleep-last.html',
-			controller: 'sleepDisplayLastCtrl'
+			controller: 'sleepMainCtrl'
 		})
 		.when('/sleep/add', {
 			templateUrl: 'templates/sleep-input.html',
-			controller: 'sleepInputCtrl'
+			controller: 'sleepMainCtrl'
 		})
 		.when('/sleep/all', {
 			templateUrl: 'templates/sleep-all.html',

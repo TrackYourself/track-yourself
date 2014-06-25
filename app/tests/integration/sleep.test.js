@@ -33,7 +33,7 @@ describe('Sleep routes', function() {
     element(by.model('sleepRecord.sleep')).sendKeys('2014-06-09 23:45:16');
     element(by.model('sleepRecord.wake')).sendKeys('2014-06-10 09:45:16');
 
-    element(by.id('sleep-submit')).click();
+    element('button').click();
 
     expect(ptor.getCurrentUrl()).to.eventually.equal('http://localhost:3000/#/sleep/all');
   });
