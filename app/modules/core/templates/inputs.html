@@ -12,8 +12,10 @@
       </div>
       <form ng-hide="sleepRecord.sleep" name="sleepForm" ng-submit="sleepEntered()">
         <legend><h2>Sleep</h2></legend>
-        Went to sleep at: <input type="datetime-local" name="sleep" ng-model="newSleep.sleep" required><br>
-        Woke up at: <input name="wake" type="datetime-local" ng-model="newSleep.wake" required><br>
+        <label for="sleep">Went to sleep at</label>
+        <input type="datetime-local" name="sleep" ng-model="newSleep.sleep" required><br>
+        <label for="wake">Woke up at</label>
+        <input name="wake" type="datetime-local" ng-model="newSleep.wake" required><br>
         <button type="submit">Save</button>
       </form>
     </div>
