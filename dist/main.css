@@ -67,6 +67,16 @@ h2 {
 small {
   font-size: 9.88875px; }
 
+nav a {
+  color: #03318C;
+  text-decoration: none; }
+  nav a:hover {
+    text-decoration: underline; }
+  nav a:visited {
+    color: #03318C; }
+  nav a:first-child {
+    margin-right: 25.888px; }
+
 .testimonial p {
   font-style: italic; }
 
@@ -110,10 +120,7 @@ nav {
   text-align: center;
   margin: 25.888px auto; }
   nav a {
-    text-decoration: none;
     display: inline-block; }
-    nav a:hover {
-      text-decoration: underline; }
     nav a:first-child {
       margin-right: 25.888px; }
 
@@ -152,7 +159,6 @@ header button, form button {
   text-transform: uppercase;
   color: #FFFFFF;
   font-weight: bold;
-  margin-left: 1em;
   border: none;
   display: inline-block; }
   @media all and (min-width: 420px) {
