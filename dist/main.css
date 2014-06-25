@@ -160,7 +160,8 @@ header button, form button {
   color: #FFFFFF;
   font-weight: bold;
   border: none;
-  display: inline-block; }
+  display: inline-block;
+  margin-top: 9.88875px; }
   @media all and (min-width: 420px) {
     %button {
       display: inline; } }
