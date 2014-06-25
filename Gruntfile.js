@@ -213,7 +213,7 @@ module.exports = function(grunt) {
 	//========================================================================
 	grunt.registerTask('test', ['test-back', 'test-front']);
 
-	grunt.registerTask('test-front', ['env:test', 'test-front-unit','test-front-integration']);
+	grunt.registerTask('test-front', ['test-front-unit','test-front-integration']);
 	grunt.registerTask('test-front-unit', ['env:test', 'build-test','karma:unit']);
 	grunt.registerTask('test-front-integration', ['env:test', 'serve:bg', 'protractor']);
 

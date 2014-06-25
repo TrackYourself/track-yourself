@@ -8,6 +8,11 @@ var UserSchema = mongoose.Schema({
 	local: {
 		email: String,
 		password: String
+	},
+	goals: {
+		waterPD: Number,
+		exercisePD: Number,
+		sleepPD: Number
 	}
 });
 
@@ -20,4 +25,3 @@ UserSchema.methods.validPassword = function (password) {
 };
 
 module.exports = mongoose.model('User', UserSchema);
-
