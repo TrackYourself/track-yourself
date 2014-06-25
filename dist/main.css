@@ -51,7 +51,7 @@ body {
   font-size: 16px;
   color: #000000; }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, strong {
   font-weight: bold; }
 
 h1, h2 {
@@ -129,14 +129,14 @@ nav {
       .testimonial:nth-child(even) {
         margin-right: 10%; } }
 
-.graph {
+.graph, .userform {
   display: inline-block;
   width: 100%;
   vertical-align: top; }
   @media all and (min-width: 420px) {
-    .graph {
+    .graph, .userform {
       width: 45%; }
-      .graph:nth-child(odd) {
+      .graph:nth-child(odd), .userform:nth-child(odd) {
         margin-right: 10%; } }
 
 .user-authentication {
