@@ -161,7 +161,8 @@ header button, form button {
   font-weight: bold;
   border: none;
   display: inline-block;
-  margin-top: 9.88875px; }
+  margin-top: 9.88875px;
+  padding: 0 16px; }
   @media all and (min-width: 420px) {
     %button {
       display: inline; } }
