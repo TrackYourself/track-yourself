@@ -33,6 +33,10 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/dashboard.html',
       controller: 'dashboardCtrl'
     })
+    .when('/inputs', {
+      templateUrl: 'templates/inputs.html',
+    })
+
 
 		// Sleep
 		.when('/sleep', {
