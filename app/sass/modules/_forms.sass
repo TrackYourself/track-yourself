@@ -1,13 +1,19 @@
 @import forms/_manifest
 
 form
+  padding: golden-ratio($em-base, -1) golden-ratio($em-base, 1)
+  border: 2px solid $black-lighten30
   +border-radius($radius)
 
 label
   display: block
+  margin-bottom: golden-ratio($em-base, -1)
 
 input:not([type=radio]), textarea
   width: 100%
+
+.user-authentication
+  background-color: $comp-color-lighten30
 
 // input
 //   &:required

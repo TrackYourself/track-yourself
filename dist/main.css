@@ -36,6 +36,9 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
+html {
+  background-color: #03318C; }
+
 @font-face {
   font-family: 'rokkittregular';
   src: url("./rokkitt-webfont.eot");
@@ -44,16 +47,15 @@ body {
   font-style: normal; }
 
 body {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
   color: #000000; }
-  body font {
-    family: "Helvetica Neue", Helvetica, sans-serif;
-    size: 16px; }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 3.77733px; }
-  h1 font, h2 font, h3 font, h4 font, h5 font, h6 font {
-    family: Rockwell, rokkittregular, Georgia, serif;
-    weight: bold; }
+  font-weight: bold; }
+
+h1, h2 {
+  font-family: Rockwell, rokkittregular, Georgia, serif; }
 
 h1 {
   font-size: 41.88678px;
@@ -87,12 +89,15 @@ main {
   top: 1em;
   left: 0; }
 
+.home {
+  text-align: center; }
+
 article {
   margin: 1em auto;
   width: 90%; }
 
-.home {
-  text-align: center; }
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 3.77733px; }
 
 p {
   margin-bottom: 16px; }
@@ -109,6 +114,12 @@ p {
       width: 48%; }
       .testimonial:nth-child(even) {
         margin-right: 4%; } }
+
+.user-authentication {
+  width: 25%;
+  margin: 16% auto; }
+  .user-authentication h3 {
+    padding-bottom: 9.88875px; }
 
 header button, form button {
   line-height: 2em;
@@ -141,16 +152,22 @@ header figure img {
   padding: 9.88875px; }
 
 form {
+  padding: 9.88875px 25.888px;
+  border: 2px solid #4d4d4d;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
   border-radius: 0; }
 
 label {
-  display: block; }
+  display: block;
+  margin-bottom: 9.88875px; }
 
 input:not([type=radio]), textarea {
   width: 100%; }
+
+.user-authentication {
+  background-color: #fed9c4; }
 
 footer {
   background-color: #03318C;

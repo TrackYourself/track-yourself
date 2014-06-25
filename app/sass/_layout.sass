@@ -22,13 +22,16 @@ main
   top: 1em
   left: 0
 
+//home page H1
+.home
+  text-align: center
+
 article
   margin: 1em auto
   width: 90%
 
-//home page H1
-.home
-  text-align: center
+h1, h2, h3, h4, h5, h6
+  margin-bottom: golden-ratio($em-base, -3)
 
 p
   margin-bottom: golden-ratio($em-base, 0)
@@ -44,3 +47,10 @@ p
     width: 48%
     &:nth-child(even)
       margin-right: 4%
+
+//login and registration (sign up) form layout
+.user-authentication
+  width: 25%
+  margin: 16% auto
+  h3
+    padding-bottom: golden-ratio($em-base, -1)
