@@ -8,10 +8,8 @@ var sleepModule = angular.module('sleepModule', []);
 sleepModule.factory('Sleep', ['$resource', services.resource]);
 
 // Import controller functions and register them
-sleepModule.controller('sleepDisplayLastCtrl',
-  ['$scope', 'Sleep', controllers.sleepDisplayLastCtrl]);
-sleepModule.controller('sleepInputCtrl',
-  ['$scope', '$location', 'Sleep', controllers.sleepInputCtrl]);
+sleepModule.controller('sleepMainCtrl',
+  ['$scope', 'Sleep', controllers.sleepMainCtrl]);
 sleepModule.controller('sleepDisplayAllCtrl',
   ['$scope', 'Sleep', controllers.sleepDisplayAllCtrl]);
 
