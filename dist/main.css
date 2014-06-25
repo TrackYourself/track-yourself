@@ -188,7 +188,7 @@ form {
 
 label {
   display: block;
-  margin-bottom: 9.88875px; }
+  margin-top: 9.88875px; }
 
 input:not([type=radio]), textarea {
   width: 100%; }
