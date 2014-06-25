@@ -74,7 +74,14 @@ module.exports = function(grunt) {
 					src: '**/*.html',
 					dest: 'dist/templates',
 					flatten: true
-				}]
+				},
+        {
+					expand: true,
+					cwd: 'app/fonts/',
+					src: '*',
+					dest: 'dist/fonts',
+					flatten: true
+        }]
 			}
 		},
 
