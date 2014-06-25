@@ -4,7 +4,7 @@ module.exports.authInterceptor = function($q, $location, $rootScope) {
 
   function isPublic(path) {
     if (path.search('login') !== -1 ||
-        path.search('register' !== -1 ||
+        path.search('signup' !== -1 ||
         path.search('index') !== -1)) {
       return true;
     }
