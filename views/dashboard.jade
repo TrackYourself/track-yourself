@@ -1,0 +1,35 @@
+//- user dashboard
+extends layout
+
+block content
+  aside.missing-alert
+    p You missed filling out <span class="form">form</span> for <span class="date">date</span>.
+  nav
+    a(href="Dashboard") Dashboard
+    a(href="Forms") Forms
+  article
+    section.graph
+      h2 Sleep
+      .graph-sleep
+        h3 Username Sleep Summary
+        p sleep graph summary goes here
+    section.graph
+      h2 Exercise
+      .graph-exercise
+        h3 Username Exercise Summary
+        p exercise graph summary goes here
+    section.graph
+      h2 Water
+      .graph-water
+        h3 Username Water Summary
+        p water graph summary goes here
+    section.graph
+      h2 Energy
+      .graph-energy
+        h3 Username Energy Summary
+        p energy graph summary goes here
+    section.graph
+      h2 Mood
+      .graph-mood
+        h3 Username Mood Summary
+        p mood graph summary goes here
