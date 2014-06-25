@@ -41,8 +41,8 @@ html {
 
 @font-face {
   font-family: 'rokkittregular';
-  src: url("./rokkitt-webfont.eot");
-  src: url("./rokkitt-webfont.eot?#iefix") format("embedded-opentype"), url("./rokkitt-webfont.woff") format("woff"), url("./rokkitt-webfont.ttf") format("truetype"), url("./rokkitt-webfont.svg#rokkittregular") format("svg");
+  src: url("fonts/rokkitt-webfont.eot");
+  src: url("fonts/rokkitt-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/rokkitt-webfont.woff") format("woff"), url("fonts/rokkitt-webfont.ttf") format("truetype"), url("fonts/rokkitt-webfont.svg#rokkittregular") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -88,6 +88,7 @@ main {
   position: relative; }
 
 .missing-alert {
+  margin: 25.888px 0 0 0;
   display: inline-block; }
   .missing-alert p {
     margin: 0; }
@@ -107,7 +108,7 @@ p {
 
 nav {
   text-align: center;
-  margin-bottom: 25.888px; }
+  margin: 25.888px auto; }
   nav a {
     text-decoration: none;
     display: inline-block; }
@@ -127,7 +128,7 @@ nav {
     .testimonial {
       width: 45%; }
       .testimonial:nth-child(even) {
-        margin-right: 10%; } }
+        margin-right: 9%; } }
 
 .graph, .userform {
   display: inline-block;
@@ -137,7 +138,7 @@ nav {
     .graph, .userform {
       width: 45%; }
       .graph:nth-child(odd), .userform:nth-child(odd) {
-        margin-right: 10%; } }
+        margin-right: 9%; } }
 
 .user-authentication {
   width: 25%;
@@ -159,6 +160,7 @@ header button, form button {
       display: inline; } }
 
 header button {
+  margin-left: 1em;
   background-color: #FD7A2C; }
   header button:hover {
     background-color: #fd995f; }
@@ -177,6 +179,7 @@ header figure img {
 
 form {
   padding: 9.88875px 25.888px;
+  margin-bottom: 41.88678px;
   border: 2px solid #4d4d4d;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -191,7 +194,7 @@ input:not([type=radio]), textarea {
   width: 100%; }
 
 .user-authentication {
-  background-color: #fed9c4; }
+  background-color: #fff9f6; }
 
 footer {
   background-color: #03318C;
@@ -201,7 +204,6 @@ footer {
 
 .missing-alert {
   background-color: #DE3919;
-  margin: 25.888px 0;
   padding: 9.88875px 9.88875px;
   border: 2px solid #DE3919;
   -webkit-border-radius: 0;
