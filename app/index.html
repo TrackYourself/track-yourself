@@ -10,8 +10,7 @@
   </head>
   <body>
     <header>
-      <figure><img src="images/logo.svg">
-      </figure>
+      <figure><img src="images/logo.svg"></figure>
       <div class="button-container">
         <a ng-hide="currentUser" href="#/login"><button>Login</button></a>
         <a ng-hide="currentUser" href="#/signup"><button>Sign up</button></a>
@@ -19,29 +18,14 @@
       </div>
     </header>
 
+    <nav ng-show="currentUser">
+      <a href="/#dashboard">Dashboard</a>
+      <a href="/#inputs">Forms</a>
+    </nav>
+
     <main ng-view>
-      <article>
-        <h1 class="home">Track Yourself</h1>
-        <p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut pea sierra leone bologi leek soko chicory celtuce parsley jÃ­cama salsify <a href="register">register</a> chard.</p>
-        <section class="graph">graph sample goes here</section>
-        <section class="testimonial">
-          <h2>Testimonial 1</h2>
-          <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.</p>
-        </section>
-        <section class="testimonial">
-          <h2>Testimonial 2</h2>
-          <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.</p>
-        </section>
-        <section class="testimonial">
-          <h2>Testimonial 3</h2>
-          <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.</p>
-        </section>
-        <section class="testimonial">
-          <h2>Testimonial 4</h2>
-          <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula.</p>
-        </section>
-      </article>
     </main>
+
     <script src="client.js"></script>
     <footer><small>Track Yourself &copy;2014</small></footer>
   </body>
