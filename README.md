@@ -7,7 +7,7 @@ Backend                                         |Front-end                      
 [Mongodb](http://docs.mongodb.org/manual/)        |[Angular](https://docs.angularjs.org/api) |[Mocha](http://visionmedia.github.io/mocha/#table-of-contents) | [Grunt](http://gruntjs.com)
 [Mongoose](http://mongoosejs.com/docs/guide.html) | [jQuery](http://api.jquery.com/) | [Chai](http://chaijs.com/api/bdd/) | [Browserify](https://github.com/substack/node-browserify#usage)
 [Node.js](http://nodejs.org/api/) | [D3](https://github.com/mbostock/d3/wiki) (data visualization) | [Karma](http://karma-runner.github.io/0.12/index.html) & [karma-browserify](https://github.com/xdissent/karma-browserify) | [Bower](http://bower.io/) & [debowerify](https://www.npmjs.org/package/debowerify)
-[Express](http://expressjs.com/4x/api.html) |Sass, [Bourbon](http://bourbon.io/) |
+[Express](http://expressjs.com/4x/api.html) |Sass, [Bourbon](http://bourbon.io/) | [Protractor] (https://github.com/angular/protractor) |
 
 ### Tasks, bugs, to-dos
 * Asana for tasks that don't involve the codebase (research, etc).
