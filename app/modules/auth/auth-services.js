@@ -2,17 +2,19 @@
 
 var PUBLIC_URLS = {
   '/auth/login': true,
-  '/auth/signup': true,
+  '/auth/register': true,
   'templates/index.html': true,
+  'templates/home.html': true,
   'templates/login.html': true,
   'templates/register.html': true,
   '': true,
-  '/': true
+  '/': true,
 };
 
 module.exports.authInterceptor = function($q, $location, $rootScope) {
 
   function isPublic(path) {
+    console.log('checking whether ' + path + ' is public');
     if (PUBLIC_URLS[path]) {
       return true;
     }
