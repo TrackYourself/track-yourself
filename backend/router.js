@@ -17,6 +17,10 @@ module.exports = function (app) {
 	// Auth
 	require('./routes/auth-router.js')(app, passport);
 
+	//Goals
+	require('./routes/goals-router.js')(app);
+
+
 	// Entry point for angular
   process.env.PWD = process.cwd() || __dirname;
   app.use(express.static(process.env.PWD + '/dist'));

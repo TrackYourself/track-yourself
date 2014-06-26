@@ -1,4 +1,4 @@
-/* jshint expr true */
+/* jshint expr:true */
 require('./../../../server.js');
 var superagent = require('superagent');
 var mongoose = require('mongoose');
