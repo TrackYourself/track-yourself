@@ -9604,7 +9604,7 @@ module.exports.loginCtrl = function($scope, $http, $location, $rootScope) {
   };
 };
 
-module.exports.registerCtrl = function($scope, $http, $location) {
+module.exports.registerCtrl = function($scope, $http, $location, $rootScope) {
 
   $scope.user = {name: '', email: '', password: ''};
 
@@ -9613,6 +9613,7 @@ module.exports.registerCtrl = function($scope, $http, $location) {
   $scope.register = function() {
     $http.post('/auth/register', $scope.user)
       .success(function(data, status, headers, config) {
+        $rootScope.currentUser = $scope.user.email;
         $location.path('/dashboard');
       })
       .error(function(data, status, headers, config) {
@@ -9648,7 +9649,7 @@ authModule.factory('authInterceptor', ['$q', '$location', '$rootScope', services
 
 // Import controller functions and register them
 authModule.controller('registerCtrl',
-  ['$scope', '$http', '$location', controllers.registerCtrl]);
+  ['$scope', '$http', '$location', '$rootScope', controllers.registerCtrl]);
 authModule.controller('loginCtrl',
   ['$scope', '$http', '$location', '$rootScope', controllers.loginCtrl]);
 authModule.controller('logoutCtrl',
@@ -9662,17 +9663,19 @@ module.exports = authModule;
 
 var PUBLIC_URLS = {
   '/auth/login': true,
-  '/auth/signup': true,
+  '/auth/register': true,
   'templates/index.html': true,
+  'templates/home.html': true,
   'templates/login.html': true,
   'templates/register.html': true,
   '': true,
-  '/': true
+  '/': true,
 };
 
 module.exports.authInterceptor = function($q, $location, $rootScope) {
 
   function isPublic(path) {
+    console.log('checking whether ' + path + ' is public');
     if (PUBLIC_URLS[path]) {
       return true;
     }
