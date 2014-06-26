@@ -20,7 +20,7 @@ module.exports = function(app) {
 
   /* Get all sleep records for a user */
   app.get('/api/sleep/all', function(req, res) {
-    Sleep.find({user: req.user._id}, function(err, sleeps) {
+    Sleep.find({user: req.user._id}, {}, {sort: {sleep: -1}}, function(err, sleeps) {
       if (err) {
         return res.send(500, 'Error finding sleep records.');
       }
