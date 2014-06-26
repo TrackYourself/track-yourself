@@ -27,6 +27,9 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/login.html',
       controller: 'loginCtrl'
     })
+    .when('/logout', {
+      controller: 'logoutCtrl'
+    })
 
     // Main pages
     .when('/dashboard', {
