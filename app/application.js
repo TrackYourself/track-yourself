@@ -43,16 +43,12 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 
 		// Sleep
 		.when('/sleep', {
-			templateUrl: 'templates/sleep-last.html',
-			controller: 'sleepMainCtrl'
+			templateUrl: 'templates/sleep-all.html',
+			controller: 'sleepDisplayAllCtrl'
 		})
 		.when('/sleep/add', {
 			templateUrl: 'templates/sleep-input.html',
 			controller: 'sleepMainCtrl'
-		})
-		.when('/sleep/all', {
-			templateUrl: 'templates/sleep-all.html',
-			controller: 'sleepDisplayAllCtrl'
 		})
 
 		// Water
