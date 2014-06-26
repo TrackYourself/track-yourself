@@ -67,15 +67,16 @@ h2 {
 small {
   font-size: 9.88875px; }
 
-nav a {
+a {
   color: #03318C;
   text-decoration: none; }
-  nav a:hover {
+  a:hover {
     text-decoration: underline; }
-  nav a:visited {
+  a:active {
+    color: #0557f0;
+    text-decoration: underline; }
+  a:visited {
     color: #03318C; }
-  nav a:first-child {
-    margin-right: 25.888px; }
 
 .testimonial p {
   font-style: italic; }
@@ -212,7 +213,7 @@ form button {
   margin-top: 9.88875px;
   background-color: #14C8C8; }
   form button:hover {
-    background-color: #26e9e6; }
+    background-color: #26e9e9; }
 
 header {
   background-color: #03318C; }

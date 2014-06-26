@@ -30,16 +30,16 @@ h2
 small
   font-size: golden-ratio($em-base, -1)
 
-nav
-  a
+a
+  color: $primary-color
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+  &:active
+    color: $primary-color-lighten20
+    text-decoration: underline
+  &:visited
     color: $primary-color
-    text-decoration: none
-    &:hover
-      text-decoration: underline
-    &:visited
-      color: $primary-color
-    &:first-child
-      margin-right: golden-ratio($em-base, 1)
 
 .testimonial
   p
