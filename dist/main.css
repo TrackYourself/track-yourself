@@ -215,7 +215,6 @@ header button {
     background-color: #fd995f; }
 
 form button {
-  margin-top: 9.88875px;
   background-color: #14C8C8; }
   form button:hover {
     background-color: #26e9e9; }
@@ -236,8 +235,10 @@ form {
   border-radius: 0; }
 
 label {
-  display: block;
-  margin-top: 9.88875px; }
+  display: block; }
+
+input {
+  margin-bottom: 9.88875px; }
 
 input:not([type=radio]), textarea {
   width: 100%; }
