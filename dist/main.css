@@ -70,13 +70,18 @@ small {
 a {
   color: #03318C;
   text-decoration: none; }
+  a:link {
+    color: #03318C;
+    text-decoration: none; }
   a:hover {
+    color: #03318C;
     text-decoration: underline; }
   a:active {
     color: #0557f0;
     text-decoration: underline; }
   a:visited {
-    color: #03318C; }
+    color: #03318C;
+    text-decoration: none; }
 
 .testimonial p {
   font-style: italic; }
@@ -149,6 +154,9 @@ nav {
     nav a:first-child {
       margin-right: 25.888px; }
 
+header button:last-of-type {
+  margin-left: 16px; }
+
 .graph {
   margin-bottom: 16px; }
 
@@ -205,9 +213,6 @@ header button {
   background-color: #FD7A2C; }
   header button:hover {
     background-color: #fd995f; }
-
-header a:last-child {
-  margin-left: 16px; }
 
 form button {
   margin-top: 9.88875px;
