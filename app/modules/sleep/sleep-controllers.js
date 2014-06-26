@@ -1,6 +1,5 @@
 /* Define methods to use as controllers */
 
-
 module.exports.sleepMainCtrl = function($scope, Sleep) {
   $scope.sleepRecord = Sleep.get({});
   $scope.newSleep = new Sleep({});
@@ -12,6 +11,6 @@ module.exports.sleepMainCtrl = function($scope, Sleep) {
   };
 };
 
-module.exports.sleepDisplayAllCtrl = function($scope, Sleep) {
+module.exports.sleepDisplayCtrl = function($scope, Sleep) {
   $scope.sleepRecords = Sleep.getAll({});
 };
