@@ -27,6 +27,9 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'templates/login.html',
       controller: 'loginCtrl'
     })
+    .when('/logout', {
+      controller: 'logoutCtrl'
+    })
 
     // Main pages
     .when('/dashboard', {
@@ -40,16 +43,12 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 
 		// Sleep
 		.when('/sleep', {
-			templateUrl: 'templates/sleep-last.html',
-			controller: 'sleepDisplayLastCtrl'
+			templateUrl: 'templates/sleep-all.html',
+			controller: 'sleepDisplayAllCtrl'
 		})
 		.when('/sleep/add', {
 			templateUrl: 'templates/sleep-input.html',
-			controller: 'sleepInputCtrl'
-		})
-		.when('/sleep/all', {
-			templateUrl: 'templates/sleep-all.html',
-			controller: 'sleepDisplayAllCtrl'
+			controller: 'sleepMainCtrl'
 		})
 
 		// Water
@@ -60,34 +59,27 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'templates/water-input.html',
 			controller: 'waterInputCtrl'
 		})
+    //Exercise
+    .when('/exercise', {
+        templateUrl: 'templates/exercise-last.html',
+        controller: 'exerciseDisplayLastCtrl'
+    })
 
-		/*
-		Combining "all" with "last"
+    .when('/exercise/add', {
+        templateUrl: 'templates/exercise-input.html',
+        controller: 'exerciseInputCtrl'
+    })
 
-		.when('/water/all', {
-			templateUrl: 'templates/water-all.html',
-			controller: 'waterDisplayAllCtrl'
-		})
-		*/
+    .when('/exercise/all', {
+        templateUrl: 'templates/exercise-all.html',
+        controller: 'exerciseDisplayAllCtrl'
+    })
+    .when('/home', {
+      templateUrl: 'templates/home.html',
+    })
 
-        //Exercise
-        .when('/exercise', {
-            templateUrl: 'templates/exercise-last.html',
-            controller: 'exerciseDisplayLastCtrl'
-        })
-
-        .when('/exercise/add', {
-            templateUrl: 'templates/exercise-input.html',
-            controller: 'exerciseInputCtrl'
-        })
-
-        .when('/exercise/all', {
-            templateUrl: 'templates/exercise-all.html',
-            controller: 'exerciseDisplayAllCtrl'
-        })
-
-    .otherwise('/', {
-      redirectTo: '/dashboard'
+    .otherwise({
+      redirectTo: '/home'
     });
 
 }]);

@@ -35,7 +35,7 @@ module.exports.registerCtrl = function($scope, $http, $location) {
 
 module.exports.logoutCtrl = function($scope, $http, $location, $rootScope) {
 
-  $scope.logout = function() {
+  $scope.logOut = function() {
     $http.get('/auth/logout')
       .success(function(data, status, headers, config) {
         $rootScope.currentUser = null;
