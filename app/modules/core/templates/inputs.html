@@ -20,9 +20,9 @@
 
   <section class="userform">
     <form name="waterForm" ng-controller="waterInputCtrl" ng-submit="waterEntered()">
-      <legend><h2>Add water intake</h2></legend>
+      <legend><h2>Water intake</h2></legend>
       <label for="waterDrank">Date</label>
-      <input name="drank" ng-model="waterRecord.drank" id="waterDrank" required>
+      <input name="drank" type='date' ng-model="waterRecord.drank" id="waterDrank" required>
       <label for="waterIntake">Cups of water</label>
       <input name="intake" ng-model="waterRecord.intake" id="waterIntake" required>
       <button type="submit">Save</button>
@@ -30,14 +30,15 @@
   </section>
 
   <section class="userform">
-    <form name="exerciseForm" ng-controller="exerciseInputCtrl" ng-submit="exerciseEntered()">
-      <legend><h2>Add your completed exercise routine</h2></legend>
-      <label for="exerciseDate">The date you exercised</label>
-      <input name="date" ng-model="exerciseRecord.date" id="exerciseDate" required>
-      <label for="exerciseDuration">Amount of minutes exercised</label>
+    <form name="exerciseForm" oninput="amount.value=intensity.value" ng-controller="exerciseInputCtrl" ng-submit="exerciseEntered()">
+      <legend><h2>Exercise routine</h2></legend>
+      <label for="exerciseDate">Date</label>
+      <input name="date" type='date' ng-model="exerciseRecord.date" id="exerciseDate" required>
+      <label for="exerciseDuration">Duration--in minutes</label>
       <input name="duration" ng-model="exerciseRecord.duration" id="exerciseDuration" required>
-      <label for="exerciseIntensity">The intensity of your workout on a scale from 1 to 5 (5 being the most intense)</label>
-      <input name="intensity" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
+      <label for="exerciseIntensity">Workout intensity (scale 1-5)</label>
+      <input name="intensity" type="range" min="1" max="5" value="3" step="1" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
+      <output name="amount" for="intensity">3</output>
       <button type="submit">Save</button>
     </form>
   </section>
