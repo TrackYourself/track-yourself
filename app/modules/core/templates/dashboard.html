@@ -2,7 +2,7 @@
 
   <section class="graph">
     <a href="#/sleep"><h2>Sleep</h2></a>
-    <ng-include src="'templates/sleep-graph.html'"></ng-include>
+    <sleep-graph ng-controller="sleepDisplayCtrl" height="200" width="400" data="sleepRecords"></sleep-graph>
     <div class="graph-sleep">
       <h3>Username Sleep Summary</h3>
       <p>sleep graph summary goes here</p>
