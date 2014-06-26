@@ -76,7 +76,6 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
     })
     .when('/home', {
       templateUrl: 'templates/home.html',
-      controller: 'homeCtrl'
     })
 
     .otherwise({

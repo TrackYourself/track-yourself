@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="main.css">
   </head>
-  <body>
+  <body ng-controller="appCtrl">
     <header>
       <figure><img src="images/logo.svg"></figure>
       <div class="button-container">
@@ -19,8 +19,8 @@
     </header>
 
     <nav ng-show="currentUser">
-      <a href="/#dashboard">Dashboard</a>
-      <a href="/#inputs">Forms</a>
+      <a ng-class="{active: path == '/dashboard'}" href="/#dashboard">Dashboard</a>
+      <a ng-class="{active: path == '/inputs'}" href="/#inputs">Forms</a>
     </nav>
 
     <main ng-view>
