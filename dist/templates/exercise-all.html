@@ -1,0 +1,34 @@
+<article>
+
+	<h1>Exercise</h1>
+
+	<h2>Visualize</h2>
+
+	<div ng-app="exerciseModule" ng-controller="exerciseDisplayAllCtrl" class="exercise-graph">
+		<exercise-visualization data="exerciseRecords"></exercise-visualization>
+	</div>
+
+	<h2>Raw Data</h2>
+
+	<div ng-app="exerciseModule" ng-controller="exerciseDisplayAllCtrl">
+
+		<table class="data-table exercise-data-table">
+			<thead>
+			<tr>
+				<th>Date</th>
+				<th>Duration</th>
+				<th>Intensity</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="record in exerciseRecords">
+				<td>{{ record.date | date:"short" }}</td>
+				<td>{{ record.duration }} min</td>
+				<td>Level {{ record.intensity }}</td>
+			</tr>
+			</tbody>
+		</table>
+
+	</div>
+	
+</article>
