@@ -7,12 +7,14 @@ module.exports = function(app) {
     return {
       restrict: 'E',
       scope: {
-        data: '='
+        data: '=',
+        width: '=',
+        height: '='
       },
       link: function(scope, element) {
 				var margin = {top: 20, right: 20, bottom: 30, left: 60},
-						width = 800 - margin.left - margin.right,
-						height = 360 - margin.top - margin.bottom;
+						width = scope.width - margin.left - margin.right,
+						height = scope.height - margin.top - margin.bottom;
 
 				var svg = d3.select(element[0])
 						.append('svg')
