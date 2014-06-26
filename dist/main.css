@@ -14,7 +14,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block; }
 
 body {
-  line-height: 1; }
+  line-height: 1.25; }
 
 ol, ul {
   list-style: none; }
@@ -82,6 +82,9 @@ a {
   a:visited {
     color: #03318C;
     text-decoration: none; }
+
+.introduction {
+  font-size: 25.888px; }
 
 .testimonial p {
   font-style: italic; }
@@ -159,6 +162,10 @@ header button:last-of-type {
 
 .graph {
   margin-bottom: 16px; }
+
+.graph-sample {
+  margin: 41.88678px auto;
+  width: 80%; }
 
 .testimonial {
   display: inline-block;
