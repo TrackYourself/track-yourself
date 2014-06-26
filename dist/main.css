@@ -217,7 +217,7 @@ header button {
 form button {
   background-color: #14C8C8; }
   form button:hover {
-    background-color: #26e9e6; }
+    background-color: #26e9e9; }
 
 header {
   background-color: #03318C; }
@@ -284,7 +284,7 @@ path.domain {
   fill: #fed9c4; }
 
 table.data-table th, table.data-table td {
-  padding: 6px 10px;
+  padding: 6.11171px 9.88875px;
   text-align: center; }
 table.data-table thead th {
   font-weight: bold;
@@ -292,5 +292,5 @@ table.data-table thead th {
   text-transform: uppercase;
   background-color: #e6e6e6; }
 table.data-table tbody td {
-  padding: 6px 10px;
+  padding: 6.11171px 9.88875px;
   border-bottom: 1px solid #e6e6e6; }
