@@ -42,4 +42,20 @@ describe('User goals REST API', function () {
                 done();
         });
     });
+
+    it("should be able to add goals to a new user (who doesn't have goals set)", function(done) {
+
+        var goalsInput = {waterPD: 8, exercisePD: 15, sleepPD: 6};
+
+        agent.post('localhost:3000/api/user')
+            .send(goalsInput)
+            .end(function(err, res) {
+                expect(res.status).to.equal(200);
+                expect(res.body.waterPD).to.equal(goalsInput.waterPD);
+                done();
+            });
+    });
+
+
+
 });
