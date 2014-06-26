@@ -83,6 +83,9 @@ a {
     color: #03318C;
     text-decoration: none; }
 
+.introduction {
+  font-size: 25.888px; }
+
 .testimonial p {
   font-style: italic; }
 
@@ -159,6 +162,10 @@ header button:last-of-type {
 
 .graph {
   margin-bottom: 16px; }
+
+.graph-sample {
+  margin: 41.88678px auto;
+  width: 80%; }
 
 .testimonial {
   display: inline-block;
