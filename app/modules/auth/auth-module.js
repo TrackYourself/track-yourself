@@ -8,7 +8,7 @@ authModule.factory('authInterceptor', ['$q', '$location', '$rootScope', services
 
 // Import controller functions and register them
 authModule.controller('registerCtrl',
-  ['$scope', '$http', '$location', controllers.registerCtrl]);
+  ['$scope', '$http', '$location', '$rootScope', controllers.registerCtrl]);
 authModule.controller('loginCtrl',
   ['$scope', '$http', '$location', '$rootScope', controllers.loginCtrl]);
 authModule.controller('logoutCtrl',

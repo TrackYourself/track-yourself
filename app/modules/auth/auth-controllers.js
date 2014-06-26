@@ -15,7 +15,7 @@ module.exports.loginCtrl = function($scope, $http, $location, $rootScope) {
   };
 };
 
-module.exports.registerCtrl = function($scope, $http, $location) {
+module.exports.registerCtrl = function($scope, $http, $location, $rootScope) {
 
   $scope.user = {name: '', email: '', password: ''};
 
@@ -24,6 +24,7 @@ module.exports.registerCtrl = function($scope, $http, $location) {
   $scope.register = function() {
     $http.post('/auth/register', $scope.user)
       .success(function(data, status, headers, config) {
+        $rootScope.currentUser = $scope.user.email;
         $location.path('/dashboard');
       })
       .error(function(data, status, headers, config) {
