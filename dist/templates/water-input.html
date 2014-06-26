@@ -1,0 +1,8 @@
+<h1>Add water intake</h1>
+<form name="waterForm" ng-controller="waterInputCtrl" ng-submit="waterEntered()">
+	<label for="waterDrank">Date of drinking</label>
+  <input name="drank" ng-model="waterRecord.drank" id="waterDrank" required>
+	<label for="waterIntake">Cups of water drank</label>
+  <input name="intake" ng-model="waterRecord.intake" id="waterIntake" required>
+  <input type="submit" value="submit">
+</form>
