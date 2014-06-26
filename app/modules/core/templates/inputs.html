@@ -34,10 +34,10 @@
       <legend><h2>Exercise routine</h2></legend>
       <label for="exerciseDate">Date</label>
       <input name="date" type='date' ng-model="exerciseRecord.date" id="exerciseDate" required>
-      <label for="exerciseDuration">Duration--in minutes</label>
+      <label for="exerciseDuration">Duration -- in minutes</label>
       <input name="duration" ng-model="exerciseRecord.duration" id="exerciseDuration" required>
       <label for="exerciseIntensity">Workout intensity (scale 1-5)</label>
-      <input name="intensity" type="range" min="1" max="5" value="3" step="1" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
+      <input class="slider" name="intensity" type="range" min="1" max="5" value="3" step="1" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
       <output name="amount" for="intensity">3</output>
       <button type="submit">Save</button>
     </form>
