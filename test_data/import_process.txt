@@ -1,0 +1,20 @@
+In the mongo shell, run:
+
+db.users.find()
+
+... and replace the user value in all 3 JSON files (just the characters within the quotes, like 539a00d2df51e40e0901cb44)
+
+Now, in the CSV files in /test_data, paste in this user ID for all rows (except the header) in the 3 CSVs.
+
+In the project root, run the following commands:
+
+mongoimport --drop --upsert --jsonArray -d track-yourself -c exercises < test_data/exercises.json
+mongoimport --drop --upsert --jsonArray -d track-yourself -c waters < test_data/waters.json
+mongoimport --drop --upsert --jsonArray -d track-yourself -c sleeps < test_data/sleeps.json
+
+You should see something similar to the following after each command:
+
+connected to: 127.0.0.1
+2014-06-26T10:41:59.222-0700 dropping: track-yourself.sleeps
+2014-06-26T10:41:59.252-0700 check 9 19
+2014-06-26T10:41:59.252-0700 imported 18 objects
