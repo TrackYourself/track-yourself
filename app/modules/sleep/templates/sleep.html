@@ -1,0 +1,24 @@
+<article ng-controller="sleepDisplayCtrl">
+  <h1>Sleep</h1>
+
+  <h2>Visualize</h2>
+  <ng-include src="'templates/sleep-graph.html'"></ng-include>
+
+  <h2>Raw Data</h2>
+
+  <table class="data-table water-data-table">
+    <thead>
+      <tr>
+        <th>Slept from</th>
+        <th>Hours of sleep</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="record in sleepRecords">
+        <td>{{ record.sleep | date:"short" }} - {{ record.wake | date:"short" }}</td>
+        <td>{{ record.duration }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+<article>

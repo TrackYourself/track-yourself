@@ -43,7 +43,7 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 
 		// Sleep
 		.when('/sleep', {
-			templateUrl: 'templates/sleep-all.html',
+			templateUrl: 'templates/sleep.html',
 			controller: 'sleepDisplayCtrl'
 		})
 

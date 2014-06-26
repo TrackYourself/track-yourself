@@ -43,11 +43,9 @@ module.exports = function(app) {
           }
 					//Set our scale's domains
 					x.domain(d3.extent(data, function (d) {
-            console.log(d.sleep);
-						return d.sleep;
+						return d.sleep.setDate(d.sleep.getDate() + 1);
 					}));
 					y.domain(d3.extent(data, function (d) {
-            console.log(d.duration);
 						return d.duration;
 					}));
 
@@ -78,7 +76,7 @@ module.exports = function(app) {
                 console.log(d);
 								return x(d.sleep);
 							})
-							.attr("width", 100)
+							.attr("width", 30)
               .append("svg:title")
               .text(function(d) { return d.duration + ' hours'; });
 
