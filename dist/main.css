@@ -212,7 +212,7 @@ form button {
   margin-top: 9.88875px;
   background-color: #14C8C8; }
   form button:hover {
-    background-color: #26e9e9; }
+    background-color: #26e9e6; }
 
 header {
   background-color: #03318C; }
@@ -260,7 +260,30 @@ path.domain {
   shape-rendering: crispEdges; }
 
 .tick text {
-  font-size: 25.888px; }
+  font-size: 9.88875px; }
 
-rect.bar {
+.water-graph rect.bar {
   fill: #2182BF; }
+
+.exercise-graph rect.intensity-5 {
+  fill: #FD7A2C; }
+.exercise-graph rect.intensity-4 {
+  fill: #fd995f; }
+.exercise-graph rect.intensity-3 {
+  fill: #feb991; }
+.exercise-graph rect.intensity-2 {
+  fill: #fec9aa; }
+.exercise-graph rect.intensity-1 {
+  fill: #fed9c4; }
+
+table.data-table th, table.data-table td {
+  padding: 6px 10px;
+  text-align: center; }
+table.data-table thead th {
+  font-weight: bold;
+  font-size: 9.88875px;
+  text-transform: uppercase;
+  background-color: #e6e6e6; }
+table.data-table tbody td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #e6e6e6; }
