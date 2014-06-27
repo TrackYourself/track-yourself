@@ -37,7 +37,7 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
       controller: 'dashboardCtrl'
     })
     .when('/inputs', {
-      templateUrl: 'templates/inputs.html',
+      templateUrl: 'templates/inputs.html'
     })
 
 
@@ -57,21 +57,15 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 		})
     //Exercise
     .when('/exercise', {
-        templateUrl: 'templates/exercise-last.html',
-        controller: 'exerciseDisplayLastCtrl'
+        templateUrl: 'templates/exercise-all.html'
     })
 
     .when('/exercise/add', {
         templateUrl: 'templates/exercise-input.html',
         controller: 'exerciseInputCtrl'
     })
-
-    .when('/exercise/all', {
-        templateUrl: 'templates/exercise-all.html',
-        controller: 'exerciseDisplayAllCtrl'
-    })
     .when('/home', {
-      templateUrl: 'templates/home.html',
+      templateUrl: 'templates/home.html'
     })
 
     .otherwise({

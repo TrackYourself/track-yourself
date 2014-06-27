@@ -6,20 +6,17 @@ var d3 = require('d3');
 var exerciseModule = angular.module('exerciseModule', []);
 
 //Register resource function
-exerciseModule.factory('Exercise', ['$resource', services.resource]);
-
-
-// Import controller functions and register them
-exerciseModule.controller('exerciseDisplayLastCtrl',
-    ['$scope', 'Exercise', controllers.exerciseDisplayLastCtrl]);
-
-exerciseModule.controller('exerciseInputCtrl',
-    ['$scope', '$location','Exercise', controllers.exerciseInputCtrl]);
-
-exerciseModule.controller('exerciseDisplayAllCtrl',
-    ['$scope','Exercise', controllers.exerciseDisplayAllCtrl]);
-
-exerciseModule.directive('exerciseVisualization', function () {
+exerciseModule
+	.factory('Exercise', ['$resource', services.resource])
+	.controller('exerciseDisplayLastCtrl',
+    ['$scope', 'Exercise', controllers.exerciseDisplayLastCtrl])
+  .controller('exerciseInputCtrl',
+    ['$scope', '$location','Exercise', controllers.exerciseInputCtrl])
+	.controller('exerciseDisplayAllCtrl',
+    ['$scope','Exercise', controllers.exerciseDisplayAllCtrl])
+	.controller('exerciseDisplayGraph',
+    ['$scope','Exercise', controllers.exerciseDisplayGraph])
+  .directive('exerciseVisualization', function () {
 
 	return {
 		restrict: 'E',
@@ -28,7 +25,7 @@ exerciseModule.directive('exerciseVisualization', function () {
 		},
 		link    : function (scope, element) {
 
-			var margin = {top: 20, right: 20, bottom: 30, left: 40},
+			var margin = {top: 10, right: 0, bottom: 20, left: 20},
 					width = 800 - margin.left - margin.right,
 					height = 360 - margin.top - margin.bottom;
 
@@ -91,7 +88,7 @@ exerciseModule.directive('exerciseVisualization', function () {
 
 				//Set our scale's domains
 				x.domain(data.map(function (d) {
-					return formatDate(d.date);
+					return formatDate(d._id);
 				}));
 				y.domain([0, d3.max(data, function (d) {
 					return d.duration;
@@ -114,7 +111,7 @@ exerciseModule.directive('exerciseVisualization', function () {
 						.attr("y", 6)
 						.attr("dy", ".71em")
 						.style("text-anchor", "end")
-						.text("Duration (minutes)");
+						.text("Minutes");
 
 				var bars = svg.selectAll(".bar").data(data);
 				bars.enter()
@@ -123,7 +120,7 @@ exerciseModule.directive('exerciseVisualization', function () {
 							return "intensity-" + d.intensity;
 						})
 						.attr("x", function (d) {
-							return x(formatDate(d.date));
+							return x(formatDate(d._id));
 						})
 						.attr("width", x.rangeBand());
 

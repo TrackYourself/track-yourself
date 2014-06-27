@@ -23,3 +23,7 @@ module.exports.exerciseDisplayLastCtrl = function($scope, Exercise) {
 module.exports.exerciseDisplayAllCtrl = function($scope, Exercise) {
     $scope.exerciseRecords = Exercise.getAll({});
 };
+
+module.exports.exerciseDisplayGraph = function($scope, Exercise) {
+    $scope.exerciseRecords = Exercise.getGraph({});
+};
