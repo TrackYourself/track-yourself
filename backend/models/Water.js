@@ -13,7 +13,8 @@ var WaterSchema = mongoose.Schema({
     drank: {
         type:Date,
         required: true
-    }
+    },
+    notes: String
 });
 
 module.exports = mongoose.model('Water', WaterSchema);

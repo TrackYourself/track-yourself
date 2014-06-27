@@ -9,10 +9,12 @@
       </div>
       <form ng-hide="sleepRecord.sleep" name="sleepForm" ng-submit="sleepEntered()">
         <legend><h2>Sleep</h2></legend>
-        <label for="sleepSleep">Went to sleep at</label>
-        <input type="datetime-local" id="sleepSleep" name="sleep" ng-model="newSleep.sleep" required><br>
-        <label for="sleepWake">Woke up at</label>
-        <input name="wake" id="sleepWake" type="datetime-local" ng-model="newSleep.wake" required><br>
+        <label for="sleep">Went to sleep at</label>
+        <input type="datetime-local" name="sleep" ng-model="newSleep.sleep" required><br>
+        <label for="wake">Woke up at</label>
+        <input name="wake" type="datetime-local" ng-model="newSleep.wake" required><br>
+        <label for="sleep-notes">Notes</label>
+        <textarea name="sleep-notes" rows="3" ng-model="newSleep.notes"></textarea>
         <button type="submit">Save</button>
       </form>
     </div>
@@ -25,6 +27,8 @@
       <input name="drank" type="date" ng-model="waterRecord.drank" id="waterDrank" ng-value="waterRecord.drank" required>
       <label for="waterIntake">Cups of water</label>
       <input name="intake" ng-model="waterRecord.intake" id="waterIntake" required>
+      <label for="water-notes">Notes</label>
+      <textarea name="water-notes" rows="3" ng-model="waterRecord.notes"></textarea>
       <button type="submit">Save</button><span name="inputSaved" ng-show="inputSaved">Input Saved!</span>
     </form>
   </section>
@@ -40,6 +44,8 @@
       <input class="slider" name="intensity" type="range" min="1" max="5" value="3" step="1" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
       <button type="submit">Save</button><br>
       <span name="inputSaved" ng-show="inputSaved">Input Saved!</span>
+      <textarea name="exercise-notes" rows="3" ng-model="exerciseRecord.notes"></textarea>
+      <button type="submit">Save</button>
     </form>
   </section>
 </article>
