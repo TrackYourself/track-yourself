@@ -48,7 +48,7 @@ describe('Authorization', function() {
 
       it('should be able to register and be logged in automatically', function(done) {
         agent.post('localhost:3000/auth/register')
-          .send({userName: 'Tester', email: 'test@gmail.com', password: 'pasty'})
+          .send({name: 'Tester', email: 'test@gmail.com', password: 'pasty'})
           .end(function(err, res) {
             expect(err).to.not.exist;
             expect(res.status).to.equal(200);
