@@ -43,6 +43,7 @@
       <label for="exerciseIntensity">Workout intensity (scale 1-5)</label>
       <input class="slider" name="intensity" type="range" min="1" max="5" value="3" step="1" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
       <span>{{ exerciseRecord.intensity }}</span>
+      <label for="exercise-notes">Notes</label>
       <textarea name="exercise-notes" rows="3" ng-model="exerciseRecord.notes"></textarea>
       <button type="submit">Save</button> <span name="inputSaved" ng-show="inputSaved">Input Saved!</span>
     </form>
