@@ -40,7 +40,7 @@ module.exports = function() {
             // create new User
             var newUser = new User();
             newUser.role = 'user';
-            newUser.name = req.body.userName;
+            newUser.name = req.body.name;
             newUser.local.email = email;
             newUser.local.password = newUser.generateHash(password);
 
