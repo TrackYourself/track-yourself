@@ -2,11 +2,16 @@
 
 module.exports.exerciseInputCtrl = function($scope, $location, Exercise) {
     $scope.exerciseRecord = new Exercise({});
+    $scope.inputSaved = false;
+
 
     $scope.exerciseEntered = function() {
         $scope.exerciseRecord.$save(function(exercise, respHeaders) {
-            console.log(respHeaders);
-            $location.path('/exercise/all');
+            $scope.inputSaved = true;
+            $scope.exerciseRecord = new Exercise({});
+            global.setTimeout(function($scope){
+                $scope.inputSaved = false;
+            }, 3000);
         });
     };
 };
