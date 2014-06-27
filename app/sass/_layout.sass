@@ -11,7 +11,7 @@ header figure
     display: inline-block
     width: 94%
   @media all and (min-width: 600px)
-    width: 45%
+    width: 40%
   @media all and (min-width: 768px)
     width: 40%
 
@@ -41,7 +41,7 @@ main
   p
     margin: 0
 
-//home page H1
+//home page h1
 .home
   text-align: center
 
@@ -50,10 +50,13 @@ article
   width: 80%
 
 h1, h2, h3, h4, h5, h6
-  margin-bottom: golden-ratio($em-base, -2)
+  margin-bottom: 1em
+
+h1
+  text-align: center
 
 p
-  margin-bottom: golden-ratio($em-base, 0)
+  margin-bottom: 1em
 
 nav
   text-align: center
@@ -68,6 +71,10 @@ header button:last-of-type
 
 .graph
   margin-bottom: golden-ratio($em-base, 0)
+
+.graph-sample
+  margin: golden-ratio($em-base, 2) auto
+  width: 80%
 
 .testimonial
   display: inline-block

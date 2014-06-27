@@ -25,12 +25,12 @@
       <input name="drank" type='date' ng-model="waterRecord.drank" id="waterDrank" required>
       <label for="waterIntake">Cups of water</label>
       <input name="intake" ng-model="waterRecord.intake" id="waterIntake" required>
-      <button type="submit">Save</button>
+      <button type="submit">Save</button><span name="inputSaved" ng-show="inputSaved">Input Saved!</span>
     </form>
   </section>
 
   <section class="userform">
-    <form name="exerciseForm" oninput="amount.value=intensity.value" ng-controller="exerciseInputCtrl" ng-submit="exerciseEntered()">
+    <form name="exerciseForm" ng-controller="exerciseInputCtrl" ng-submit="exerciseEntered()">
       <legend><h2>Exercise routine</h2></legend>
       <label for="exerciseDate">Date</label>
       <input name="date" type='date' ng-model="exerciseRecord.date" id="exerciseDate" required>
@@ -38,8 +38,8 @@
       <input name="duration" ng-model="exerciseRecord.duration" id="exerciseDuration" required>
       <label for="exerciseIntensity">Workout intensity (scale 1-5)</label>
       <input class="slider" name="intensity" type="range" min="1" max="5" value="3" step="1" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
-      <output name="amount" for="intensity">3</output>
-      <button type="submit">Save</button>
+      <output name="amount" for="intensity">{{exerciseRecord.intensity}}</output>
+      <button type="submit">Save</button><span name="inputSaved" ng-show="inputSaved">Input Saved!</span>
     </form>
   </section>
 </article>
