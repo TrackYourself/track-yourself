@@ -92,7 +92,15 @@ waterModule
 							.attr("x", function (d) {
 								return x(dateFuncs.formatDate(d._id));
 							})
-							.attr("width", x.rangeBand());
+							.attr("width", x.rangeBand())
+              .append("svg:title")
+              .text(function(d) { 
+                 var text = d.total + ' cups';
+                 if (d.notes) {
+                   text += '\nNotes: ' + d.notes;
+                 }
+                return text;
+              });
 
 					//Animate bars
 					bars
@@ -104,16 +112,15 @@ waterModule
 							.attr("y", function (d) {
 								return y(d.total);
 							})
-              .append("svg:title")
-              .text(function(d) { 
-                 return d.cups + ' cups' + '\nNotes: ' + d.notes;
-              });
 				};
 
 				//Watch 'data' and run scope.render(newVal) whenever it changes
+
 				//Use true for 'objectEquality' property so comparisons are done on equality and not reference
-				scope.$watch('data', function () {
-					scope.render(scope.data);
+				scope.$watch('data', function (newVal) {
+          //if (newVal.$resolved) {
+					scope.render(newVal);
+          //}
 				}, true);
 			}
 		};

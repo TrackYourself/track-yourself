@@ -90,7 +90,14 @@ exerciseModule
 						.attr("x", function (d) {
 							return x(dateFuncs.formatDate(d._id));
 						})
-						.attr("width", x.rangeBand());
+						.attr("width", x.rangeBand())
+            .append("svg:title")
+            .text(function(d) { 
+               var text = d.duration + ' minutes, intensity: ' + d.intesnity;
+               if (d.notes) { 
+                 '\nNotes: ' + d.notes;
+               }
+             });
 
 				//Animate bars
 				bars
@@ -101,12 +108,7 @@ exerciseModule
 						})
 						.attr("y", function (d) {
 							return y(d.duration);
-						})
-            .append("svg:title")
-            .text(function(d) { 
-               return d.duration + ' minutes, intensity: ' + d.intesnity + 
-               '\nNotes: ' + d.notes;
-             });
+						});
 			};
 
 			//Watch 'data' and run scope.render(newVal) whenever it changes

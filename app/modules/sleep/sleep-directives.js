@@ -95,7 +95,11 @@ module.exports = function(app) {
 							.attr("width", 20)
               .append("svg:title")
               .text(function(d) { 
-                 return d.duration + ' hours' + '\nNotes: ' + d.notes;
+                 var text = d.duration + ' hours'
+                 if (d.notes) {
+                   text += '\nNotes: ' + d.notes;
+                 }
+                return text;
                });
 
 					//Animate bars
