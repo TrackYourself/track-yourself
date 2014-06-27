@@ -136,7 +136,12 @@ exerciseModule.directive('exerciseVisualization', function () {
 						})
 						.attr("y", function (d) {
 							return y(d.duration);
-						});
+						})
+            .append("svg:title")
+            .text(function(d) { 
+               return d.duration + ' minutes, intensity: ' + d.intesnity + 
+               '\nNotes: ' + d.notes;
+             });
 			};
 
 			//Watch 'data' and run scope.render(newVal) whenever it changes

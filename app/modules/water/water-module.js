@@ -128,7 +128,11 @@ waterModule
 							})
 							.attr("y", function (d) {
 								return y(d.total);
-							});
+							})
+              .append("svg:title")
+              .text(function(d) { 
+                 return d.cups + ' cups' + '\nNotes: ' + d.notes;
+              });
 				};
 
 				//Watch 'data' and run scope.render(newVal) whenever it changes
