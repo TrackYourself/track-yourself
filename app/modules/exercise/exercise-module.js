@@ -95,10 +95,11 @@ exerciseModule
 						.attr("width", x.rangeBand())
             .append("svg:title")
             .text(function(d) { 
-               var text = d.duration + ' minutes, intensity: ' + d.intesnity;
+               var text = d.duration + ' minutes, intensity: ' + d.intensity;
                if (d.notes) { 
-                 '\nNotes: ' + d.notes;
+                  text += '\nNotes: ' + d.notes.join(', ');
                }
+               return text;
              });
 
 				//Animate bars

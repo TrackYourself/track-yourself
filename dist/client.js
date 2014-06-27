@@ -281,7 +281,7 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
       controller: 'dashboardCtrl'
     })
     .when('/inputs', {
-      templateUrl: 'templates/inputs.html',
+      templateUrl: 'templates/inputs.html'
     })
 
 
@@ -301,21 +301,15 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 		})
     //Exercise
     .when('/exercise', {
-        templateUrl: 'templates/exercise-last.html',
-        controller: 'exerciseDisplayLastCtrl'
+        templateUrl: 'templates/exercise-all.html'
     })
 
     .when('/exercise/add', {
         templateUrl: 'templates/exercise-input.html',
         controller: 'exerciseInputCtrl'
     })
-
-    .when('/exercise/all', {
-        templateUrl: 'templates/exercise-all.html',
-        controller: 'exerciseDisplayAllCtrl'
-    })
     .when('/home', {
-      templateUrl: 'templates/home.html',
+      templateUrl: 'templates/home.html'
     })
 
     .otherwise({
@@ -323,10 +317,7 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
     });
 
 }]);
-
-// test
-
-},{"./modules/auth/auth-module.js":4,"./modules/core/core-module.js":7,"./modules/exercise/exercise-module.js":9,"./modules/sleep/sleep-module.js":13,"./modules/water/water-module.js":16}],2:[function(require,module,exports){
+},{"./modules/auth/auth-module.js":5,"./modules/core/core-module.js":8,"./modules/exercise/exercise-module.js":10,"./modules/sleep/sleep-module.js":14,"./modules/water/water-module.js":17}],2:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.4.8"
@@ -9583,6 +9574,55 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
   }
 }();
 },{}],3:[function(require,module,exports){
+module.exports = function () {
+	this.formatDotw = function (dayInt) {
+		switch (dayInt) {
+			case 0:
+				return 'Sun';
+			case 1:
+				return 'Mon';
+			case 2:
+				return 'Tue';
+			case 3:
+				return 'Wed';
+			case 4:
+				return 'Thu';
+			case 5:
+				return 'Fri';
+			case 6:
+				return 'Sat';
+		}
+	};
+
+
+	this.formatDate = function (dateId) {
+		var newDate = new Date(dateId);
+		var today = new Date();
+
+		if (today.getDate() === newDate.getDate()) {
+			return 'Today';
+		}
+
+		var dateString = this.formatDotw(newDate.getDay());
+		dateString += ' - ' + (newDate.getMonth() + 1);
+		dateString += '/' + newDate.getDate();
+
+		return dateString;
+	};
+
+	this.defaultInputDate = function () {
+		var todayDefault = new Date();
+		var defaultYear = todayDefault.getFullYear();
+		var defaultMonth = todayDefault.getMonth() + 1;
+		defaultMonth = defaultMonth.toString();
+		if (defaultMonth.length < 2) {
+			defaultMonth = '0' + defaultMonth;
+		}
+		var defaultDay = todayDefault.getDate();
+		return defaultYear + '-' + defaultMonth + '-' + defaultDay;
+	};
+};
+},{}],4:[function(require,module,exports){
 
 module.exports.loginCtrl = function($scope, $http, $location, $rootScope) {
   $scope.user = {email: '', password: ''};
@@ -9634,7 +9674,7 @@ module.exports.logoutCtrl = function($scope, $http, $location, $rootScope) {
 
 };
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var controllers = require('./auth-controllers.js');
 var services = require('./auth-services.js');
 
@@ -9654,7 +9694,7 @@ authModule.controller('logoutCtrl',
 module.exports = authModule;
 
 
-},{"./auth-controllers.js":3,"./auth-services.js":5}],5:[function(require,module,exports){
+},{"./auth-controllers.js":4,"./auth-services.js":6}],6:[function(require,module,exports){
 /* Auth interceptor -- redirects to login page when needed */
 
 var PUBLIC_URLS = {
@@ -9704,7 +9744,7 @@ module.exports.authInterceptor = function($q, $location, $rootScope) {
 };
 
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // Wraps other controllers, gives access to url path
 module.exports.appCtrl = function($scope, $location) {
   $scope.path = $location.path();
@@ -9721,7 +9761,7 @@ module.exports.dashboardCtrl = function($scope) {
 };
 
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var controllers = require('./core-controllers.js');
 
 // Define/register the core module
@@ -9737,18 +9777,33 @@ module.exports = coreModule;
 
 
 
-},{"./core-controllers.js":6}],8:[function(require,module,exports){
+},{"./core-controllers.js":7}],9:[function(require,module,exports){
 /* Define methods to use as controllers */
 
-module.exports.exerciseInputCtrl = function($scope, $location, Exercise) {
-    $scope.exerciseRecord = new Exercise({});
+var DateFuncs = require('../../date-functions.js');
 
-    $scope.exerciseEntered = function() {
-        $scope.exerciseRecord.$save(function(exercise, respHeaders) {
-            console.log(respHeaders);
-            $location.path('/exercise/all');
-        });
-    };
+module.exports.exerciseInputCtrl = function($scope, $location, Exercise) {
+
+	var dateFuncs = new DateFuncs();
+
+	$scope.exerciseRecord = new Exercise({});
+	$scope.inputSaved = false;
+
+
+	$scope.exerciseEntered = function() {
+			$scope.exerciseRecord.$save(function(exercise, respHeaders) {
+					$scope.inputSaved = true;
+					$scope.exerciseRecord = new Exercise({});
+					/*global.setTimeout(function($scope){
+							$scope.inputSaved = false;
+					}, 3000);
+          */
+			});
+	};
+
+	// Default date
+	$scope.exerciseRecord.date = dateFuncs.defaultInputDate();
+
 };
 
 module.exports.exerciseDisplayLastCtrl = function($scope, Exercise) {
@@ -9759,40 +9814,44 @@ module.exports.exerciseDisplayAllCtrl = function($scope, Exercise) {
     $scope.exerciseRecords = Exercise.getAll({});
 };
 
-},{}],9:[function(require,module,exports){
+module.exports.exerciseDisplayGraph = function($scope, Exercise) {
+    $scope.exerciseRecords = Exercise.getGraph({});
+};
+
+},{"../../date-functions.js":3}],10:[function(require,module,exports){
 var controllers = require('./exercise-controller.js');
 var services = require('./exercise-services.js');
 var d3 = require("./../../bower_components/d3/d3.js");
+var DateFuncs = require('../../date-functions.js');
 
 // Define/register the exercise module
 var exerciseModule = angular.module('exerciseModule', []);
 
 //Register resource function
-exerciseModule.factory('Exercise', ['$resource', services.resource]);
-
-
-// Import controller functions and register them
-exerciseModule.controller('exerciseDisplayLastCtrl',
-    ['$scope', 'Exercise', controllers.exerciseDisplayLastCtrl]);
-
-exerciseModule.controller('exerciseInputCtrl',
-    ['$scope', '$location','Exercise', controllers.exerciseInputCtrl]);
-
-exerciseModule.controller('exerciseDisplayAllCtrl',
-    ['$scope','Exercise', controllers.exerciseDisplayAllCtrl]);
-
-exerciseModule.directive('exerciseVisualization', function () {
+exerciseModule
+	.factory('Exercise', ['$resource', services.resource])
+	.controller('exerciseDisplayLastCtrl',
+    ['$scope', 'Exercise', controllers.exerciseDisplayLastCtrl])
+  .controller('exerciseInputCtrl',
+    ['$scope', '$location','Exercise', controllers.exerciseInputCtrl])
+	.controller('exerciseDisplayAllCtrl',
+    ['$scope','Exercise', controllers.exerciseDisplayAllCtrl])
+	.controller('exerciseDisplayGraph',
+    ['$scope','Exercise', controllers.exerciseDisplayGraph])
+  .directive('exerciseVisualization', function () {
 
 	return {
 		restrict: 'E',
 		scope   : {
-			data: '='
+			data: '=',
+      height: '=',
+      width: '='
 		},
 		link    : function (scope, element) {
 
-			var margin = {top: 20, right: 20, bottom: 30, left: 40},
-					width = 800 - margin.left - margin.right,
-					height = 360 - margin.top - margin.bottom;
+			var margin = {top: 10, right: 0, bottom: 20, left: 30},
+					width = scope.width - margin.left - margin.right,
+					height = scope.height - margin.top - margin.bottom;
 
 			var svg = d3.select(element[0])
 					.append("svg")
@@ -9813,47 +9872,14 @@ exerciseModule.directive('exerciseVisualization', function () {
 					.orient("left")
 					.ticks(10);
 
-			var formatDotw = function (dayInt) {
-				switch (dayInt) {
-					case 0:
-						return 'Sun';
-					case 1:
-						return 'Mon';
-					case 2:
-						return 'Tue';
-					case 3:
-						return 'Wed';
-					case 4:
-						return 'Thu';
-					case 5:
-						return 'Fri';
-					case 6:
-						return 'Sat';
-				}
-			};
-
-
-			var formatDate = function (dateId) {
-				var newDate = new Date(dateId);
-				var today = new Date();
-
-				if (today.getDate() === newDate.getDate()) {
-					return 'Today';
-				}
-
-				var dateString = formatDotw(newDate.getDay());
-				dateString += ' - ' + (newDate.getMonth() + 1);
-				dateString += '/' + newDate.getDate();
-
-				return dateString;
-			};
+			var dateFuncs = new DateFuncs();
 
 			//Render graph based on 'data'
 			scope.render = function (data) {
 
 				//Set our scale's domains
 				x.domain(data.map(function (d) {
-					return formatDate(d.date);
+					return dateFuncs.formatDate(d._id);
 				}));
 				y.domain([0, d3.max(data, function (d) {
 					return d.duration;
@@ -9876,18 +9902,28 @@ exerciseModule.directive('exerciseVisualization', function () {
 						.attr("y", 6)
 						.attr("dy", ".71em")
 						.style("text-anchor", "end")
-						.text("Duration (minutes)");
+						.text("Minutes");
 
 				var bars = svg.selectAll(".bar").data(data);
 				bars.enter()
 						.append("rect")
 						.attr("class", function (d) {
-							return "intensity-" + d.intensity;
+							return "intensity-" + Math.round(d.intensity);
 						})
 						.attr("x", function (d) {
-							return x(formatDate(d.date));
+							return x(dateFuncs.formatDate(d._id));
 						})
-						.attr("width", x.rangeBand());
+						.attr("width", x.rangeBand())
+            .append("svg:title")
+            .text(function(d) { 
+               var text = d.duration + ' minutes, intensity: ' + d.intensity;
+               console.log('exercise');
+               console.log(d.notes);
+               if (d.notes) { 
+                  text += '\nNotes: ' + d.notes.join(', ');
+               }
+               return text;
+             });
 
 				//Animate bars
 				bars
@@ -9913,7 +9949,7 @@ exerciseModule.directive('exerciseVisualization', function () {
 
 module.exports = exerciseModule;
 
-},{"./../../bower_components/d3/d3.js":2,"./exercise-controller.js":8,"./exercise-services.js":10}],10:[function(require,module,exports){
+},{"../../date-functions.js":3,"./../../bower_components/d3/d3.js":2,"./exercise-controller.js":9,"./exercise-services.js":11}],11:[function(require,module,exports){
 /* Define a resource that connects to REST API for exercise records */
 
 module.exports.resource = function($resource) {
@@ -9925,11 +9961,17 @@ module.exports.resource = function($resource) {
             url: '/api/exercise/all',
             isArray: true,
             responseType: 'json'
+        },
+        getGraph: {
+            method: 'GET',
+            url: '/api/exercise/graph',
+            isArray: true,
+            responseType: 'json'
         }
     });
 };
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /* Define methods to use as controllers */
 
 module.exports.sleepMainCtrl = function($scope, Sleep) {
@@ -9937,6 +9979,7 @@ module.exports.sleepMainCtrl = function($scope, Sleep) {
   $scope.newSleep = new Sleep({});
 
   $scope.sleepEntered = function() {
+    console.log($scope.newSleep);
     $scope.newSleep.$save(function(sleep, respHeaders) {
       $scope.sleepRecord = sleep;
     });
@@ -9947,7 +9990,7 @@ module.exports.sleepDisplayCtrl = function($scope, Sleep) {
   $scope.sleepRecords = Sleep.getAll({});
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var d3 = require("./../../bower_components/d3/d3.js");
 
 module.exports = function(app) {
@@ -9986,19 +10029,33 @@ module.exports = function(app) {
 						//.ticks(10);
 
 				//Render graph based on 'data'
-				scope.render = function (data) {
+				scope.render = function (dbData) {
+          var data = [];
 
-          console.log(data);
-          for (var i = 0; i < data.length; i++) {
-            data[i].sleep = new Date(data[i].sleep);
-            data[i].wake = new Date(data[i].wake);
+          for (var i = 0; i < dbData.length; i++) {
+            data.push({
+              sleep: new Date(dbData[i].sleep),
+              wake: new Date(dbData[i].wake),
+              notes: dbData[i].notes,
+              duration: dbData[i].duration
+            });
           }
+
 					//Set our scale's domains
-					x.domain(d3.extent(data, function (d) {
-						return d.sleep.setDate(d.sleep.getDate() + 1);
-					}));
+					x.domain([
+            d3.max(data, function (d) {
+              var max = new Date(d.sleep);
+              max.setDate(d.sleep.getDate() + 1);
+              return max;
+            }),
+            d3.min(data, function (d) {
+              var min = new Date(d.sleep);
+              min.setDate(d.sleep.getDate() - 1);
+              return min;
+            })
+					]);
 					y.domain(d3.extent(data, function (d) {
-						return d.duration;
+						return d.duration + 1;
 					}));
 
 					//Redraw the axes
@@ -10016,6 +10073,7 @@ module.exports = function(app) {
 							.append("text")
 							.attr("transform", "rotate(-90)")
 							.attr("y", 6)
+              .attr('x', -20)
 							.attr("dy", ".3em")
 							.style("text-anchor", "end")
 							.text("Hours");
@@ -10025,29 +10083,35 @@ module.exports = function(app) {
 							.append("rect")
 							.attr("class", "bar")
 							.attr("x", function (d) {
-                console.log(d);
 								return x(d.sleep);
 							})
-							.attr("width", 30)
+							.attr("width", 20)
               .append("svg:title")
-              .text(function(d) { return d.duration + ' hours'; });
+              .text(function(d) { 
+                 var text = d.duration + ' hours'
+                 if (d.notes) {
+                   text += '\nNotes: ' + d.notes;
+                 }
+                return text;
+               });
 
 					//Animate bars
 					bars.transition()
 							.duration(1000)
 							.attr('height', function (d) {
-								return height - y(d.duration);
+								return y(d.duration);
 							})
 							.attr("y", function (d) {
-                console.log(d);
-								return y(d.duration);
+								return 0;
 							});
 				};
 
 				//Watch 'data' and run scope.render(newVal) whenever it changes
 				//Use true for 'objectEquality' property so comparisons are done on equality and not reference
 				scope.$watch('data', function (newVal) {
-          scope.render(newVal);
+            if (newVal.$resolved) {
+              scope.render(newVal);
+            }
 				}, true);
 
       }
@@ -10055,7 +10119,7 @@ module.exports = function(app) {
   });
 };
 
-},{"./../../bower_components/d3/d3.js":2}],13:[function(require,module,exports){
+},{"./../../bower_components/d3/d3.js":2}],14:[function(require,module,exports){
 var controllers = require('./sleep-controllers.js');
 var services = require('./sleep-services.js');
 
@@ -10076,7 +10140,7 @@ sleepModule.controller('sleepDisplayCtrl',
 
 module.exports = sleepModule;
 
-},{"./sleep-controllers.js":11,"./sleep-directives.js":12,"./sleep-services.js":14}],14:[function(require,module,exports){
+},{"./sleep-controllers.js":12,"./sleep-directives.js":13,"./sleep-services.js":15}],15:[function(require,module,exports){
 /* Define a resource that connects to REST API for sleep records */
 
 module.exports.resource = function($resource) {
@@ -10095,27 +10159,30 @@ module.exports.resource = function($resource) {
 };
 
 
-},{}],15:[function(require,module,exports){
-/* Define methods to use as controllers */
-
-/*
- Combining "all" with "last"
-
-module.exports.waterDisplayLastCtrl = function ($scope, Water) {
-	$scope.waterRecord = Water.get({});
-};
-*/
+},{}],16:[function(require,module,exports){
+(function (global){
+var DateFuncs = require('../../date-functions.js');
 
 module.exports.waterInputCtrl = function($scope, $location, Water) {
 
+	var dateFuncs = new DateFuncs();
+
   $scope.waterRecord = new Water({});
+  $scope.inputSaved = false;
+
 
   $scope.waterEntered = function() {
     $scope.waterRecord.$save(function(intake, respHeaders) {
-      console.log(respHeaders);
-      $location.path('/water');
+        $scope.inputSaved = true;
+        $scope.waterRecord = new Water({});
+        global.setTimeout(function($scope){
+            $scope.inputSaved = false;
+        }, 3000);
     });
   };
+
+	// Default date
+	$scope.waterRecord.drank = dateFuncs.defaultInputDate();
 
 };
 
@@ -10126,12 +10193,13 @@ module.exports.waterDisplayAllCtrl = function($scope, Water) {
 module.exports.waterGraphControl = function ($scope, Water) {
 	$scope.waterRecords = Water.getAllGraph({});
 };
-  
 
-},{}],16:[function(require,module,exports){
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"../../date-functions.js":3}],17:[function(require,module,exports){
 var controllers = require('./water-controllers.js');
 var services = require('./water-services.js');
 var d3 = require("./../../bower_components/d3/d3.js");
+var DateFuncs = require('../../date-functions.js');
 
 // Define/register the water module
 var waterModule = angular.module('waterModule', []);
@@ -10156,13 +10224,15 @@ waterModule
 		return {
 			restrict: 'E',
 			scope   : {
-				data: '='
+				data: '=',
+        height: '=',
+        width: '='
 			},
 			link    : function (scope, element) {
 
 				var margin = {top: 20, right: 20, bottom: 30, left: 40},
-						width = 800 - margin.left - margin.right,
-						height = 360 - margin.top - margin.bottom;
+						width = scope.width - margin.left - margin.right,
+						height = scope.height - margin.top - margin.bottom;
 
 				var svg = d3.select(element[0])
 						.append("svg")
@@ -10183,40 +10253,14 @@ waterModule
 						.orient("left")
 						.ticks(10);
 
-				var formatDotw = function (dayInt) {
-					switch (dayInt) {
-						case 0: return 'Sun';
-						case 1: return 'Mon';
-						case 2: return 'Tue';
-						case 3: return 'Wed';
-						case 4: return 'Thu';
-						case 5: return 'Fri';
-						case 6: return 'Sat';
-					}
-				};
-
-
-				var formatDate = function (dateId) {
-					var newDate = new Date(dateId);
-					var today = new Date();
-
-					if (today.getDate() === newDate.getDate()) {
-						return 'Today';
-					}
-
-					var dateString = formatDotw(newDate.getDay());
-					dateString += ' - ' + (newDate.getMonth() + 1);
-					dateString += '/' + newDate.getDate();
-
-					return dateString;
-				};
+				var dateFuncs = new DateFuncs();
 
 				//Render graph based on 'data'
 				scope.render = function (data) {
 
 					//Set our scale's domains
 					x.domain(data.map(function (d) {
-						return formatDate(d._id);
+						return dateFuncs.formatDate(d._id);
 					}));
 					y.domain([0, d3.max(data, function (d) {
 						return d.total;
@@ -10246,9 +10290,19 @@ waterModule
 							.append("rect")
 							.attr("class", "bar")
 							.attr("x", function (d) {
-								return x(formatDate(d._id));
+								return x(dateFuncs.formatDate(d._id));
 							})
-							.attr("width", x.rangeBand());
+							.attr("width", x.rangeBand())
+              .append("svg:title")
+              .text(function(d) { 
+                 var text = d.total + ' cups';
+                 console.log('water');
+                 console.log(d.notes);
+                 if (d.notes) {
+                   text += '\nNotes: ' + d.notes.join(', ');
+                 }
+                return text;
+              });
 
 					//Animate bars
 					bars
@@ -10259,13 +10313,16 @@ waterModule
 							})
 							.attr("y", function (d) {
 								return y(d.total);
-							});
+							})
 				};
 
 				//Watch 'data' and run scope.render(newVal) whenever it changes
+
 				//Use true for 'objectEquality' property so comparisons are done on equality and not reference
-				scope.$watch('data', function () {
-					scope.render(scope.data);
+				scope.$watch('data', function (newVal) {
+          //if (newVal.$resolved) {
+					scope.render(newVal);
+          //}
 				}, true);
 			}
 		};
@@ -10282,7 +10339,7 @@ waterModule.controller(
 
 module.exports = waterModule;
 
-},{"./../../bower_components/d3/d3.js":2,"./water-controllers.js":15,"./water-services.js":17}],17:[function(require,module,exports){
+},{"../../date-functions.js":3,"./../../bower_components/d3/d3.js":2,"./water-controllers.js":16,"./water-services.js":18}],18:[function(require,module,exports){
 /* Define a resource that connects to REST API for water records */
 
 module.exports.resource = function($resource) {

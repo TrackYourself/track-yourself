@@ -227,7 +227,7 @@ header button {
 form button {
   background-color: #14C8C8; }
   form button:hover {
-    background-color: #26e9e9; }
+    background-color: #26e9e6; }
 
 header {
   background-color: #03318C; }
@@ -294,6 +294,9 @@ path.domain {
   fill: #fec9aa; }
 .exercise-graph rect.intensity-1 {
   fill: #fed9c4; }
+
+.sleep-graph rect.bar {
+  fill: #62b2e4; }
 
 table.data-table th, table.data-table td {
   padding: 6.11171px 9.88875px;

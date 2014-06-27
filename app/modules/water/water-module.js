@@ -99,7 +99,7 @@ waterModule
               .text(function(d) { 
                  var text = d.total + ' cups';
                  if (d.notes) {
-                   text += '\nNotes: ' + d.notes;
+                   text += '\nNotes: ' + d.notes.join(', ');
                  }
                 return text;
               });
