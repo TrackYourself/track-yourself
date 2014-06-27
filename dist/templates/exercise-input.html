@@ -1,7 +1,7 @@
 <h1>Add your completed exercise routine</h1>
 <form name="exerciseForm" ng-controller="exerciseInputCtrl" ng-submit="exerciseEntered()">
     <label for="exerciseDate">The date you exercised</label>
-    <input name="date" ng-model="exerciseRecord.date" id="exerciseDate" required>
+    <input name="date" ng-model="exerciseRecord.date" id="exerciseDate" value="{{defaultDate}}" required>
     <label for="exerciseDuration">Amount of minutes exercised</label>
     <input name="duration" ng-model="exerciseRecord.duration" id="exerciseDuration" required>
     <label for="exerciseIntensity">The intensity of your workout on a scale from 1 to 5 (5 being the most intense)</label>
