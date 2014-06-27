@@ -14,7 +14,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block; }
 
 body {
-  line-height: 1; }
+  line-height: 1.25; }
 
 ol, ul {
   list-style: none; }
@@ -83,6 +83,9 @@ a {
     color: #03318C;
     text-decoration: none; }
 
+.introduction {
+  font-size: 25.888px; }
+
 .testimonial p {
   font-style: italic; }
 
@@ -102,7 +105,7 @@ header figure {
       width: 94%; } }
   @media all and (min-width: 600px) {
     header figure {
-      width: 45%; } }
+      width: 40%; } }
   @media all and (min-width: 768px) {
     header figure {
       width: 40%; } }
@@ -141,10 +144,13 @@ article {
   width: 80%; }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 6.11171px; }
+  margin-bottom: 1em; }
+
+h1 {
+  text-align: center; }
 
 p {
-  margin-bottom: 16px; }
+  margin-bottom: 1em; }
 
 nav {
   text-align: center;
@@ -159,6 +165,10 @@ header button:last-of-type {
 
 .graph {
   margin-bottom: 16px; }
+
+.graph-sample {
+  margin: 41.88678px auto;
+  width: 80%; }
 
 .testimonial {
   display: inline-block;
@@ -238,10 +248,12 @@ label {
   display: block; }
 
 input {
-  margin-bottom: 9.88875px; }
-
-input:not([type=radio]), textarea {
+  margin-bottom: 9.88875px;
   width: 100%; }
+
+.slider {
+  width: 85%;
+  margin-right: 5%; }
 
 .user-authentication {
   background-color: #fff9f6; }
