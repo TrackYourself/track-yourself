@@ -1,4 +1,4 @@
-var mongoose = require ("mongoose");
+var mongoose = require ('mongoose');
 
 var ExerciseSchema = mongoose.Schema({
     user: {
@@ -17,7 +17,8 @@ var ExerciseSchema = mongoose.Schema({
     intensity: {
         type: Number,
         required: true
-    }
+    },
+    notes: String
 });
 
 module.exports = mongoose.model('Exercise', ExerciseSchema);

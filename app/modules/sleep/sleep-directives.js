@@ -36,19 +36,33 @@ module.exports = function(app) {
 						//.ticks(10);
 
 				//Render graph based on 'data'
-				scope.render = function (data) {
+				scope.render = function (dbData) {
+          var data = [];
 
-          console.log(data);
-          for (var i = 0; i < data.length; i++) {
-            data[i].sleep = new Date(data[i].sleep);
-            data[i].wake = new Date(data[i].wake);
+          for (var i = 0; i < dbData.length; i++) {
+            data.push({
+              sleep: new Date(dbData[i].sleep),
+              wake: new Date(dbData[i].wake),
+              notes: dbData[i].notes,
+              duration: dbData[i].duration
+            });
           }
+
 					//Set our scale's domains
-					x.domain(d3.extent(data, function (d) {
-						return d.sleep.setDate(d.sleep.getDate() + 1);
-					}));
+					x.domain([
+            d3.max(data, function (d) {
+              var max = new Date(d.sleep);
+              max.setDate(d.sleep.getDate() + 1);
+              return max;
+            }),
+            d3.min(data, function (d) {
+              var min = new Date(d.sleep);
+              min.setDate(d.sleep.getDate() - 1);
+              return min;
+            })
+					]);
 					y.domain(d3.extent(data, function (d) {
-						return d.duration;
+						return d.duration + 1;
 					}));
 
 					//Redraw the axes
@@ -66,6 +80,7 @@ module.exports = function(app) {
 							.append("text")
 							.attr("transform", "rotate(-90)")
 							.attr("y", 6)
+              .attr('x', -20)
 							.attr("dy", ".3em")
 							.style("text-anchor", "end")
 							.text("Hours");
@@ -75,29 +90,35 @@ module.exports = function(app) {
 							.append("rect")
 							.attr("class", "bar")
 							.attr("x", function (d) {
-                console.log(d);
 								return x(d.sleep);
 							})
-							.attr("width", 30)
+							.attr("width", 20)
               .append("svg:title")
-              .text(function(d) { return d.duration + ' hours'; });
+              .text(function(d) { 
+                 var text = d.duration + ' hours'
+                 if (d.notes) {
+                   text += '\nNotes: ' + d.notes;
+                 }
+                return text;
+               });
 
 					//Animate bars
 					bars.transition()
 							.duration(1000)
 							.attr('height', function (d) {
-								return height - y(d.duration);
+								return y(d.duration);
 							})
 							.attr("y", function (d) {
-                console.log(d);
-								return y(d.duration);
+								return 0;
 							});
 				};
 
 				//Watch 'data' and run scope.render(newVal) whenever it changes
 				//Use true for 'objectEquality' property so comparisons are done on equality and not reference
 				scope.$watch('data', function (newVal) {
-          scope.render(newVal);
+            if (newVal.$resolved) {
+              scope.render(newVal);
+            }
 				}, true);
 
       }

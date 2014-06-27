@@ -26,13 +26,15 @@ waterModule
 		return {
 			restrict: 'E',
 			scope   : {
-				data: '='
+				data: '=',
+        height: '=',
+        width: '='
 			},
 			link    : function (scope, element) {
 
 				var margin = {top: 20, right: 20, bottom: 30, left: 40},
-						width = 800 - margin.left - margin.right,
-						height = 360 - margin.top - margin.bottom;
+						width = scope.width - margin.left - margin.right,
+						height = scope.height - margin.top - margin.bottom;
 
 				var svg = d3.select(element[0])
 						.append("svg")
@@ -92,7 +94,15 @@ waterModule
 							.attr("x", function (d) {
 								return x(dateFuncs.formatDate(d._id));
 							})
-							.attr("width", x.rangeBand());
+							.attr("width", x.rangeBand())
+              .append("svg:title")
+              .text(function(d) { 
+                 var text = d.total + ' cups';
+                 if (d.notes) {
+                   text += '\nNotes: ' + d.notes;
+                 }
+                return text;
+              });
 
 					//Animate bars
 					bars
@@ -103,13 +113,16 @@ waterModule
 							})
 							.attr("y", function (d) {
 								return y(d.total);
-							});
+							})
 				};
 
 				//Watch 'data' and run scope.render(newVal) whenever it changes
+
 				//Use true for 'objectEquality' property so comparisons are done on equality and not reference
-				scope.$watch('data', function () {
-					scope.render(scope.data);
+				scope.$watch('data', function (newVal) {
+          //if (newVal.$resolved) {
+					scope.render(newVal);
+          //}
 				}, true);
 			}
 		};

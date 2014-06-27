@@ -7,16 +7,7 @@ describe('Sleep controllers', function() {
     done();
   });
 
-  it('display last controller should exist and have sleepRecord', function() {
-    inject(function($controller) {
-      var scope = {};
-      var myCtrl = $controller('sleepMainCtrl', {$scope: scope});
-      expect(myCtrl).to.exist;
-      expect(scope).to.have.property('sleepRecord');
-    });
-  });
-
-  it('input controller should exist, have sleepRecord, have sleepEntered method', function() {
+  it('main sleep controller should exist, have sleepRecord, have sleepEntered method', function() {
     inject(function($controller) {
       var scope = {};
       var myCtrl = $controller('sleepMainCtrl', {$scope: scope});
@@ -26,10 +17,10 @@ describe('Sleep controllers', function() {
     });
   });
 
-  it('display all controller should exist and have sleepRecords', function() {
+  it('display controller should exist and have sleepRecords', function() {
     inject(function($controller) {
       var scope = {};
-      var myCtrl = $controller('sleepDisplayAllCtrl', {$scope: scope});
+      var myCtrl = $controller('sleepDisplayCtrl', {$scope: scope});
       expect(myCtrl).to.exist;
       expect(scope).to.have.property('sleepRecords');
     });

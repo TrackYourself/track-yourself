@@ -14,7 +14,7 @@ module.exports = function(app) {
     if (!intake || !drank) {
       return res.send(200, 'Incomplete input for water record.'); //TODO
     }
-    Water.create({user: req.user._id, intake: intake, drank: drank}, function(err, water) {
+    Water.create({user: req.user._id, intake: intake, drank: drank, notes: req.body.notes}, function(err, water) {
 			if (err) {
 				return res.send(500, 'Error creating water record: ' + err);
 			}
