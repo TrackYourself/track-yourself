@@ -1,25 +1,23 @@
 var controllers = require('./exercise-controller.js');
 var services = require('./exercise-services.js');
 var d3 = require('d3');
+var DateFuncs = require('../../date-functions.js');
 
 // Define/register the exercise module
 var exerciseModule = angular.module('exerciseModule', []);
 
 //Register resource function
-exerciseModule.factory('Exercise', ['$resource', services.resource]);
-
-
-// Import controller functions and register them
-exerciseModule.controller('exerciseDisplayLastCtrl',
-    ['$scope', 'Exercise', controllers.exerciseDisplayLastCtrl]);
-
-exerciseModule.controller('exerciseInputCtrl',
-    ['$scope', '$location','Exercise', controllers.exerciseInputCtrl]);
-
-exerciseModule.controller('exerciseDisplayAllCtrl',
-    ['$scope','Exercise', controllers.exerciseDisplayAllCtrl]);
-
-exerciseModule.directive('exerciseVisualization', function () {
+exerciseModule
+	.factory('Exercise', ['$resource', services.resource])
+	.controller('exerciseDisplayLastCtrl',
+    ['$scope', 'Exercise', controllers.exerciseDisplayLastCtrl])
+  .controller('exerciseInputCtrl',
+    ['$scope', '$location','Exercise', controllers.exerciseInputCtrl])
+	.controller('exerciseDisplayAllCtrl',
+    ['$scope','Exercise', controllers.exerciseDisplayAllCtrl])
+	.controller('exerciseDisplayGraph',
+    ['$scope','Exercise', controllers.exerciseDisplayGraph])
+  .directive('exerciseVisualization', function () {
 
 	return {
 		restrict: 'E',
@@ -28,7 +26,7 @@ exerciseModule.directive('exerciseVisualization', function () {
 		},
 		link    : function (scope, element) {
 
-			var margin = {top: 20, right: 20, bottom: 30, left: 40},
+			var margin = {top: 10, right: 0, bottom: 20, left: 30},
 					width = 800 - margin.left - margin.right,
 					height = 360 - margin.top - margin.bottom;
 
@@ -51,47 +49,14 @@ exerciseModule.directive('exerciseVisualization', function () {
 					.orient("left")
 					.ticks(10);
 
-			var formatDotw = function (dayInt) {
-				switch (dayInt) {
-					case 0:
-						return 'Sun';
-					case 1:
-						return 'Mon';
-					case 2:
-						return 'Tue';
-					case 3:
-						return 'Wed';
-					case 4:
-						return 'Thu';
-					case 5:
-						return 'Fri';
-					case 6:
-						return 'Sat';
-				}
-			};
-
-
-			var formatDate = function (dateId) {
-				var newDate = new Date(dateId);
-				var today = new Date();
-
-				if (today.getDate() === newDate.getDate()) {
-					return 'Today';
-				}
-
-				var dateString = formatDotw(newDate.getDay());
-				dateString += ' - ' + (newDate.getMonth() + 1);
-				dateString += '/' + newDate.getDate();
-
-				return dateString;
-			};
+			var dateFuncs = new DateFuncs();
 
 			//Render graph based on 'data'
 			scope.render = function (data) {
 
 				//Set our scale's domains
 				x.domain(data.map(function (d) {
-					return formatDate(d.date);
+					return dateFuncs.formatDate(d._id);
 				}));
 				y.domain([0, d3.max(data, function (d) {
 					return d.duration;
@@ -114,16 +79,16 @@ exerciseModule.directive('exerciseVisualization', function () {
 						.attr("y", 6)
 						.attr("dy", ".71em")
 						.style("text-anchor", "end")
-						.text("Duration (minutes)");
+						.text("Minutes");
 
 				var bars = svg.selectAll(".bar").data(data);
 				bars.enter()
 						.append("rect")
 						.attr("class", function (d) {
-							return "intensity-" + d.intensity;
+							return "intensity-" + Math.round(d.intensity);
 						})
 						.attr("x", function (d) {
-							return x(formatDate(d.date));
+							return x(dateFuncs.formatDate(d._id));
 						})
 						.attr("width", x.rangeBand());
 

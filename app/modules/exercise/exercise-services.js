@@ -9,6 +9,12 @@ module.exports.resource = function($resource) {
             url: '/api/exercise/all',
             isArray: true,
             responseType: 'json'
+        },
+        getGraph: {
+            method: 'GET',
+            url: '/api/exercise/graph',
+            isArray: true,
+            responseType: 'json'
         }
     });
 };

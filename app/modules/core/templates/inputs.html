@@ -9,10 +9,10 @@
       </div>
       <form ng-hide="sleepRecord.sleep" name="sleepForm" ng-submit="sleepEntered()">
         <legend><h2>Sleep</h2></legend>
-        <label for="sleep">Went to sleep at</label>
-        <input type="datetime-local" name="sleep" ng-model="newSleep.sleep" required><br>
-        <label for="wake">Woke up at</label>
-        <input name="wake" type="datetime-local" ng-model="newSleep.wake" required><br>
+        <label for="sleepSleep">Went to sleep at</label>
+        <input type="datetime-local" id="sleepSleep" name="sleep" ng-model="newSleep.sleep" required><br>
+        <label for="sleepWake">Woke up at</label>
+        <input name="wake" id="sleepWake" type="datetime-local" ng-model="newSleep.wake" required><br>
         <button type="submit">Save</button>
       </form>
     </div>
@@ -22,7 +22,7 @@
     <form name="waterForm" ng-controller="waterInputCtrl" ng-submit="waterEntered()">
       <legend><h2>Water intake</h2></legend>
       <label for="waterDrank">Date</label>
-      <input name="drank" type='date' ng-model="waterRecord.drank" id="waterDrank" required>
+      <input name="drank" type="date" ng-model="waterRecord.drank" id="waterDrank" ng-value="waterRecord.drank" required>
       <label for="waterIntake">Cups of water</label>
       <input name="intake" ng-model="waterRecord.intake" id="waterIntake" required>
       <button type="submit">Save</button><span name="inputSaved" ng-show="inputSaved">Input Saved!</span>
@@ -33,13 +33,13 @@
     <form name="exerciseForm" ng-controller="exerciseInputCtrl" ng-submit="exerciseEntered()">
       <legend><h2>Exercise routine</h2></legend>
       <label for="exerciseDate">Date</label>
-      <input name="date" type='date' ng-model="exerciseRecord.date" id="exerciseDate" required>
+      <input name="date" type="date" ng-model="exerciseRecord.date" id="exerciseDate" ng-value="exerciseRecord.date" required>
       <label for="exerciseDuration">Duration -- in minutes</label>
       <input name="duration" ng-model="exerciseRecord.duration" id="exerciseDuration" required>
       <label for="exerciseIntensity">Workout intensity (scale 1-5)</label>
       <input class="slider" name="intensity" type="range" min="1" max="5" value="3" step="1" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
-      <output name="amount" for="intensity">{{exerciseRecord.intensity}}</output>
-      <button type="submit">Save</button><span name="inputSaved" ng-show="inputSaved">Input Saved!</span>
+      <button type="submit">Save</button><br>
+      <span name="inputSaved" ng-show="inputSaved">Input Saved!</span>
     </form>
   </section>
 </article>

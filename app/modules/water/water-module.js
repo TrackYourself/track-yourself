@@ -1,6 +1,7 @@
 var controllers = require('./water-controllers.js');
 var services = require('./water-services.js');
 var d3 = require('d3');
+var DateFuncs = require('../../date-functions.js');
 
 // Define/register the water module
 var waterModule = angular.module('waterModule', []);
@@ -52,40 +53,14 @@ waterModule
 						.orient("left")
 						.ticks(10);
 
-				var formatDotw = function (dayInt) {
-					switch (dayInt) {
-						case 0: return 'Sun';
-						case 1: return 'Mon';
-						case 2: return 'Tue';
-						case 3: return 'Wed';
-						case 4: return 'Thu';
-						case 5: return 'Fri';
-						case 6: return 'Sat';
-					}
-				};
-
-
-				var formatDate = function (dateId) {
-					var newDate = new Date(dateId);
-					var today = new Date();
-
-					if (today.getDate() === newDate.getDate()) {
-						return 'Today';
-					}
-
-					var dateString = formatDotw(newDate.getDay());
-					dateString += ' - ' + (newDate.getMonth() + 1);
-					dateString += '/' + newDate.getDate();
-
-					return dateString;
-				};
+				var dateFuncs = new DateFuncs();
 
 				//Render graph based on 'data'
 				scope.render = function (data) {
 
 					//Set our scale's domains
 					x.domain(data.map(function (d) {
-						return formatDate(d._id);
+						return dateFuncs.formatDate(d._id);
 					}));
 					y.domain([0, d3.max(data, function (d) {
 						return d.total;
@@ -115,7 +90,7 @@ waterModule
 							.append("rect")
 							.attr("class", "bar")
 							.attr("x", function (d) {
-								return x(formatDate(d._id));
+								return x(dateFuncs.formatDate(d._id));
 							})
 							.attr("width", x.rangeBand());
 
