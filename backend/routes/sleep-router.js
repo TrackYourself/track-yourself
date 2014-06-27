@@ -10,7 +10,7 @@ module.exports = function(app) {
     if (!sleep || !wake) {
       return res.send(200, 'Incomplete input for sleep record.'); //TODO
     }
-    Sleep.create({user: req.user._id, sleep: sleep, wake: wake}, function(err, sleep) {
+    Sleep.create({user: req.user._id, sleep: sleep, wake: wake, notes: req.body.notes}, function(err, sleep) {
       if (err) {
         return res.send(500, 'Error creating sleep record: ' + err);
       }

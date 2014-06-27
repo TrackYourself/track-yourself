@@ -13,7 +13,8 @@ var SleepSchema = mongoose.Schema({
   wake: {
     type: Date,
     required: true
-  }
+  },
+  notes: String
 });
 
 SleepSchema.set('toJSON', {virtuals: true});

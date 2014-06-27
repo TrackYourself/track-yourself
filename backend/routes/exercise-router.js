@@ -12,7 +12,8 @@ module.exports = function(app) {
         if (!date || !duration || !intensity) {
             return res.send(200, 'Incomplete input for exercise record.');
         }
-        Exercise.create({user: req.user._id, date: date, duration: duration, intensity: intensity}, function(err, exercise) {
+        Exercise.create({user: req.user._id, date: date, duration: duration, intensity: intensity, notes: req.body.notes},
+          function(err, exercise) {
             if(err) {
                 return res.send(500, 'Error creating exercise record: '+ err);
             }
