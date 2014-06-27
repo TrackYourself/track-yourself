@@ -3,18 +3,20 @@ var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 var expect = chai.expect;
-var utils = require('./../../../backend/tests/utils.js');
 
 describe('Sleep routes', function() {
-  
+
   var ptor;
 
   before(function() {
-    require('mongoose').connection.collections.users.drop();
+    var db = require('mongoose').connection;
+    if (db.collections.users) {
+        db.collection.users.drop();
+    }
     ptor = protractor.getInstance();
 
     var now = new Date();
-    browser.get('http://localhost:3000/#/register');
+    browser.get('http://localhost:3000/#/signup');
     element(by.model('user.name')).sendKeys('Tester');
     element(by.model('user.email')).sendKeys(now.toString().replace(' ', '') + '@gmail.com');
     element(by.model('user.password')).sendKeys('testing123');
@@ -36,10 +38,6 @@ describe('Sleep routes', function() {
     element('button').click();
 
     expect(ptor.getCurrentUrl()).to.eventually.equal('http://localhost:3000/#/sleep/all');
-  });
-
-  after(function() {
-    require('mongoose').connection.collections.users.drop();
   });
 
 });
