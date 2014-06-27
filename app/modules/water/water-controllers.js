@@ -1,14 +1,8 @@
-/* Define methods to use as controllers */
-
-/*
- Combining "all" with "last"
-
-module.exports.waterDisplayLastCtrl = function ($scope, Water) {
-	$scope.waterRecord = Water.get({});
-};
-*/
+var DateFuncs = require('../../date-functions.js');
 
 module.exports.waterInputCtrl = function($scope, $location, Water) {
+
+	var dateFuncs = new DateFuncs();
 
   $scope.waterRecord = new Water({});
   $scope.inputSaved = false;
@@ -23,6 +17,9 @@ module.exports.waterInputCtrl = function($scope, $location, Water) {
         }, 3000);
     });
   };
+
+	// Default date
+	$scope.waterRecord.drank = dateFuncs.defaultInputDate();
 
 };
 
