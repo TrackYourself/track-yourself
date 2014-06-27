@@ -61,9 +61,10 @@ module.exports = function(app) {
               return min;
             })
 					]);
-					y.domain(d3.extent(data, function (d) {
-						return d.duration + 1;
-					}));
+					y.domain([0, 
+            d3.max(data, function (d) {
+						  return d.duration + .5;
+            })]);
 
 					//Redraw the axes
 					svg.selectAll('g.axis').remove();
@@ -106,19 +107,19 @@ module.exports = function(app) {
 					bars.transition()
 							.duration(1000)
 							.attr('height', function (d) {
-								return y(d.duration);
+                console.log(height - y(d.duration));
+								return  height - y(d.duration);
 							})
 							.attr("y", function (d) {
-								return 0;
+								return y(d.duration);
 							});
 				};
 
 				//Watch 'data' and run scope.render(newVal) whenever it changes
 				//Use true for 'objectEquality' property so comparisons are done on equality and not reference
 				scope.$watch('data', function (newVal) {
-            if (newVal.$resolved) {
-              scope.render(newVal);
-            }
+          console.log(newVal);
+          scope.render(newVal);
 				}, true);
 
       }
