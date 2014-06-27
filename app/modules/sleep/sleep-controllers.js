@@ -5,6 +5,7 @@ module.exports.sleepMainCtrl = function($scope, Sleep) {
   $scope.newSleep = new Sleep({});
 
   $scope.sleepEntered = function() {
+    console.log($scope.newSleep);
     $scope.newSleep.$save(function(sleep, respHeaders) {
       $scope.sleepRecord = sleep;
     });

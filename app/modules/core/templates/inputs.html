@@ -13,6 +13,8 @@
         <input type="datetime-local" name="sleep" ng-model="newSleep.sleep" required><br>
         <label for="wake">Woke up at</label>
         <input name="wake" type="datetime-local" ng-model="newSleep.wake" required><br>
+        <label for="sleep-notes">Notes</label>
+        <textarea name="sleep-notes" rows="3" ng-model="newSleep.notes"></textarea>
         <button type="submit">Save</button>
       </form>
     </div>
@@ -25,6 +27,8 @@
       <input name="drank" ng-model="waterRecord.drank" id="waterDrank" required>
       <label for="waterIntake">Cups of water</label>
       <input name="intake" ng-model="waterRecord.intake" id="waterIntake" required>
+        <label for="water-notes">Notes</label>
+        <textarea name="water-notes" rows="3" ng-model="waterRecord.notes"></textarea>
       <button type="submit">Save</button>
     </form>
   </section>
@@ -38,6 +42,8 @@
       <input name="duration" ng-model="exerciseRecord.duration" id="exerciseDuration" required>
       <label for="exerciseIntensity">The intensity of your workout on a scale from 1 to 5 (5 being the most intense)</label>
       <input name="intensity" ng-model="exerciseRecord.intensity" id="exerciseIntensity" required>
+      <label for="exercise-notes">Notes</label>
+      <textarea name="exercise-notes" rows="3" ng-model="exerciseRecord.notes"></textarea>
       <button type="submit">Save</button>
     </form>
   </section>
