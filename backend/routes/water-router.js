@@ -57,7 +57,10 @@ module.exports = function(app) {
 					_id: '$drank',
 					total: {
 						$sum: '$intake'
-					}
+					},
+          notes: {
+            $push: '$notes'
+          }
 				}
 			},
 			{

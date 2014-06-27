@@ -71,7 +71,10 @@ module.exports = function(app) {
 						},
 						intensity: {
 							$avg: '$intensity'
-						}
+						},
+            notes: {
+              $push: '$notes'
+            }
 					}
 				},
 				{
