@@ -227,7 +227,7 @@ header button {
 form button {
   background-color: #14C8C8; }
   form button:hover {
-    background-color: #26e9e6; }
+    background-color: #26e9e9; }
 
 header {
   background-color: #03318C; }
@@ -247,7 +247,7 @@ form {
 label {
   display: block; }
 
-input {
+input, textarea {
   margin-bottom: 9.88875px;
   width: 100%; }
 
