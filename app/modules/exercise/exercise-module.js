@@ -22,13 +22,15 @@ exerciseModule
 	return {
 		restrict: 'E',
 		scope   : {
-			data: '='
+			data: '=',
+      height: '=',
+      width: '='
 		},
 		link    : function (scope, element) {
 
 			var margin = {top: 10, right: 0, bottom: 20, left: 30},
-					width = 800 - margin.left - margin.right,
-					height = 360 - margin.top - margin.bottom;
+					width = scope.width - margin.left - margin.right,
+					height = scope.height - margin.top - margin.bottom;
 
 			var svg = d3.select(element[0])
 					.append("svg")
