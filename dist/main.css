@@ -238,10 +238,12 @@ label {
   display: block; }
 
 input {
-  margin-bottom: 9.88875px; }
-
-input:not([type=radio]), textarea {
+  margin-bottom: 9.88875px;
   width: 100%; }
+
+.slider {
+  width: 85%;
+  margin-right: 5%; }
 
 .user-authentication {
   background-color: #fff9f6; }

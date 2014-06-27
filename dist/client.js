@@ -287,12 +287,8 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 
 		// Sleep
 		.when('/sleep', {
-			templateUrl: 'templates/sleep-all.html',
-			controller: 'sleepDisplayAllCtrl'
-		})
-		.when('/sleep/add', {
-			templateUrl: 'templates/sleep-input.html',
-			controller: 'sleepMainCtrl'
+			templateUrl: 'templates/sleep.html',
+			controller: 'sleepDisplayCtrl'
 		})
 
 		// Water
@@ -330,7 +326,7 @@ trackerApp.config(['$routeProvider', function($routeProvider) {
 
 // test
 
-},{"./modules/auth/auth-module.js":4,"./modules/core/core-module.js":7,"./modules/exercise/exercise-module.js":9,"./modules/sleep/sleep-module.js":12,"./modules/water/water-module.js":15}],2:[function(require,module,exports){
+},{"./modules/auth/auth-module.js":4,"./modules/core/core-module.js":7,"./modules/exercise/exercise-module.js":9,"./modules/sleep/sleep-module.js":13,"./modules/water/water-module.js":16}],2:[function(require,module,exports){
 !function() {
   var d3 = {
     version: "3.4.8"
@@ -9936,7 +9932,6 @@ module.exports.resource = function($resource) {
 },{}],11:[function(require,module,exports){
 /* Define methods to use as controllers */
 
-
 module.exports.sleepMainCtrl = function($scope, Sleep) {
   $scope.sleepRecord = Sleep.get({});
   $scope.newSleep = new Sleep({});
@@ -9948,11 +9943,119 @@ module.exports.sleepMainCtrl = function($scope, Sleep) {
   };
 };
 
-module.exports.sleepDisplayAllCtrl = function($scope, Sleep) {
+module.exports.sleepDisplayCtrl = function($scope, Sleep) {
   $scope.sleepRecords = Sleep.getAll({});
 };
 
 },{}],12:[function(require,module,exports){
+var d3 = require("./../../bower_components/d3/d3.js");
+
+module.exports = function(app) {
+
+  app.directive('sleepGraph', function() {
+
+    return {
+      restrict: 'E',
+      scope: {
+        data: '=',
+        width: '=',
+        height: '='
+      },
+      link: function(scope, element) {
+				var margin = {top: 20, right: 20, bottom: 30, left: 60},
+						width = scope.width - margin.left - margin.right,
+						height = scope.height - margin.top - margin.bottom;
+
+				var svg = d3.select(element[0])
+						.append('svg')
+						.attr('width', width + margin.left + margin.right)
+						.attr('height', height + margin.top + margin.bottom)
+						.append('g')
+						.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+				var x = d3.time.scale().range([0, width]);
+				var y = d3.scale.linear().range([height, 0]);
+
+				var xAxis = d3.svg.axis()
+						.scale(x)
+						.orient("bottom");
+
+				var yAxis = d3.svg.axis()
+						.scale(y)
+						.orient("left");
+						//.ticks(10);
+
+				//Render graph based on 'data'
+				scope.render = function (data) {
+
+          console.log(data);
+          for (var i = 0; i < data.length; i++) {
+            data[i].sleep = new Date(data[i].sleep);
+            data[i].wake = new Date(data[i].wake);
+          }
+					//Set our scale's domains
+					x.domain(d3.extent(data, function (d) {
+						return d.sleep.setDate(d.sleep.getDate() + 1);
+					}));
+					y.domain(d3.extent(data, function (d) {
+						return d.duration;
+					}));
+
+					//Redraw the axes
+					svg.selectAll('g.axis').remove();
+					//X axis
+					svg.append("g")
+							.attr("class", "x axis")
+							.attr("transform", "translate(0," + height + ")")
+							.call(xAxis);
+
+					//Y axis
+					svg.append("g")
+							.attr("class", "y axis")
+							.call(yAxis)
+							.append("text")
+							.attr("transform", "rotate(-90)")
+							.attr("y", 6)
+							.attr("dy", ".3em")
+							.style("text-anchor", "end")
+							.text("Hours");
+
+					var bars = svg.selectAll(".bar").data(data);
+					bars.enter()
+							.append("rect")
+							.attr("class", "bar")
+							.attr("x", function (d) {
+                console.log(d);
+								return x(d.sleep);
+							})
+							.attr("width", 30)
+              .append("svg:title")
+              .text(function(d) { return d.duration + ' hours'; });
+
+					//Animate bars
+					bars.transition()
+							.duration(1000)
+							.attr('height', function (d) {
+								return height - y(d.duration);
+							})
+							.attr("y", function (d) {
+                console.log(d);
+								return y(d.duration);
+							});
+				};
+
+				//Watch 'data' and run scope.render(newVal) whenever it changes
+				//Use true for 'objectEquality' property so comparisons are done on equality and not reference
+				scope.$watch('data', function (newVal) {
+          scope.render(newVal);
+				}, true);
+
+      }
+    };
+  });
+};
+
+},{"./../../bower_components/d3/d3.js":2}],13:[function(require,module,exports){
 var controllers = require('./sleep-controllers.js');
 var services = require('./sleep-services.js');
 
@@ -9962,15 +10065,18 @@ var sleepModule = angular.module('sleepModule', []);
 // Register resource function
 sleepModule.factory('Sleep', ['$resource', services.resource]);
 
+// Register graph directive
+require('./sleep-directives.js')(sleepModule);
+
 // Import controller functions and register them
 sleepModule.controller('sleepMainCtrl',
   ['$scope', 'Sleep', controllers.sleepMainCtrl]);
-sleepModule.controller('sleepDisplayAllCtrl',
-  ['$scope', 'Sleep', controllers.sleepDisplayAllCtrl]);
+sleepModule.controller('sleepDisplayCtrl',
+  ['$scope', 'Sleep', controllers.sleepDisplayCtrl]);
 
 module.exports = sleepModule;
 
-},{"./sleep-controllers.js":11,"./sleep-services.js":13}],13:[function(require,module,exports){
+},{"./sleep-controllers.js":11,"./sleep-directives.js":12,"./sleep-services.js":14}],14:[function(require,module,exports){
 /* Define a resource that connects to REST API for sleep records */
 
 module.exports.resource = function($resource) {
@@ -9989,7 +10095,7 @@ module.exports.resource = function($resource) {
 };
 
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 /* Define methods to use as controllers */
 
 /*
@@ -10022,7 +10128,7 @@ module.exports.waterGraphControl = function ($scope, Water) {
 };
   
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var controllers = require('./water-controllers.js');
 var services = require('./water-services.js');
 var d3 = require("./../../bower_components/d3/d3.js");
@@ -10176,7 +10282,7 @@ waterModule.controller(
 
 module.exports = waterModule;
 
-},{"./../../bower_components/d3/d3.js":2,"./water-controllers.js":14,"./water-services.js":16}],16:[function(require,module,exports){
+},{"./../../bower_components/d3/d3.js":2,"./water-controllers.js":15,"./water-services.js":17}],17:[function(require,module,exports){
 /* Define a resource that connects to REST API for water records */
 
 module.exports.resource = function($resource) {
